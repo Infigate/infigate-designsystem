@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { isCategoryId, type CategoryId } from './category'
+import { validatePlayground, type CatalogPlayground } from './playground'
 
 /** コンポーネントの見本（バリエーション）1件 */
 export type CatalogVariant = {
@@ -25,6 +26,8 @@ export type CatalogEntry = {
   readonly description: string
   readonly variants: readonly CatalogVariant[]
   readonly props: readonly PropDoc[]
+  /** props を切り替えて確かめる欄（省略可） */
+  readonly playground?: CatalogPlayground
 }
 
 export type CatalogEntryInput = Omit<CatalogEntry, 'slug' | 'props'> & {
@@ -76,6 +79,9 @@ export function validateCatalogEntry(entry: CatalogEntryInput): string[] {
   }
   for (const name of findDuplicates((entry.props ?? []).map((p) => p.name))) {
     problems.push(`prop 名「${name}」が重複しています`)
+  }
+  if (entry.playground) {
+    problems.push(...validatePlayground(entry.playground))
   }
 
   return problems

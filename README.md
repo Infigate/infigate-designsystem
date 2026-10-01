@@ -121,6 +121,32 @@ export default defineCatalogEntry({
 
 定義に不備（variant が0件、名前の重複、未定義カテゴリなど）があると、読み込み時にエラーになります。
 
+バリエーションの見出しは英語（Variants / Sizes / Disabled など）で統一し、説明文は1文程度に短くします。
+
+### Playground（任意）
+
+`playground` を定義すると、詳細ページの説明の下に、props を切り替えて確かめる欄が表示されます。
+`definePlayground()` を使うと、`render`・`code` の引数に切り替え項目どおりの型が付きます。
+
+```tsx
+import { defineCatalogEntry, definePlayground, ForcePseudoState } from '@/features/catalog'
+
+const playground = definePlayground({
+  controls: [
+    { type: 'select', name: 'size', options: ['sm', 'md'], defaultValue: 'md' }, // 6個以下はボタン型、それ以上はセレクト
+    { type: 'boolean', name: 'disabled', defaultValue: false },
+    { type: 'text', name: 'label', defaultValue: '入力' },
+  ],
+  render: ({ size, disabled, label }) => <TextField size={size} disabled={disabled} label={label} />,
+  code: ({ size }) => `<TextField size="${size}" />`, // 省略可
+})
+
+export default defineCatalogEntry({ name: 'TextField', /* ... */ playground })
+```
+
+hover・active・focus のように操作で起きる状態は、`<ForcePseudoState state={['hover']}>` で囲むと再現できます。
+部品の CSS には手を入れず、ページ内の CSS から `:hover` などのルールを集めて、強制用のルールを自動で追加しています。
+
 ## テスト
 
 | 対象 | 置き場所 | 内容 |

@@ -249,7 +249,9 @@ describe('トークンを使う CSS', () => {
   })
 
   it.each(consumers)('%s は定義済みのトークンだけを参照している', (_path, css) => {
-    const undefinedNames = findReferences(css).filter((name) => !defined.has(name))
+    // 部品の中で定義した変数（例: Button のテーマごとの --button-*）も参照してよい
+    const local = parseDeclarations(css)
+    const undefinedNames = findReferences(css).filter((name) => !defined.has(name) && !local.has(name))
 
     expect(undefinedNames).toEqual([])
   })

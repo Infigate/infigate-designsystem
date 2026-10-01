@@ -1,6 +1,7 @@
 import { screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
+import { definePlayground } from '../../../domain/playground'
 import { createTestEntry } from '../../../testing/fixtures'
 import { renderCatalogRoutes } from '../../../testing/renderWithCatalog'
 
@@ -58,6 +59,27 @@ describe('ComponentDetailPage', () => {
 
     expect(screen.queryByRole('table')).not.toBeInTheDocument()
     expect(screen.getByText('Props の定義はありません。')).toBeInTheDocument()
+  })
+
+  it('playground があれば、説明とバリエーションの間に Playground 欄を表示する', () => {
+    const withPlayground = createTestEntry({
+      name: 'Badge',
+      playground: definePlayground({
+        controls: [{ type: 'text', name: 'label', defaultValue: '新着' }],
+        render: ({ label }) => <span>{label}</span>,
+      }),
+    })
+    renderCatalogRoutes({ entries: [withPlayground], path: '/components/badge' })
+
+    const headings = screen.getAllByRole('heading', { level: 2 }).map((h) => h.textContent)
+    expect(headings).toEqual(['Playground', 'Examples', 'Props'])
+    expect(within(screen.getByRole('region', { name: 'プレビュー' })).getByText('新着')).toBeInTheDocument()
+  })
+
+  it('playground がなければ Playground 欄を表示しない', () => {
+    renderCatalogRoutes({ entries: [button], path: '/components/button' })
+
+    expect(screen.queryByRole('heading', { name: 'Playground' })).not.toBeInTheDocument()
   })
 
   it('存在しない slug なら「見つかりません」を表示し、一覧へ戻れる', async () => {

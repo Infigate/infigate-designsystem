@@ -1,0 +1,131 @@
+/* 欄の幅に応じて配置を変えるため、コンテナクエリの基準にする */
+.container {
+  container-type: inline-size;
+}
+
+.playground {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 32rem;
+  overflow: hidden;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+}
+
+/* 見本を置く面（バリエーションの見本と同じドットグリッド） */
+.stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 12rem;
+  padding: var(--spacing-24);
+  background-color: var(--color-bg-default);
+  background-image: radial-gradient(var(--color-border-subtle) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--spacing-8);
+  margin: 0;
+  padding: var(--spacing-16);
+  border-left: 1px solid var(--color-border-subtle);
+  background: var(--color-bg-subtle);
+}
+
+/* 1項目 = 1行。左に項目名、右に切り替え */
+.row {
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1fr);
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.rowLabel {
+  color: var(--color-text-secondary);
+  font: var(--font-label-sm);
+  overflow-wrap: anywhere;
+}
+
+.input {
+  width: 100%;
+  height: var(--size-32);
+  padding: 0 var(--spacing-8);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-default);
+  color: var(--color-text-primary);
+  font: var(--font-body-sm);
+}
+
+.input:focus-visible {
+  outline: none;
+  border-color: var(--color-border-focus);
+  box-shadow: var(--ds-focus-ring);
+}
+
+.checkbox {
+  justify-self: start;
+}
+
+/* ボタン型のラジオ */
+.segmented {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+}
+
+.segment {
+  position: relative;
+  padding: var(--spacing-4) var(--spacing-8);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-default);
+  color: var(--color-text-primary);
+  font: var(--font-body-xs);
+  cursor: pointer;
+}
+
+.segment input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.segment:hover {
+  background: var(--color-bg-muted);
+}
+
+.segment:has(input:checked) {
+  border-color: var(--color-keycolor-primary);
+  background: var(--color-bg-selected);
+  color: var(--color-keycolor-primary);
+}
+
+.segment:has(input:focus-visible) {
+  box-shadow: var(--ds-focus-ring);
+}
+
+.code {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: var(--spacing-12) var(--spacing-16);
+  overflow-x: auto;
+  background: var(--color-bg-inverse);
+  color: var(--color-text-on-brand);
+  font: var(--font-body-sm);
+  font-family: var(--ds-font-family-mono);
+}
+
+/* 欄が狭いとき（タブレット・スマートフォン）は、プレビューの下に切り替えを並べる */
+@container (max-width: 52rem) {
+  .playground {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .controls {
+    border-top: 1px solid var(--color-border-subtle);
+    border-left: none;
+  }
+}

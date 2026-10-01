@@ -16,6 +16,19 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/*
+ * 日本語の改行位置を整える
+ * auto-phrase: 単語（文節）の途中で折り返さない（「切り替え／ます」を防ぐ）
+ * pretty: 最後の行に1〜2文字だけ残らないようにする
+ */
+p,
+h1,
+h2,
+h3 {
+  word-break: auto-phrase;
+  text-wrap: pretty;
+}
+
 a {
   color: var(--color-link-default);
 }

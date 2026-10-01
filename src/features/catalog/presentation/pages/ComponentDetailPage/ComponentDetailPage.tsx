@@ -1,12 +1,13 @@
 import { Link, useParams } from 'react-router'
 import { getCategory } from '../../../domain/category'
 import { useCatalogRepository } from '../../catalogContext'
+import { Playground } from '../../components/Playground/Playground'
 import { PropsTable } from '../../components/PropsTable/PropsTable'
 import { VariantPreview } from '../../components/VariantPreview/VariantPreview'
 import { catalogPaths } from '../../paths'
 import styles from './ComponentDetailPage.module.css'
 
-/** コンポーネント詳細ページ（バリエーション一覧と Props 表） */
+/** コンポーネント詳細ページ（Playground・Examples（バリエーション一覧）・Props 表） */
 export function ComponentDetailPage() {
   const { slug = '' } = useParams()
   const entry = useCatalogRepository().findBySlug(slug)
@@ -34,9 +35,19 @@ export function ComponentDetailPage() {
         <p className={styles.description}>{entry.description}</p>
       </header>
 
+      {entry.playground && (
+        <section aria-labelledby="playground-heading" className={styles.section}>
+          <h2 id="playground-heading" className={styles.sectionTitle}>
+            Playground
+          </h2>
+          {/* 部品を切り替えたら値を初期化するため、slug を key にする */}
+          <Playground key={entry.slug} playground={entry.playground} />
+        </section>
+      )}
+
       <section aria-labelledby="variants-heading" className={styles.section}>
         <h2 id="variants-heading" className={styles.sectionTitle}>
-          バリエーション
+          Examples
         </h2>
         <div className={styles.variants}>
           {entry.variants.map((variant) => (

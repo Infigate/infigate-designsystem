@@ -12,12 +12,11 @@ const SIZE_USAGES = { 16: '小さいボタン・表の中', 20: '通常のボタ
 export default defineCatalogEntry({
   name: 'Icon',
   category: 'data-display',
-  description:
-    'Lucide を基準にしたアイコンセット（24px グリッド・線幅2px）。色は周囲の文字色を受け継ぎます。基本は線、状態を伝える場面だけ塗りを使います。',
+  description: 'Lucide を基準にしたアイコンセット。色は周囲の文字色を受け継ぎます。',
   variants: [
     {
-      name: 'すべてのアイコン',
-      description: `登録されている ${ICON_NAMES.length} 種類。名前は Figma の icon/名前・Lucide の名前と同じです。`,
+      name: 'All icons',
+      description: `登録されている ${ICON_NAMES.length} 種類。名前は Figma・Lucide と同じです。`,
       render: () => (
         <ul className={styles.grid}>
           {ICON_NAMES.map((name) => (
@@ -30,9 +29,8 @@ export default defineCatalogEntry({
       ),
     },
     {
-      name: '線と塗り',
-      description:
-        '塗り（filled）は、アラートやトーストのように状態そのものを伝える場面に限って使います。塗りの版があるのは次のアイコンだけです。',
+      name: 'Filled',
+      description: '塗りはアラートやトーストなど、状態を伝える場面に限って使います。',
       render: () => (
         <ul className={styles.grid}>
           {FILLED_ICON_NAMES.map((name) => (
@@ -48,8 +46,8 @@ export default defineCatalogEntry({
       ),
     },
     {
-      name: 'サイズ',
-      description: '24px を基準に 16px・20px を使います。線は大きさに合わせて細くなります。',
+      name: 'Sizes',
+      description: '24px を基準に、16px・20px を使います。',
       render: () => (
         <div className={styles.sizes}>
           {ICON_SIZES.map((size) => (
@@ -63,8 +61,8 @@ export default defineCatalogEntry({
       ),
     },
     {
-      name: '色',
-      description: 'アイコンは周囲の文字色を受け継ぎます。文字と同じ色で使い、アイコンだけ別の色にはしません。',
+      name: 'Color',
+      description: '文字と同じ色で使い、アイコンだけ別の色にはしません。',
       render: () => (
         <>
           <span className={`${styles.inline} ${styles.primary}`}>
