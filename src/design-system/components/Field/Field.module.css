@@ -1,0 +1,59 @@
+/*
+ * Field（フォームの1項目）
+ * Figma: Infigate デザインシステム / Form（コンポーネント field・form/mark）
+ */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.label {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: var(--spacing-8);
+  /* 印の有無で入力欄の位置がずれないよう、印がなくても印の高さ（body-xs の1行＋上下の余白）をとる */
+  min-height: calc(var(--font-size-xs) * var(--line-height-relaxed) + var(--spacing-2) * 2);
+  color: var(--color-text-primary);
+  font: var(--font-label-sm);
+}
+
+/* 印（Figma: form/mark） */
+.mark {
+  padding: var(--spacing-2) var(--spacing-6);
+  border-radius: var(--radius-xs);
+  font: var(--font-body-xs);
+  white-space: nowrap;
+}
+
+.mark[data-mark='required'] {
+  background: var(--color-status-error-bg);
+  color: var(--color-status-error-text);
+}
+
+.mark[data-mark='optional'] {
+  background: var(--color-bg-muted);
+  color: var(--color-text-secondary);
+}
+
+.description {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font: var(--font-body-sm);
+}
+
+.error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+  margin: 0;
+  color: var(--color-status-error-text);
+  font: var(--font-body-sm);
+}
+
+/* 複数行になっても、アイコンを1行目の中央に揃える */
+.errorIcon {
+  margin-block: calc((1lh - var(--size-20)) / 2);
+}

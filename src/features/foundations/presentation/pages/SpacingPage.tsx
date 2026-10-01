@@ -7,7 +7,9 @@ import styles from './FoundationPages.module.css'
 /** 用途（Figma の説明より） */
 const SPACING_USAGES: Record<string, string> = {
   '--spacing-0': '余白なし',
+  '--spacing-2': '小さな部品（フォームの印）の上下の余白',
   '--spacing-4': 'アイコンと文字の間',
+  '--spacing-6': '小さな部品（フォームの印）の左右の余白',
   '--spacing-8': 'ボタンの上下の余白、関連する要素の間',
   '--spacing-12': 'フォームのラベルと入力欄の間',
   '--spacing-16': 'ボタンの左右の余白、カードの内側',
@@ -34,7 +36,7 @@ export function SpacingPage() {
   return (
     <>
       <DocSection id="spacing-heading" title="Scale">
-        <p className={styles.muted}>4の倍数で統一しています。要素の間隔（gap）と内側の余白（padding）に使います。</p>
+        <p className={styles.muted}>4の倍数を基本に、要素の間隔（gap）と内側の余白（padding）に使います。2・6 は小さな部品の内側に限ります。</p>
         <ul className={styles.rows}>
           {repository.findByPrefix('--spacing-').map(({ name }) => (
             <li key={name} className={styles.row}>

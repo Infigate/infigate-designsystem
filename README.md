@@ -219,7 +219,7 @@ Figma「[Infigate デザインシステム / Layout・Radius](https://www.figma.
 
 | 種類 | トークン | 使い方 |
 | --- | --- | --- |
-| スペーシング | `--spacing-0` 〜 `--spacing-64` | padding・margin・gap に使う。数字は px 値（4の倍数）。値は rem で持つ |
+| スペーシング | `--spacing-0` 〜 `--spacing-64` | padding・margin・gap に使う。数字は px 値（4の倍数が基本。2・6 は小さな部品の内側だけ）。値は rem で持つ |
 | 角丸 | `--radius-none` / `xs` / `sm` / `md` / `lg` / `xl` / `full` | md はボタン・入力欄、lg はカード、xl はモーダル、full はバッジ |
 | レイアウト | `--layout-columns` / `gutter` / `margin` | グリッドの列数・列間・画面左右の余白。画面幅で切り替わる |
 | 最大幅 | `--layout-content-max` / `--layout-reading-max` | レイアウト全体（Desktop 1440px）と、1カラムの本文（720px） |

@@ -1,0 +1,16 @@
+/* Figma の見本と同じ幅（340px）で並べる */
+.fieldBox {
+  width: min(100%, 21.25rem);
+}
+
+.cases {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  align-items: start;
+  gap: var(--spacing-32);
+  width: 100%;
+}
+
+.cases > .fieldBox {
+  width: 100%;
+}
