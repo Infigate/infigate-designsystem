@@ -1,0 +1,73 @@
+/*
+ * TextInput
+ * Figma: Infigate デザインシステム / Form（コンポーネント input/text）
+ * Hover は作らない（枠線の変化に気づきにくく、スマートフォンにないため。Figma の説明より）
+ */
+
+.input {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  border: 1px solid var(--color-border-default);
+  background: var(--color-bg-default);
+  color: var(--color-text-primary);
+  transition:
+    border-color var(--ds-duration-fast),
+    box-shadow var(--ds-duration-fast);
+}
+
+.input::placeholder {
+  color: var(--color-text-tertiary);
+  opacity: 1; /* Firefox はプレースホルダーを半透明にするため戻す */
+}
+
+/* ---- 大きさ（Figma: Size） ---- */
+.input[data-size='lg'] {
+  height: var(--size-48);
+  padding: 0 var(--spacing-16);
+  border-radius: var(--radius-md);
+  font: var(--font-body-md);
+}
+
+.input[data-size='md'] {
+  height: var(--size-40);
+  padding: 0 var(--spacing-12);
+  border-radius: var(--radius-md);
+  font: var(--font-body-md);
+}
+
+.input[data-size='sm'] {
+  height: var(--size-32);
+  padding: 0 var(--spacing-8);
+  border-radius: var(--radius-sm);
+  font: var(--font-body-sm);
+}
+
+/* ---- 状態（Figma: State） ---- */
+
+/* Focus: 全部品共通のフォーカスリング（border/focus・3px・すき間なし）を外側に沿わせ、枠を keycolor にする */
+.input:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-focus-ring);
+}
+
+/* Error のときは、フォーカス中も赤い枠のままにして、エラーが解消していないことを伝える
+ * （規則の順番に頼らないよう、keycolor の枠はエラーでないときだけに付ける） */
+.input:not([aria-invalid='true']):focus-visible {
+  border-color: var(--color-keycolor-primary);
+}
+
+.input[aria-invalid='true'] {
+  border-color: var(--color-status-error-solid);
+}
+
+.input:disabled {
+  border-color: var(--color-border-default);
+  background: var(--color-bg-disabled);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+.input:disabled::placeholder {
+  color: var(--color-text-disabled);
+}

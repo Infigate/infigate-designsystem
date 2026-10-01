@@ -155,11 +155,11 @@ describe('スペーシング・角丸', () => {
   const declarations = parseDeclarations(dimensions)
   const byPrefix = (prefix: string) => [...declarations].filter(([name]) => name.startsWith(prefix))
 
-  it('スペーシングは Figma の11段階で、名前の数字（px）と値が一致する', () => {
+  it('スペーシングは Figma の13段階で、名前の数字（px）と値が一致する', () => {
     const spacings = byPrefix('--spacing-')
 
     expect(spacings.map(([name]) => name)).toEqual(
-      [0, 4, 8, 12, 16, 20, 24, 32, 40, 48, 64].map((px) => `--spacing-${px}`),
+      [0, 2, 4, 6, 8, 12, 16, 20, 24, 32, 40, 48, 64].map((px) => `--spacing-${px}`),
     )
     for (const [name, value] of spacings) {
       const px = Number(name.replace('--spacing-', ''))
@@ -167,10 +167,11 @@ describe('スペーシング・角丸', () => {
     }
   })
 
-  it('スペーシングはすべて4の倍数', () => {
-    for (const [name] of byPrefix('--spacing-')) {
-      expect(Number(name.replace('--spacing-', '')) % 4, name).toBe(0)
-    }
+  it('スペーシングは4の倍数を基本とし、例外は小さな部品用の 2・6 だけ', () => {
+    const exceptions = byPrefix('--spacing-')
+      .map(([name]) => Number(name.replace('--spacing-', '')))
+      .filter((px) => px % 4 !== 0)
+    expect(exceptions).toEqual([2, 6])
   })
 
   it('角丸は Figma の7段階で定義している', () => {
