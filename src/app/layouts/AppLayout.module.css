@@ -28,6 +28,9 @@
 .sidebar {
   position: sticky;
   top: 56px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
   align-self: start;
   height: calc(100vh - 56px);
   overflow-y: auto;

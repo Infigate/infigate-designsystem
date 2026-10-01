@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router'
+import { DocHeader, DocPage, DocSection } from '@/shared/ui/DocPage/DocPage'
 import { getCategory } from '../../../domain/category'
 import { useCatalogRepository } from '../../catalogContext'
 import { Playground } from '../../components/Playground/Playground'
@@ -14,54 +15,43 @@ export function ComponentDetailPage() {
 
   if (!entry) {
     return (
-      <div className={styles.page}>
+      <DocPage>
         <title>見つかりません | Infigate Design System</title>
-        <h1 className={styles.title}>コンポーネントが見つかりません</h1>
-        <p>「{slug}」というコンポーネントは登録されていません。</p>
+        <DocHeader
+          title="コンポーネントが見つかりません"
+          description={`「${slug}」というコンポーネントは登録されていません。`}
+        />
         <p>
           <Link to={catalogPaths.list()}>コンポーネント一覧に戻る</Link>
         </p>
-      </div>
+      </DocPage>
     )
   }
 
   return (
-    <article className={styles.page}>
+    <DocPage>
       <title>{`${entry.name} | Infigate Design System`}</title>
 
-      <header className={styles.header}>
-        <p className={styles.category}>{getCategory(entry.category).label}</p>
-        <h1 className={styles.title}>{entry.name}</h1>
-        <p className={styles.description}>{entry.description}</p>
-      </header>
+      <DocHeader eyebrow={getCategory(entry.category).label} title={entry.name} description={entry.description} />
 
       {entry.playground && (
-        <section aria-labelledby="playground-heading" className={styles.section}>
-          <h2 id="playground-heading" className={styles.sectionTitle}>
-            Playground
-          </h2>
+        <DocSection id="playground-heading" title="Playground">
           {/* 部品を切り替えたら値を初期化するため、slug を key にする */}
           <Playground key={entry.slug} playground={entry.playground} />
-        </section>
+        </DocSection>
       )}
 
-      <section aria-labelledby="variants-heading" className={styles.section}>
-        <h2 id="variants-heading" className={styles.sectionTitle}>
-          Examples
-        </h2>
+      <DocSection id="variants-heading" title="Examples">
         <div className={styles.variants}>
           {entry.variants.map((variant) => (
             <VariantPreview key={variant.name} variant={variant} />
           ))}
         </div>
-      </section>
+      </DocSection>
 
-      <section aria-labelledby="props-heading" className={styles.section}>
-        <h2 id="props-heading" className={styles.sectionTitle}>
-          Props
-        </h2>
+      <DocSection id="props-heading" title="Props">
         <PropsTable props={entry.props} />
-      </section>
-    </article>
+      </DocSection>
+    </DocPage>
   )
 }

@@ -1,0 +1,557 @@
+/* 基本デザインの各ページで共通に使う見本のスタイル */
+
+.tokenName {
+  font-family: var(--ds-font-family-mono);
+  font-size: 0.9em;
+  overflow-wrap: anywhere;
+}
+
+.muted {
+  color: var(--color-text-secondary);
+}
+
+/* ---- 色見本（枠で囲まず、色の下に名前・参照先・値を並べる） ---- */
+.swatchGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: var(--spacing-24) var(--spacing-16);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.swatch {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  min-width: 0;
+  font: var(--font-body-sm);
+}
+
+.swatchChip {
+  height: 4.5rem;
+  margin-bottom: var(--spacing-4);
+  border-radius: var(--radius-md);
+}
+
+/* 白っぽい色は背景に溶けるので、枠線で形を見せる */
+.swatchChip[data-light] {
+  border: 1px solid var(--color-border-default);
+}
+
+.swatchName {
+  font-size: 1em;
+  font-weight: var(--font-weight-bold);
+}
+
+.swatchReference {
+  font-weight: var(--font-weight-medium);
+}
+
+.swatchValue {
+  color: var(--color-text-secondary);
+  font: var(--font-body-xs);
+}
+
+/* ---- ステータスカラーの使用例（通知バー。Figma: ステータスカラー > 使用例） ---- */
+.statusBanners {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.statusBanner {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  padding: var(--spacing-12) var(--spacing-16);
+  border: 1px solid var(--status-solid);
+  border-radius: var(--radius-lg);
+  background: var(--status-bg);
+  color: var(--status-text);
+  font: var(--font-body-sm);
+}
+
+.statusBadge {
+  flex-shrink: 0;
+  padding: calc(var(--spacing-4) / 2) var(--spacing-8); /* Figma: 2px 8px */
+  border-radius: var(--radius-sm);
+  background: var(--status-solid);
+  color: var(--status-on-solid);
+  font: var(--font-label-sm);
+}
+
+/* solid の上の文字は白。warning だけ solid が明るい黄色なので濃い文字にする */
+.statusBanner[data-status='success'] {
+  --status-bg: var(--color-status-success-bg);
+  --status-text: var(--color-status-success-text);
+  --status-solid: var(--color-status-success-solid);
+  --status-on-solid: var(--color-text-on-brand);
+}
+
+.statusBanner[data-status='error'] {
+  --status-bg: var(--color-status-error-bg);
+  --status-text: var(--color-status-error-text);
+  --status-solid: var(--color-status-error-solid);
+  --status-on-solid: var(--color-text-on-brand);
+}
+
+.statusBanner[data-status='warning'] {
+  --status-bg: var(--color-status-warning-bg);
+  --status-text: var(--color-status-warning-text);
+  --status-solid: var(--color-status-warning-solid);
+  --status-on-solid: var(--color-text-primary);
+}
+
+.statusBanner[data-status='info'] {
+  --status-bg: var(--color-status-info-bg);
+  --status-text: var(--color-status-info-text);
+  --status-solid: var(--color-status-info-solid);
+  --status-on-solid: var(--color-text-on-brand);
+}
+
+/* ---- 1項目 = 1行（左に名前と値、右に見本） ---- */
+.rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 16rem minmax(0, 1fr);
+  align-items: center;
+  gap: var(--spacing-24);
+  padding: var(--spacing-16) 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.rowMeta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  font: var(--font-body-sm);
+}
+
+.bar {
+  height: var(--size-24);
+  background: var(--color-keycolor-300);
+}
+
+.square {
+  border: 1px solid var(--color-keycolor-500);
+  background: var(--color-keycolor-100);
+}
+
+/* ---- 角丸 ---- */
+.radiusGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  gap: var(--spacing-24);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.radiusItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+  font: var(--font-body-sm);
+}
+
+.radiusSample {
+  width: 6rem;
+  height: 6rem;
+  border: 2px solid var(--color-keycolor-500);
+  background: var(--color-keycolor-100);
+}
+
+/* ---- エレベーション ---- */
+.surface {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: var(--spacing-32);
+  margin: 0;
+  padding: var(--spacing-32);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-subtle);
+  list-style: none;
+}
+
+.elevationCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  padding: var(--spacing-24);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-default);
+  font: var(--font-body-sm);
+}
+
+/* ---- 書体 ---- */
+.weights {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: var(--spacing-16);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.weight {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  padding: var(--spacing-24);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-subtle);
+  font: var(--font-body-sm);
+}
+
+.weightSample {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-tight);
+}
+
+/* ---- 表 ---- */
+.tableWrapper {
+  overflow-x: auto;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font: var(--font-body-sm);
+}
+
+.table th,
+.table td {
+  padding: var(--spacing-12) var(--spacing-16);
+  border-bottom: 1px solid var(--color-border-subtle);
+  text-align: left;
+  vertical-align: top;
+}
+
+.table tbody tr:last-child > * {
+  border-bottom: none;
+}
+
+.table thead th {
+  background: var(--color-bg-subtle);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-bold);
+  white-space: nowrap;
+}
+
+.table tbody th {
+  font-weight: var(--font-weight-regular);
+  white-space: nowrap;
+}
+
+.table tbody tr[aria-current] > * {
+  background: var(--color-bg-selected);
+}
+
+.table tbody tr[aria-current] th {
+  font-weight: var(--font-weight-bold);
+}
+
+/* ---- レイアウトのシミュレーター ---- */
+.simulator {
+  /* スライダーのつまみの大きさ。目盛りと画面の見本を、つまみの半径ぶん内側に寄せて位置を合わせる */
+  --thumb-size: var(--size-20);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+  padding: var(--spacing-24);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+}
+
+.simulatorHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--spacing-12) var(--spacing-24);
+  margin-bottom: var(--spacing-8);
+}
+
+.readout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--spacing-4) var(--spacing-8);
+  margin: 0;
+}
+
+.readoutWidth {
+  font: var(--font-heading-xl);
+  font-variant-numeric: tabular-nums;
+}
+
+.readoutMode {
+  color: var(--color-keycolor-primary);
+  font: var(--font-heading-md);
+}
+
+.readoutSpec {
+  flex-basis: 100%;
+  color: var(--color-text-secondary);
+  font: var(--font-body-sm);
+}
+
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+}
+
+/* Playground のボタン型ラジオと同じ見た目 */
+.preset {
+  padding: var(--spacing-4) var(--spacing-8);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-default);
+  color: var(--color-text-primary);
+  font: var(--font-body-xs);
+  cursor: pointer;
+}
+
+.preset:hover {
+  background: var(--color-bg-muted);
+}
+
+.preset[aria-pressed='true'] {
+  border-color: var(--color-keycolor-primary);
+  background: var(--color-bg-selected);
+  color: var(--color-keycolor-primary);
+}
+
+.preset:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-focus-ring);
+}
+
+/* 目盛り・画面の見本の横幅（0〜1920px）。つまみの中心が動く範囲に合わせる */
+.scale {
+  padding-inline: calc(var(--thumb-size) / 2);
+}
+
+.bands {
+  position: relative;
+  height: var(--size-32);
+}
+
+.band {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  padding-inline: var(--spacing-8);
+  overflow: hidden;
+  border-inline-end: 1px solid var(--color-bg-default);
+  background: var(--color-bg-muted);
+  color: var(--color-text-secondary);
+  font: var(--font-label-sm);
+  white-space: nowrap;
+}
+
+.band:first-child {
+  border-start-start-radius: var(--radius-sm);
+  border-end-start-radius: var(--radius-sm);
+}
+
+.band:last-child {
+  border-inline-end: none;
+  border-start-end-radius: var(--radius-sm);
+  border-end-end-radius: var(--radius-sm);
+}
+
+.band[data-current] {
+  background: var(--color-keycolor-primary);
+  color: var(--color-text-on-brand);
+}
+
+.ticks {
+  position: relative;
+  height: var(--size-20);
+  color: var(--color-text-secondary);
+  font: var(--font-body-xs);
+}
+
+.tick {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  font-variant-numeric: tabular-nums;
+}
+
+/* スライダー（線は背景で描き、つまみの中心が 0〜1920px の位置に来るようにする） */
+.slider {
+  --track: var(--color-border-strong);
+
+  width: 100%;
+  height: var(--thumb-size);
+  margin: 0;
+  appearance: none;
+  background: linear-gradient(var(--track), var(--track)) center / 100% 2px no-repeat;
+  cursor: pointer;
+}
+
+.slider:focus-visible {
+  outline: none;
+}
+
+.slider::-webkit-slider-thumb {
+  box-sizing: border-box;
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  appearance: none;
+  border: 2px solid var(--color-bg-default);
+  border-radius: var(--radius-full);
+  background: var(--color-keycolor-primary);
+  box-shadow: var(--elevation-1);
+}
+
+.slider::-moz-range-thumb {
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  box-sizing: border-box;
+  border: 2px solid var(--color-bg-default);
+  border-radius: var(--radius-full);
+  background: var(--color-keycolor-primary);
+  box-shadow: var(--elevation-1);
+}
+
+.slider:focus-visible::-webkit-slider-thumb {
+  box-shadow: var(--ds-focus-ring);
+}
+
+.slider:focus-visible::-moz-range-thumb {
+  box-shadow: var(--ds-focus-ring);
+}
+
+/* 画面の見本（縮小）。中の領域は画面の幅に対する割合で置く */
+.screen {
+  position: relative;
+  height: 7rem;
+  overflow: hidden;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-default);
+}
+
+.gridArea {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  padding-top: var(--spacing-4);
+  overflow: hidden;
+  color: var(--color-keycolor-primary);
+  font: var(--font-body-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-8) var(--spacing-16);
+  margin: 0;
+  padding: 0;
+  color: var(--color-text-secondary);
+  font: var(--font-body-xs);
+  list-style: none;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.legendSwatch {
+  width: var(--size-16);
+  height: var(--size-16);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-xs);
+}
+
+/* 領域の塗り分け（見本と凡例で共通） */
+.gridArea[data-kind='column'],
+.legendSwatch[data-kind='column'] {
+  background: var(--color-keycolor-100);
+}
+
+.gridArea[data-kind='gutter'],
+.legendSwatch[data-kind='gutter'] {
+  background: var(--color-bg-default);
+}
+
+.gridArea[data-kind='margin'],
+.legendSwatch[data-kind='margin'] {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--color-border-default) 0 1px,
+    var(--color-bg-default) 1px 6px
+  );
+}
+
+.gridArea[data-kind='outside'],
+.legendSwatch[data-kind='outside'] {
+  background: var(--color-bg-muted);
+}
+
+/* ---- 本文の最大幅（実寸） ---- */
+.readingStage {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  padding: var(--spacing-24);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-subtle);
+}
+
+/* 本文の幅を示す寸法線 */
+.readingMeasure {
+  display: flex;
+  justify-content: center;
+  max-width: var(--layout-reading-max);
+  border-inline: 1px solid var(--color-keycolor-primary);
+  background: linear-gradient(var(--color-keycolor-primary), var(--color-keycolor-primary)) center / 100% 1px
+    no-repeat;
+  color: var(--color-keycolor-primary);
+  font: var(--font-label-sm);
+}
+
+.readingMeasure span {
+  padding-inline: var(--spacing-8);
+  background: var(--color-bg-subtle);
+}
+
+.readingSample {
+  max-width: var(--layout-reading-max);
+  margin: 0;
+  font: var(--font-body-md);
+  /* 文節で折り返すと行末が手前で止まるので、ここでは幅いっぱいまで詰めて幅を見せる */
+  word-break: normal;
+  text-wrap: wrap;
+}
+
+@media (max-width: 767px) {
+  .row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--spacing-12);
+  }
+}

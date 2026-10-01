@@ -1,5 +1,6 @@
 import { Link, Outlet, ScrollRestoration } from 'react-router'
 import { CatalogNav, catalogPaths } from '@/features/catalog'
+import { FoundationNav } from '@/features/foundations'
 import styles from './AppLayout.module.css'
 
 /** サイト全体の枠（ヘッダー・サイドバー・本文） */
@@ -13,6 +14,7 @@ export function AppLayout() {
       </header>
       <div className={styles.body}>
         <aside className={styles.sidebar}>
+          <FoundationNav />
           <CatalogNav />
         </aside>
         <main className={styles.main}>

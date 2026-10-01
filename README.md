@@ -35,6 +35,7 @@ src/
 │   ├── App.tsx               #   Provider と Router の組み立て
 │   ├── router.tsx            #   ルーティング（各 feature のルートを差し込む）
 │   ├── catalogRepository.ts  #   *.catalog.tsx を収集してリポジトリを生成
+│   ├── tokenRepository.ts    #   トークンの CSS を文字列で取り込み、基本デザインのページに渡す
 │   ├── layouts/              #   サイト共通の枠
 │   └── pages/                #   機能に属さないページ（404 など）
 │
@@ -46,6 +47,12 @@ src/
 │       ├── infrastructure/   #     リポジトリ実装（glob 読み込み / インメモリ）
 │       ├── presentation/     #     画面（pages）・部品（components）・ルート定義
 │       └── testing/          #     この feature のテスト用ヘルパー・フィクスチャ
+│   └── foundations/          #   基本デザイン（トークンの一覧ページ）
+│       ├── index.ts          #     公開API
+│       ├── domain/           #     トークンの型・参照の解決・画面幅のモード
+│       ├── infrastructure/   #     トークンの CSS を読み取ってリポジトリを作る
+│       ├── presentation/     #     Color / Typography / Spacing / Radius / Elevation / Layout の各ページ
+│       └── testing/          #     実際のトークン CSS を読むテスト用ヘルパー
 │
 ├── design-system/            # デザインシステム本体（カタログが扱う対象）
 │   ├── index.ts              #   公開API
@@ -74,6 +81,7 @@ src/
 │
 └── shared/                   # 特定の機能に属さない汎用コード
     ├── lib/                  #   ユーティリティ
+    ├── ui/                   #   機能をまたいで見た目を揃える画面部品（ページの見出し・サイドバー）
     └── test/                 #   テスト共通セットアップ
 
 scripts/
@@ -165,6 +173,9 @@ hover・active・focus のように操作で起きる状態は、`<ForcePseudoSt
 ## デザイントークン
 
 値は `src/design-system/tokens/` に集約し、CSS では色やサイズを直接書かずに必ずトークンを参照します（テストで検査）。
+
+カタログの「基本デザイン」（`#/foundations/color` など）で一覧できます。ページに表示する値はトークンの CSS から直接読み取っているため、CSS を変えればページにもそのまま反映されます。
+トークンを追加したのにどのページにも載っていないと、テスト（`FoundationPage.test.tsx`）が失敗します。その場合は `src/features/foundations/presentation/pages/` の該当ページに表示を足してください。
 
 ### カラー
 

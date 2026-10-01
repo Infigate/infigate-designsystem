@@ -1,5 +1,6 @@
 import { createHashRouter } from 'react-router'
 import { catalogRoutes } from '@/features/catalog'
+import { foundationRoutes } from '@/features/foundations'
 import { AppLayout } from './layouts/AppLayout'
 import { NotFoundPage } from './pages/NotFoundPage'
 
@@ -11,6 +12,6 @@ export const router = createHashRouter([
   {
     path: '/',
     element: <AppLayout />,
-    children: [...catalogRoutes, { path: '*', element: <NotFoundPage /> }],
+    children: [...catalogRoutes, ...foundationRoutes, { path: '*', element: <NotFoundPage /> }],
   },
 ])
