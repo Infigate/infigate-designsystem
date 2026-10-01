@@ -1,0 +1,58 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "typescript", "oxc"],
+  "rules": {
+    "react/rules-of-hooks": "error",
+    "react/only-export-components": ["warn", { "allowConstantExport": true }],
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": ["@/features/*/**"],
+            "message": "feature の内部ファイルは直接 import せず、公開API（@/features/<name>）を経由してください"
+          },
+          {
+            "group": ["@/design-system/components/**"],
+            "message": "デザインシステムは公開API（@/design-system）を経由して import してください"
+          }
+        ]
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["src/design-system/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["@/features/**", "@/app/**"],
+                "message": "デザインシステムはカタログサイト（features / app）に依存してはいけません（*.catalog.tsx を除く）"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/design-system/**/*.catalog.tsx"],
+      "rules": {
+        "react/only-export-components": "off",
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["@/features/*/**", "@/app/**"],
+                "message": "カタログ定義からは @/features/catalog の公開APIだけを使ってください"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
