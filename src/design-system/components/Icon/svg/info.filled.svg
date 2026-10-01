@@ -1,0 +1,7 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="icon/info">
+<path id="shape" d="M12 2C17.5222 2 22 6.47778 22 12C22 17.5222 17.5222 22 12 22C6.47778 22 2 17.5222 2 12C2 6.47778 6.47778 2 12 2Z" fill="#21272F"/>
+<path id="mark" d="M12 11.2V16.6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<circle id="dot" cx="12" cy="7.8" r="1.2" fill="white"/>
+</g>
+</svg>

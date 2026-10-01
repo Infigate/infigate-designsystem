@@ -4,47 +4,53 @@
   flex-direction: column;
   height: 100%;
   overflow: hidden;
-  border: 1px solid var(--ds-color-border);
-  border-radius: var(--ds-radius-lg);
-  background: var(--ds-color-bg);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-default);
   transition:
     border-color var(--ds-duration-fast),
     box-shadow var(--ds-duration-fast);
 }
 
 .card:hover {
-  border-color: var(--ds-color-border-strong);
-  box-shadow: var(--ds-shadow-md);
+  border-color: var(--color-border-strong);
+  box-shadow: var(--elevation-1);
 }
 
 .card:has(.link:focus-visible) {
   box-shadow: var(--ds-focus-ring);
 }
 
+/*
+ * サムネイルは高さを固定し、収まらない部分は切り取る（カードの高さを揃えるため）。
+ * safe center: 収まるときは中央、はみ出すときは先頭（上・左）から見せる
+ */
 .thumbnail {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 140px;
-  padding: var(--ds-space-6);
-  border-bottom: 1px solid var(--ds-color-border);
-  background: var(--ds-color-bg-subtle);
+  flex-shrink: 0;
+  align-items: safe center;
+  justify-content: safe center;
+  height: 140px;
+  overflow: hidden;
+  padding: var(--spacing-24);
+  border-bottom: 1px solid var(--color-border-subtle);
+  background: var(--color-bg-subtle);
 }
 
 .body {
   display: flex;
   flex-direction: column;
-  gap: var(--ds-space-1);
-  padding: var(--ds-space-4);
+  gap: var(--spacing-4);
+  padding: var(--spacing-16);
 }
 
 .title {
   margin: 0;
-  font-size: var(--ds-font-size-md);
+  font: var(--font-heading-md);
 }
 
 .link {
-  color: var(--ds-color-text);
+  color: var(--color-text-primary);
   text-decoration: none;
 }
 
@@ -60,12 +66,12 @@
 
 .description {
   margin: 0;
-  color: var(--ds-color-text-muted);
-  font-size: var(--ds-font-size-sm);
+  color: var(--color-text-secondary);
+  font: var(--font-body-sm);
 }
 
 .meta {
-  margin: var(--ds-space-2) 0 0;
-  color: var(--ds-color-text-muted);
-  font-size: var(--ds-font-size-xs);
+  margin: var(--spacing-8) 0 0;
+  color: var(--color-text-secondary);
+  font: var(--font-body-xs);
 }

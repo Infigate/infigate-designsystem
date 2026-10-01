@@ -1,0 +1,97 @@
+/*
+ * プリミティブカラー
+ * Figma: Infigate デザインシステム / Color（バリアブル「Color-Primitives」）
+ *
+ * 基本色のパレット。デザインシステム内の色はすべてこの中から選ぶ。
+ * コンポーネントからは原則として直接参照せず、color-semantics.css の役割名を使う。
+ * 変数名は Figma のバリアブル名の「/」を「-」に置き換えたもの（例: gray/900 → --color-gray-900）。
+ */
+:root {
+  /* Mono */
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  /* Magenta */
+  --color-magenta-50: #fef1f9;
+  --color-magenta-100: #fcd7ee;
+  --color-magenta-200: #fcb8e4;
+  --color-magenta-300: #fc96db;
+  --color-magenta-400: #ee5dc4;
+  --color-magenta-500: #cf00a5;
+  --color-magenta-600: #a80085;
+  --color-magenta-700: #8c006e;
+  --color-magenta-800: #6a0453;
+  --color-magenta-900: #4e043c;
+
+  /* Violet */
+  --color-violet-50: #f4f3fe;
+  --color-violet-100: #e1dffc;
+  --color-violet-200: #cbc8fb;
+  --color-violet-300: #b5affc;
+  --color-violet-400: #9683ff;
+  --color-violet-500: #7849ff;
+  --color-violet-600: #6a00fb;
+  --color-violet-700: #5700d1;
+  --color-violet-800: #41089d;
+  --color-violet-900: #2e0775;
+
+  /* Blue */
+  --color-blue-50: #edf4fe;
+  --color-blue-100: #d1e3fc;
+  --color-blue-200: #aecffb;
+  --color-blue-300: #88bafc;
+  --color-blue-400: #3d96ff;
+  --color-blue-500: #006ed5;
+  --color-blue-600: #0058ae;
+  --color-blue-700: #004890;
+  --color-blue-800: #02366c;
+  --color-blue-900: #022650;
+
+  /* Green */
+  --color-green-50: #dffce2;
+  --color-green-100: #b1f2b9;
+  --color-green-200: #6fe485;
+  --color-green-300: #58ce71;
+  --color-green-400: #00ac45;
+  --color-green-500: #008131;
+  --color-green-600: #006826;
+  --color-green-700: #00561e;
+  --color-green-800: #034016;
+  --color-green-900: #032e0e;
+
+  /* Yellow */
+  --color-yellow-50: #fef3de;
+  --color-yellow-100: #fcdfa1;
+  --color-yellow-200: #fbc541;
+  --color-yellow-300: #e5b023;
+  --color-yellow-400: #bc8d00;
+  --color-yellow-500: #8d6a00;
+  --color-yellow-600: #725500;
+  --color-yellow-700: #5f4500;
+  --color-yellow-800: #473302;
+  --color-yellow-900: #332402;
+
+  /* Red */
+  --color-red-50: #fef2f0;
+  --color-red-100: #fcdbd7;
+  --color-red-200: #fbbeb8;
+  --color-red-300: #fc9e98;
+  --color-red-400: #ff5d5b;
+  --color-red-500: #e10027;
+  --color-red-600: #b6001e;
+  --color-red-700: #980017;
+  --color-red-800: #720511;
+  --color-red-900: #55040b;
+
+  /* Gray */
+  --color-gray-50: #f1f4f8;
+  --color-gray-100: #dee2e7;
+  --color-gray-200: #c9cdd4;
+  --color-gray-300: #b2b7bf;
+  --color-gray-400: #8f969e;
+  --color-gray-500: #697079;
+  --color-gray-600: #535a63;
+  --color-gray-700: #434a53;
+  --color-gray-800: #303740;
+  --color-gray-900: #21272f;
+}

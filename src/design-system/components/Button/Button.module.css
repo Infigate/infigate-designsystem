@@ -2,12 +2,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--ds-space-2);
+  gap: var(--spacing-8);
   border: 1px solid transparent;
-  border-radius: var(--ds-radius-md);
-  font-family: var(--ds-font-family);
-  font-weight: var(--ds-font-weight-bold);
-  line-height: 1;
+  border-radius: var(--radius-md);
   white-space: nowrap;
   cursor: pointer;
   transition:
@@ -30,23 +27,25 @@
   cursor: progress;
 }
 
-/* ---- size ---- */
+/* ---- size ----
+ * 文字は Figma のテキストスタイル label/sm（小さいボタン）・label/md（通常のボタン）に従う。
+ * label は md / sm の2段階のみのため、lg も文字は label/md とし、高さと余白で大きさを出す。 */
 .button[data-size='sm'] {
-  height: 2rem;
-  padding: 0 var(--ds-space-3);
-  font-size: var(--ds-font-size-sm);
+  height: var(--size-32);
+  padding: 0 var(--spacing-12);
+  font: var(--font-label-sm);
 }
 
 .button[data-size='md'] {
-  height: 2.5rem;
-  padding: 0 var(--ds-space-4);
-  font-size: var(--ds-font-size-md);
+  height: var(--size-40);
+  padding: 0 var(--spacing-16);
+  font: var(--font-label-md);
 }
 
 .button[data-size='lg'] {
-  height: 3rem;
-  padding: 0 var(--ds-space-6);
-  font-size: var(--ds-font-size-lg);
+  height: var(--size-48);
+  padding: 0 var(--spacing-24);
+  font: var(--font-label-md);
 }
 
 .button[data-full-width] {
@@ -55,40 +54,40 @@
 
 /* ---- variant ---- */
 .button[data-variant='primary'] {
-  background: var(--ds-color-primary);
-  color: var(--ds-color-on-primary);
+  background: var(--color-keycolor-primary);
+  color: var(--color-text-on-brand);
 }
 
 .button[data-variant='primary']:hover:not(:disabled) {
-  background: var(--ds-color-primary-hover);
+  background: var(--color-keycolor-600);
 }
 
 .button[data-variant='secondary'] {
-  background: var(--ds-color-bg);
-  border-color: var(--ds-color-border-strong);
-  color: var(--ds-color-text);
+  background: var(--color-bg-default);
+  border-color: var(--color-border-default);
+  color: var(--color-text-primary);
 }
 
 .button[data-variant='secondary']:hover:not(:disabled) {
-  background: var(--ds-color-bg-muted);
+  background: var(--color-bg-subtle);
 }
 
 .button[data-variant='ghost'] {
   background: transparent;
-  color: var(--ds-color-primary);
+  color: var(--color-keycolor-primary);
 }
 
 .button[data-variant='ghost']:hover:not(:disabled) {
-  background: var(--ds-color-bg-muted);
+  background: var(--color-keycolor-50);
 }
 
 .button[data-variant='danger'] {
-  background: var(--ds-color-danger);
-  color: var(--ds-color-on-danger);
+  background: var(--color-status-error-solid);
+  color: var(--color-text-on-brand);
 }
 
 .button[data-variant='danger']:hover:not(:disabled) {
-  background: var(--ds-color-danger-hover);
+  background: var(--color-red-700);
 }
 
 /* ---- loading ---- */
@@ -97,7 +96,7 @@
   height: 1em;
   border: 2px solid currentcolor;
   border-right-color: transparent;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   animation: spin 0.7s linear infinite;
 }
 

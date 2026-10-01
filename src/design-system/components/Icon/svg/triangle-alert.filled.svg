@@ -1,0 +1,7 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="icon/triangle-alert">
+<path id="shape" d="M10.2442 2.83757C11.0124 1.52081 12.9877 1.52081 13.7558 2.83757L23.0836 19.1873C23.8518 20.5041 22.8641 22.15 21.3278 22.15H2.6722C1.13586 22.15 0.148207 20.5041 0.916378 19.1873L10.2442 2.83757Z" fill="#21272F"/>
+<path id="mark" d="M12 9.6V14.6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<circle id="dot" cx="12" cy="17.8" r="1.2" fill="white"/>
+</g>
+</svg>

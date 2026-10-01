@@ -9,14 +9,14 @@
   display: flex;
   align-items: center;
   height: 56px;
-  padding: 0 var(--ds-space-6);
-  border-bottom: 1px solid var(--ds-color-border);
-  background: var(--ds-color-bg);
+  padding: 0 var(--layout-margin);
+  border-bottom: 1px solid var(--color-border-subtle);
+  background: var(--color-bg-default);
 }
 
 .brand {
-  color: var(--ds-color-text);
-  font-weight: var(--ds-font-weight-bold);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-bold);
   text-decoration: none;
 }
 
@@ -31,21 +31,24 @@
   align-self: start;
   height: calc(100vh - 56px);
   overflow-y: auto;
-  padding: var(--ds-space-6) var(--ds-space-3);
-  border-right: 1px solid var(--ds-color-border);
-  background: var(--ds-color-bg-subtle);
+  padding: var(--spacing-24) var(--spacing-12);
+  border-right: 1px solid var(--color-border-subtle);
+  background: var(--color-bg-subtle);
 }
 
+/*
+ * ヘッダーとサイドバーは画面端に固定したまま、本文だけを layout/content-max で止めて、
+ * サイドバーより右の領域の中で中央に寄せる（左サイドバーを持つドキュメントサイトの一般的な形）。
+ * サイト枠全体を中央寄せにすると、広い画面でナビゲーションの位置が画面の途中にずれるため避ける。
+ */
 .main {
-  max-width: 1080px;
-  padding: var(--ds-space-8) var(--ds-space-8) var(--ds-space-12);
+  width: 100%; /* auto マージンを付けたグリッド要素は内容の幅まで縮むため、幅を明示する */
+  max-width: var(--layout-content-max);
+  margin-inline: auto;
+  padding: var(--spacing-32) var(--layout-margin) var(--spacing-48);
 }
 
-@media (max-width: 768px) {
-  .header {
-    padding: 0 var(--ds-space-4);
-  }
-
+@media (max-width: 767px) {
   .body {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -54,10 +57,10 @@
     position: static;
     height: auto;
     border-right: none;
-    border-bottom: 1px solid var(--ds-color-border);
+    border-bottom: 1px solid var(--color-border-subtle);
   }
 
   .main {
-    padding: var(--ds-space-6) var(--ds-space-4) var(--ds-space-12);
+    padding: var(--spacing-24) var(--layout-margin) var(--spacing-48);
   }
 }

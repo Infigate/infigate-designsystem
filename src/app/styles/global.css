@@ -10,14 +10,12 @@ html {
 
 body {
   margin: 0;
-  background: var(--ds-color-bg);
-  color: var(--ds-color-text);
-  font-family: var(--ds-font-family);
-  font-size: var(--ds-font-size-md);
-  line-height: var(--ds-line-height);
+  background: var(--color-bg-default);
+  color: var(--color-text-primary);
+  font: var(--font-body-md);
   -webkit-font-smoothing: antialiased;
 }
 
 a {
-  color: var(--ds-color-primary);
+  color: var(--color-link-default);
 }

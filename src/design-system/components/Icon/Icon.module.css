@@ -1,0 +1,30 @@
+.icon {
+  display: inline-block;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+/* Figma: Dimensions の size/16・size/20・size/24。線幅は 24px で 2px、縮小すると一緒に細くなる */
+.icon[data-size='16'] {
+  width: var(--size-16);
+  height: var(--size-16);
+}
+
+.icon[data-size='20'] {
+  width: var(--size-20);
+  height: var(--size-20);
+}
+
+.icon[data-size='24'] {
+  width: var(--size-24);
+  height: var(--size-24);
+}
+
+/* 塗り版の白抜き部分（Figma: text/on-brand） */
+.icon [data-knockout='fill'] {
+  fill: var(--color-text-on-brand);
+}
+
+.icon [data-knockout='stroke'] {
+  stroke: var(--color-text-on-brand);
+}

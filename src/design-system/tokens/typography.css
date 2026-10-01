@@ -1,0 +1,87 @@
+/*
+ * タイポグラフィ
+ * Figma: Infigate デザインシステム / Typography / Link
+ *   - 文字サイズ: バリアブル「Responsive」の font-size/*（モード: Desktop / Tablet / Mobile）
+ *   - テキストスタイル: heading/* ・ body/* ・ label/* ・ link/*
+ *
+ * 文字サイズは px ではなく rem で持つ（ブラウザの文字サイズ設定に追従させるため。1rem = 16px）。
+ * 変数名は Figma のバリアブル名・スタイル名の「/」を「-」に置き換えたもの。
+ */
+:root {
+  /* ---- 書体 ---- （Noto Sans JP。可変フォントを @fontsource-variable/noto-sans-jp で同梱している） */
+  --font-family-sans: 'Noto Sans JP Variable', 'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', sans-serif;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
+  /* ---- 行間 ---- （% 指定なので文字サイズに追従する） */
+  --line-height-tight: 1.4; /* 見出し・ラベル。高さを詰める */
+  --line-height-relaxed: 1.7; /* 本文。日本語の本文が読みやすい設定 */
+
+  /* ---- 文字サイズ ----
+   * 画面幅で変わるもの（3xl〜md）は下のメディアクエリで切り替える。ここは Mobile（767px 以下）の値。
+   * 本文（base）以下は、小さくすると読みにくくなるため画面幅にかかわらず変えない。 */
+  --font-size-3xl: 2rem; /* 32px */
+  --font-size-2xl: 1.5rem; /* 24px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-md: 1rem; /* 16px */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-xs: 0.75rem; /* 12px */
+
+  /* ---- テキストスタイル ----
+   * font プロパティにそのまま指定する（例: font: var(--font-heading-xl);）
+   * 見出しレベル（h1〜h6）は文書構造、スタイルは見た目なので、名前はサイズ基準にしている。 */
+
+  /* ページの最上位の見出し（h1）。1ページに1回だけ */
+  --font-heading-3xl: var(--font-weight-bold) var(--font-size-3xl) / var(--line-height-tight) var(--font-family-sans);
+  /* 大見出し（h1・h2） */
+  --font-heading-2xl: var(--font-weight-bold) var(--font-size-2xl) / var(--line-height-tight) var(--font-family-sans);
+  /* セクションの見出し（h2・h3） */
+  --font-heading-xl: var(--font-weight-bold) var(--font-size-xl) / var(--line-height-tight) var(--font-family-sans);
+  /* 小見出し（h3・h4） */
+  --font-heading-lg: var(--font-weight-bold) var(--font-size-lg) / var(--line-height-tight) var(--font-family-sans);
+  /* カードの中などの小さな見出し（h4・h5） */
+  --font-heading-md: var(--font-weight-bold) var(--font-size-md) / var(--line-height-tight) var(--font-family-sans);
+  /* 最小の見出し（h5・h6）。本文と同じ大きさで、太さだけで見出しを表す */
+  --font-heading-sm: var(--font-weight-bold) var(--font-size-base) / var(--line-height-tight) var(--font-family-sans);
+
+  /* 本文の標準 */
+  --font-body-md: var(--font-weight-regular) var(--font-size-base) / var(--line-height-relaxed) var(--font-family-sans);
+  /* 表の中や補足文など、狭い場所の本文 */
+  --font-body-sm: var(--font-weight-regular) var(--font-size-sm) / var(--line-height-relaxed) var(--font-family-sans);
+  /* 注釈だけに使う。長文には小さすぎる */
+  --font-body-xs: var(--font-weight-regular) var(--font-size-xs) / var(--line-height-relaxed) var(--font-family-sans);
+
+  /* ボタンやタブのラベル */
+  --font-label-md: var(--font-weight-medium) var(--font-size-base) / var(--line-height-tight) var(--font-family-sans);
+  /* 小さいボタン、フォームのラベル */
+  --font-label-sm: var(--font-weight-medium) var(--font-size-sm) / var(--line-height-tight) var(--font-family-sans);
+
+  /* 本文中のリンク。色だけに頼らないよう、text-decoration: underline を必ず併用する */
+  --font-link-md: var(--font-weight-regular) var(--font-size-base) / var(--line-height-relaxed) var(--font-family-sans);
+}
+
+/* Tablet（768〜1023px） */
+@media (min-width: 768px) {
+  :root {
+    --font-size-3xl: 2.25rem; /* 36px */
+    --font-size-2xl: 1.75rem; /* 28px */
+    --font-size-xl: 1.375rem; /* 22px */
+    --font-size-lg: 1.25rem; /* 20px */
+    --font-size-md: 1.125rem; /* 18px */
+  }
+}
+
+/* Desktop（1024px 以上） */
+@media (min-width: 1024px) {
+  :root {
+    --font-size-3xl: 2.5rem; /* 40px */
+    --font-size-2xl: 2rem; /* 32px */
+    --font-size-xl: 1.5rem; /* 24px */
+    --font-size-lg: 1.25rem; /* 20px */
+    --font-size-md: 1.125rem; /* 18px */
+  }
+}

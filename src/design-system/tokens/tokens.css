@@ -1,61 +1,27 @@
 /*
- * デザイントークン（仮）
- * デザイン確定後はこのファイルの値だけを差し替える。
- * コンポーネントは色やサイズを直接書かず、必ずここの変数を参照すること。
+ * デザイントークンの入口。アプリはこのファイルだけを読み込む。
+ * コンポーネントは色やサイズを直接書かず、必ずトークンを参照すること。
+ *
+ * - カラー: Figma のバリアブルから実装済み（color-primitives.css / color-semantics.css）
+ * - タイポグラフィ: Figma のバリアブル・テキストスタイルから実装済み（typography.css）
+ * - スペーシング・角丸・サイズ: Figma のバリアブルから実装済み（dimensions.css）
+ * - レイアウト: Figma のバリアブルから実装済み（layout.css）
+ * - エレベーション: Figma のエフェクトスタイルから実装済み（elevation.css）
+ * - 以下の --ds-* はまだ仮の値（Figma に定義がないもの）。
  */
+@import './color-primitives.css';
+@import './color-semantics.css';
+@import './typography.css';
+@import './dimensions.css';
+@import './layout.css';
+@import './elevation.css';
+
 :root {
-  /* Color: brand */
-  --ds-color-primary: #2563eb;
-  --ds-color-primary-hover: #1d4ed8;
-  --ds-color-on-primary: #ffffff;
-
-  /* Color: semantic */
-  --ds-color-danger: #dc2626;
-  --ds-color-danger-hover: #b91c1c;
-  --ds-color-on-danger: #ffffff;
-
-  /* Color: neutral */
-  --ds-color-bg: #ffffff;
-  --ds-color-bg-subtle: #f8fafc;
-  --ds-color-bg-muted: #f1f5f9;
-  --ds-color-border: #e2e8f0;
-  --ds-color-border-strong: #cbd5e1;
-  --ds-color-text: #0f172a;
-  --ds-color-text-muted: #64748b;
-
   /* Focus */
-  --ds-focus-ring: 0 0 0 3px rgb(37 99 235 / 40%);
+  --ds-focus-ring: 0 0 0 3px var(--color-border-focus);
 
-  /* Typography */
-  --ds-font-family: system-ui, -apple-system, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+  /* Typography: 等幅（Figma に定義なし。Props 表のコード表示などに使う） */
   --ds-font-family-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
-  --ds-font-size-xs: 0.75rem;
-  --ds-font-size-sm: 0.875rem;
-  --ds-font-size-md: 1rem;
-  --ds-font-size-lg: 1.125rem;
-  --ds-font-size-xl: 1.5rem;
-  --ds-font-size-2xl: 2rem;
-  --ds-font-weight-regular: 400;
-  --ds-font-weight-bold: 600;
-  --ds-line-height: 1.6;
-
-  /* Spacing (4px grid) */
-  --ds-space-1: 0.25rem;
-  --ds-space-2: 0.5rem;
-  --ds-space-3: 0.75rem;
-  --ds-space-4: 1rem;
-  --ds-space-6: 1.5rem;
-  --ds-space-8: 2rem;
-  --ds-space-12: 3rem;
-
-  /* Radius */
-  --ds-radius-sm: 4px;
-  --ds-radius-md: 8px;
-  --ds-radius-lg: 12px;
-
-  /* Elevation */
-  --ds-shadow-sm: 0 1px 2px rgb(15 23 42 / 6%);
-  --ds-shadow-md: 0 4px 12px rgb(15 23 42 / 8%);
 
   /* Motion */
   --ds-duration-fast: 120ms;

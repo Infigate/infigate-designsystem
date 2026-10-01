@@ -1,0 +1,7 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="icon/triangle-alert">
+<path id="vector" d="M13.6 3.3C12.9 2.1 11.1 2.1 10.4 3.3L1.9 18.2C1.2 19.4 2.1 20.9 3.5 20.9H20.5C21.9 20.9 22.8 19.4 22.1 18.2L13.6 3.3Z" stroke="#21272F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="bar" d="M12 9.6V14.6" stroke="#21272F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<circle id="dot" cx="12" cy="17.8" r="1.2" fill="#21272F"/>
+</g>
+</svg>

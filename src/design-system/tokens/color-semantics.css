@@ -1,0 +1,94 @@
+/*
+ * セマンティックカラー
+ * Figma: Infigate デザインシステム / Color（バリアブル「Color-Semantics」、モード: Light）
+ *
+ * 役割が決まっている色。値は直接書かず、必ずプリミティブ（またはキーカラー）を参照する。
+ * 変数名は Figma のバリアブル名の「/」を「-」に置き換え、先頭に color- を付けたもの。
+ */
+:root {
+  /* ---- キーカラー（段階） ----
+   * blue を参照する。部品からは blue を直接参照せず、必ずこの層を経由する。
+   * キーカラーを別の色に変えるときは、この10行の参照先だけを差し替える。 */
+  --color-keycolor-50: var(--color-blue-50);
+  --color-keycolor-100: var(--color-blue-100);
+  --color-keycolor-200: var(--color-blue-200);
+  --color-keycolor-300: var(--color-blue-300);
+  --color-keycolor-400: var(--color-blue-400);
+  --color-keycolor-500: var(--color-blue-500);
+  --color-keycolor-600: var(--color-blue-600);
+  --color-keycolor-700: var(--color-blue-700);
+  --color-keycolor-800: var(--color-blue-800);
+  --color-keycolor-900: var(--color-blue-900);
+
+  /* ---- キーカラー（役割） ----
+   * 役割名があるものは、番号ではなくこちらを使う。 */
+  --color-keycolor-primary: var(--color-keycolor-500);
+  --color-keycolor-secondary: var(--color-keycolor-700);
+  --color-keycolor-tertiary: var(--color-keycolor-400);
+  --color-keycolor-background: var(--color-keycolor-50);
+
+  /* ---- テキスト ----
+   * 本文は primary か secondary。tertiary はプレースホルダーなど補助的な文字に限る。
+   * 色付きの塗りの上の文字は、塗りが 400 番より濃ければ on-brand（白）、200 番より薄ければ primary。 */
+  --color-text-primary: var(--color-gray-900);
+  --color-text-secondary: var(--color-gray-600);
+  --color-text-tertiary: var(--color-gray-500);
+  --color-text-on-brand: var(--color-white);
+  --color-text-disabled: var(--color-gray-400);
+  /* bg-inverse 系の濃い面の上に置く文字 */
+  --color-text-on-inverse-secondary: var(--color-gray-300);
+  --color-text-on-inverse-disabled: var(--color-gray-500);
+
+  /* ---- リンク ----
+   * キーカラーと同じ青を使い、下線で区別する。訪問済みはマゼンタにして既読が分かるようにする。 */
+  --color-link-default: var(--color-blue-500);
+  --color-link-hover: var(--color-blue-600);
+  --color-link-active: var(--color-blue-700);
+  --color-link-visited: var(--color-magenta-700);
+  --color-link-disabled: var(--color-gray-400);
+
+  /* ---- 背景 ----
+   * 白い地色の上に、薄いグレーで区画を作る。overlay はモーダルの背面に敷く。 */
+  --color-bg-default: var(--color-white);
+  --color-bg-subtle: var(--color-gray-50);
+  --color-bg-muted: var(--color-gray-100);
+  --color-bg-selected: var(--color-keycolor-background);
+  --color-bg-disabled: var(--color-gray-100);
+  --color-bg-inverse: var(--color-gray-800);
+  --color-bg-inverse-subtle: var(--color-gray-700);
+  --color-bg-inverse-muted: var(--color-gray-600);
+  --color-bg-overlay: color-mix(in srgb, var(--color-gray-900) 60%, transparent);
+
+  /* ---- ボーダー ----
+   * 区切りには subtle、部品の枠には default、強調したい枠には strong、フォーカス枠には focus。 */
+  --color-border-subtle: var(--color-gray-100);
+  --color-border-default: var(--color-gray-200);
+  --color-border-strong: var(--color-gray-400);
+  --color-border-focus: var(--color-keycolor-400);
+
+  /* ---- ステータス ----
+   * bg: 通知などの薄い面 / text: bg の上の文字 / solid: バッジなどの濃い塗り / on-inverse: bg-inverse の上の文字 */
+  --color-status-success-bg: var(--color-green-50);
+  --color-status-success-text: var(--color-green-700);
+  --color-status-success-solid: var(--color-green-600);
+  --color-status-success-on-inverse: var(--color-green-100);
+
+  --color-status-error-bg: var(--color-red-50);
+  --color-status-error-text: var(--color-red-700);
+  --color-status-error-solid: var(--color-red-600);
+  --color-status-error-on-inverse: var(--color-red-200);
+
+  --color-status-warning-bg: var(--color-yellow-50);
+  --color-status-warning-text: var(--color-yellow-700);
+  --color-status-warning-solid: var(--color-yellow-200);
+  --color-status-warning-on-inverse: var(--color-yellow-100);
+
+  --color-status-info-bg: var(--color-blue-50);
+  --color-status-info-text: var(--color-blue-700);
+  --color-status-info-solid: var(--color-blue-600);
+  --color-status-info-on-inverse: var(--color-blue-200);
+
+  /* ---- 影 ---- （Figma 上も参照ではなく値で定義されている） */
+  --color-shadow-key: #21272f1a;
+  --color-shadow-ambient: #21272f0f;
+}

@@ -1,0 +1,19 @@
+/*
+ * エレベーション（影）
+ * Figma: Infigate デザインシステム / Elevation（エフェクトスタイル elevation/1〜3）
+ *
+ * 影は「一時的に上に浮いているもの」を表すために使う。迷ったら影ではなく線（border）を使う。
+ *   線を使う: ずっと画面にあるもの（入力欄、表、区切り、常設のカード一覧）
+ *   影を使う: 操作に応じて出てくるもの（メニュー、モーダル、スクロールで固定されたヘッダー）
+ * 影は2枚重ね。1枚目（shadow/key・10%）で接地感を、2枚目（shadow/ambient・6%）で広がりを出す。
+ *
+ * box-shadow にそのまま指定する（例: box-shadow: var(--elevation-2);）
+ */
+:root {
+  /* 面からわずかに浮いている状態。カードや、境界線の代わりに軽く区切りたい面 */
+  --elevation-1: 0 1px 2px 0 var(--color-shadow-key), 0 2px 6px 0 var(--color-shadow-ambient);
+  /* 一時的に開くもの。ドロップダウン、ポップオーバー、ツールチップ、固定ヘッダー */
+  --elevation-2: 0 2px 4px 0 var(--color-shadow-key), 0 6px 12px 0 var(--color-shadow-ambient);
+  /* 画面全体の上に重なるもの。モーダルとダイアログ。これより上は作らない */
+  --elevation-3: 0 4px 8px 0 var(--color-shadow-key), 0 16px 32px 0 var(--color-shadow-ambient);
+}

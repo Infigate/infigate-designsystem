@@ -1,28 +1,28 @@
 .nav {
   display: flex;
   flex-direction: column;
-  gap: var(--ds-space-6);
+  gap: var(--spacing-24);
 }
 
 .group {
   display: flex;
   flex-direction: column;
-  gap: var(--ds-space-1);
+  gap: var(--spacing-4);
 }
 
 .groupLabel {
   margin: 0;
-  padding: 0 var(--ds-space-3);
-  color: var(--ds-color-text-muted);
-  font-size: var(--ds-font-size-xs);
-  font-weight: var(--ds-font-weight-bold);
+  padding: 0 var(--spacing-12);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
   letter-spacing: 0.04em;
 }
 
 .list {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--spacing-4);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -30,15 +30,15 @@
 
 .link {
   display: block;
-  padding: var(--ds-space-2) var(--ds-space-3);
-  border-radius: var(--ds-radius-sm);
-  color: var(--ds-color-text);
-  font-size: var(--ds-font-size-sm);
+  padding: var(--spacing-8) var(--spacing-12);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+  font: var(--font-body-sm);
   text-decoration: none;
 }
 
 .link:hover {
-  background: var(--ds-color-bg-muted);
+  background: var(--color-bg-muted);
 }
 
 .link:focus-visible {
@@ -47,7 +47,7 @@
 }
 
 .active {
-  background: var(--ds-color-bg-muted);
-  color: var(--ds-color-primary);
-  font-weight: var(--ds-font-weight-bold);
+  background: var(--color-bg-selected);
+  color: var(--color-keycolor-primary);
+  font-weight: var(--font-weight-bold);
 }

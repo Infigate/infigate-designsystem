@@ -1,19 +1,19 @@
 .wrapper {
   overflow-x: auto;
-  border: 1px solid var(--ds-color-border);
-  border-radius: var(--ds-radius-lg);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
 }
 
 .table {
   width: 100%;
   border-collapse: collapse;
-  font-size: var(--ds-font-size-sm);
+  font: var(--font-body-sm);
 }
 
 .table th,
 .table td {
-  padding: var(--ds-space-3) var(--ds-space-4);
-  border-bottom: 1px solid var(--ds-color-border);
+  padding: var(--spacing-12) var(--spacing-16);
+  border-bottom: 1px solid var(--color-border-subtle);
   text-align: left;
   vertical-align: top;
 }
@@ -23,14 +23,14 @@
 }
 
 .table thead th {
-  background: var(--ds-color-bg-subtle);
-  color: var(--ds-color-text-muted);
-  font-weight: var(--ds-font-weight-bold);
+  background: var(--color-bg-subtle);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-bold);
   white-space: nowrap;
 }
 
 .table tbody th {
-  font-weight: var(--ds-font-weight-regular);
+  font-weight: var(--font-weight-regular);
   white-space: nowrap;
 }
 
@@ -40,19 +40,19 @@
 }
 
 .type {
-  color: var(--ds-color-primary);
+  color: var(--color-keycolor-primary);
 }
 
 .required {
-  margin-left: var(--ds-space-2);
-  padding: 0 var(--ds-space-1);
-  border-radius: var(--ds-radius-sm);
-  background: var(--ds-color-bg-muted);
-  color: var(--ds-color-danger);
-  font-size: var(--ds-font-size-xs);
+  margin-left: var(--spacing-8);
+  padding: 0 var(--spacing-4);
+  border-radius: var(--radius-xs);
+  background: var(--color-status-error-bg);
+  color: var(--color-status-error-text);
+  font-size: var(--font-size-xs);
 }
 
 .empty {
   margin: 0;
-  color: var(--ds-color-text-muted);
+  color: var(--color-text-secondary);
 }
