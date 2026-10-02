@@ -1,0 +1,113 @@
+/*
+ * Select
+ * Figma: Infigate デザインシステム / Form（コンポーネント select/trigger）
+ * 箱は TextInput と同じ。ブラウザ標準の矢印を消し、右端に chevron を重ねる（chevron はクリックを select に通す）。
+ * 開いたメニュー（Figma: select/option）は OS 標準のものを使うため、ここでは作らない。
+ * Hover は作らない（TextInput と同じく、枠線の変化に気づきにくく、スマートフォンにないため）。
+ */
+
+.wrapper {
+  /* 文字と chevron の間（Figma: gap 8px）と、chevron の大きさ */
+  --select-gap: var(--spacing-8);
+  --select-chevron-size: var(--size-24);
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  color: var(--color-text-secondary);
+}
+
+.select {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  /* 右側は、chevron とその手前のすき間の分だけ広げる */
+  padding-inline: var(--select-padding) calc(var(--select-padding) + var(--select-chevron-size) + var(--select-gap));
+  border: 1px solid var(--color-border-default);
+  background: var(--color-bg-default);
+  color: var(--color-text-primary);
+  text-overflow: ellipsis;
+  cursor: pointer;
+  appearance: none;
+  transition:
+    border-color var(--ds-duration-fast),
+    box-shadow var(--ds-duration-fast);
+}
+
+/* 未選択（Figma: Default）は、プレースホルダーと同じ色で「選択してください」を出す */
+.select:has(option[data-placeholder]:checked) {
+  color: var(--color-text-tertiary);
+}
+
+/* OS のメニューに select の文字色が引き継がれないよう、選択肢は本文の色に戻す */
+.select option {
+  color: var(--color-text-primary);
+}
+
+.chevron {
+  position: absolute;
+  right: var(--select-padding);
+  pointer-events: none;
+}
+
+/* ---- 大きさ（Figma: Size） ---- */
+.wrapper[data-size='lg'] {
+  --select-padding: var(--spacing-16);
+}
+
+.wrapper[data-size='md'] {
+  --select-padding: var(--spacing-12);
+}
+
+.wrapper[data-size='sm'] {
+  --select-padding: var(--spacing-8);
+}
+
+.wrapper[data-size='lg'] .select {
+  height: var(--size-48);
+  border-radius: var(--radius-md);
+  font: var(--font-body-md);
+}
+
+.wrapper[data-size='md'] .select {
+  height: var(--size-40);
+  border-radius: var(--radius-md);
+  font: var(--font-body-md);
+}
+
+.wrapper[data-size='sm'] .select {
+  height: var(--size-32);
+  border-radius: var(--radius-sm);
+  font: var(--font-body-sm);
+}
+
+/* ---- 状態（Figma: State） ---- */
+
+/* Focus: 全部品共通のフォーカスリング（border/focus・3px・すき間なし）を外側に沿わせ、枠を keycolor にする */
+.select:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-focus-ring);
+}
+
+/* Error のときは、フォーカス中も赤い枠のままにして、エラーが解消していないことを伝える
+ * （規則の順番に頼らないよう、keycolor の枠はエラーでないときだけに付ける） */
+.select:not([aria-invalid='true']):focus-visible {
+  border-color: var(--color-keycolor-primary);
+}
+
+.select[aria-invalid='true'] {
+  border-color: var(--color-status-error-solid);
+}
+
+.wrapper:has(.select:disabled) {
+  color: var(--color-text-disabled);
+}
+
+.select:disabled {
+  border-color: var(--color-border-default);
+  background: var(--color-bg-disabled);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
