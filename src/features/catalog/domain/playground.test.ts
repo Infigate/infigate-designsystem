@@ -45,8 +45,11 @@ describe('validatePlayground', () => {
     expect(validatePlayground(playground)).toEqual([])
   })
 
+  it('切り替え項目がなくてもよい（試せる見本とコード例だけを出す）', () => {
+    expect(validatePlayground(withControls([]))).toEqual([])
+  })
+
   it.each([
-    ['項目がない', withControls([]), 'playground の controls を1件以上定義してください'],
     [
       '項目名が重複している',
       withControls([
@@ -70,6 +73,8 @@ describe('validatePlayground', () => {
   })
 
   it('カタログ定義の検査にも含まれる', () => {
-    expect(() => createTestEntry({ playground: withControls([]) })).toThrow(InvalidCatalogEntryError)
+    const invalid = withControls([{ type: 'select', name: 'size', options: [], defaultValue: 'md' }])
+
+    expect(() => createTestEntry({ playground: invalid })).toThrow(InvalidCatalogEntryError)
   })
 })

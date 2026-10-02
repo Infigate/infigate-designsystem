@@ -1,0 +1,122 @@
+/*
+ * Sortable
+ * Figma: Infigate デザインシステム / Sortable（コンポーネント sortable-item）
+ * つかめるのは左端のハンドルだけ。持ち上げた行は影を付け、差し込む位置にはすき間を開けてキーカラーで示す。
+ */
+
+.list {
+  /* 行と行のすき間（Figma: 8px）と、行・すき間の枠の太さ */
+  --sortable-gap: var(--spacing-8);
+  --sortable-border: 1px;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sortable-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ポインターで動かしている間は、文字が選択されないようにする */
+.list[data-dragging='pointer'] {
+  cursor: grabbing;
+  user-select: none;
+}
+
+/* ---- 行（Figma: sortable-item） ---- */
+.item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+  padding: var(--spacing-12) var(--spacing-16);
+  border: var(--sortable-border) solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-default);
+  transition:
+    background-color var(--ds-duration-fast),
+    border-color var(--ds-duration-fast);
+}
+
+.label {
+  flex: 1;
+  min-width: 0;
+  color: var(--color-text-primary);
+  font: var(--font-body-sm);
+}
+
+/* ハンドル。押せる範囲は、アイコンの周りに広げる */
+.handle {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-xs);
+  background: none;
+  color: var(--color-text-tertiary);
+  cursor: grab;
+  /* タッチでドラッグしたときに、画面がスクロールしないようにする */
+  touch-action: none;
+}
+
+.handle::before {
+  content: '';
+  position: absolute;
+  inset: calc(-1 * var(--spacing-8));
+}
+
+/* ---- Hover（持ち上げている行は、ポインターが乗っていても Dragging の見た目のままにする） ---- */
+.item:not([data-lifted]):hover {
+  border-color: var(--color-border-default);
+  background: var(--color-bg-subtle);
+}
+
+.item:hover .handle {
+  color: var(--color-text-secondary);
+}
+
+/* ---- Focus: 全部品共通のフォーカスリング（border/focus・3px・すき間なし）をハンドルに付ける ---- */
+.handle:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-focus-ring);
+}
+
+/* ---- Dragging: 持ち上げた行に影を付ける ---- */
+.item[data-lifted] {
+  z-index: 1;
+  border-color: var(--color-border-default);
+  background: var(--color-bg-default);
+  box-shadow: var(--elevation-2);
+}
+
+.item[data-lifted] .handle {
+  color: var(--color-text-secondary);
+  cursor: grabbing;
+}
+
+/* ポインターについて動かしている行は、もとの位置から抜けてリストの上に重なる（top は要素に直接指定する） */
+.item[data-floating] {
+  position: absolute;
+  inset-inline: 0;
+}
+
+/* ---- Drop target: 差し込む位置に開けるすき間。キーカラーの薄い塗りと点線の枠で示す
+ * （Figma の線は、持ち上げた行が重なると隠れてしまうため、行1つ分のすき間に変えた） ---- */
+.placeholder {
+  border: var(--sortable-border) dashed var(--color-keycolor-primary);
+  border-radius: var(--radius-md);
+  background: var(--color-keycolor-50);
+}
+
+/* 読み上げだけに使うお知らせ。画面には出さない */
+.announcement {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

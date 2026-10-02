@@ -5,10 +5,15 @@
 
 .playground {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 32rem;
+  grid-template-columns: minmax(0, 1fr);
   overflow: hidden;
   border: 1px solid var(--color-border-default);
   border-radius: var(--radius-lg);
+}
+
+/* 切り替え欄があるときは、右に並べる */
+.playground[data-has-controls] {
+  grid-template-columns: minmax(0, 1fr) 32rem;
 }
 
 /* 見本を置く面（バリエーションの見本と同じドットグリッド） */
@@ -120,7 +125,7 @@
 
 /* 欄が狭いとき（タブレット・スマートフォン）は、プレビューの下に切り替えを並べる */
 @container (max-width: 52rem) {
-  .playground {
+  .playground[data-has-controls] {
     grid-template-columns: minmax(0, 1fr);
   }
 

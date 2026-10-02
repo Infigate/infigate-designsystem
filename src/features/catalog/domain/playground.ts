@@ -32,6 +32,7 @@ export type PlaygroundControl = SelectControl | BooleanControl | TextControl
 export type PlaygroundValues = Readonly<Record<string, string | boolean>>
 
 export type CatalogPlayground = {
+  /** 切り替え項目。切り替える props がない部品（例: Sortable）は空にして、試せる見本とコード例だけを出す */
   readonly controls: readonly PlaygroundControl[]
   /** 現在の値で部品を描画する */
   readonly render: (values: PlaygroundValues) => ReactNode
@@ -72,8 +73,6 @@ export function initialPlaygroundValues(playground: CatalogPlayground): Playgrou
 export function validatePlayground(playground: CatalogPlayground): string[] {
   const problems: string[] = []
   const seen = new Set<string>()
-
-  if (playground.controls.length === 0) problems.push('playground の controls を1件以上定義してください')
 
   for (const control of playground.controls) {
     if (control.name.trim() === '') problems.push('playground の control 名が空です')
