@@ -1,0 +1,124 @@
+/*
+ * Accordion・AccordionItem
+ * Figma: Infigate デザインシステム / Accordion（コンポーネント accordion・accordion-item）
+ * 見出し行が押せる範囲。Hover は背景、Focus はリングで示し、Open のときだけ本文が出てシェブロンが反転する。
+ * 開閉は、本文の高さを伸び縮みさせる短い動きで見せる（どこに内容が出たかを分かりやすくするため）。
+ */
+
+/* 先頭にも線を引いて、まとまりの範囲を示す */
+.accordion {
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+/* 項目の下の区切り線は、項目に含む */
+.item {
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.heading {
+  margin: 0;
+}
+
+/* 見出し行（Figma: header。高さ 56px） */
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+  width: 100%;
+  margin: 0;
+  padding: var(--spacing-16);
+  border: 0;
+  background: none;
+  color: var(--color-text-secondary);
+  text-align: start;
+  cursor: pointer;
+  transition: background-color var(--ds-duration-fast);
+}
+
+.title {
+  flex: 1;
+  min-width: 0;
+  color: var(--color-text-primary);
+  font: var(--font-label-md);
+}
+
+.chevron {
+  transition: transform var(--ds-duration-normal);
+}
+
+/* ---- Open: シェブロンを反転する ---- */
+.item[data-open] .chevron {
+  transform: rotate(180deg);
+}
+
+/* ---- Hover ---- */
+.header:not(:disabled):hover {
+  background: var(--color-bg-subtle);
+}
+
+/* ---- Focus: 全部品共通のフォーカスリング（border/focus・3px・すき間なし）。隣の項目の背景に隠れないよう前に出す ---- */
+.header:focus-visible {
+  z-index: 1;
+  outline: none;
+  box-shadow: var(--ds-focus-ring);
+}
+
+/* ---- Disabled ---- */
+.header:disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+.header:disabled .title {
+  color: var(--color-text-disabled);
+}
+
+/* ---- 開閉の動き。grid の行の高さを 0fr ⇔ 1fr で変え、本文の高さを伸び縮みさせる ---- */
+.collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--ds-duration-normal) ease-out;
+}
+
+.item[data-open] .collapse {
+  grid-template-rows: 1fr;
+}
+
+/* 閉じきったら見えなくする（閉じる動きが終わるまで待ってから隠し、開くときはすぐに見せる） */
+.panel {
+  min-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  transition: visibility 0s linear var(--ds-duration-normal);
+}
+
+.item[data-open] .panel {
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+/* 本文（Figma: panel） */
+.body {
+  padding: var(--spacing-8) var(--spacing-16) var(--spacing-20);
+  color: var(--color-text-secondary);
+  font: var(--font-body-sm);
+}
+
+.body > :first-child {
+  margin-top: 0;
+}
+
+.body > :last-child {
+  margin-bottom: 0;
+}
+
+/* 動きを減らす設定のときは、動かさずに切り替える */
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .chevron,
+  .collapse,
+  .panel {
+    transition: none;
+  }
+}

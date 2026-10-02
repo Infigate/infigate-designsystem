@@ -1,0 +1,36 @@
+/* 状態 × 開閉の表。狭い画面では横にスクロールする（フォーカスリングが切れないよう内側に余白をとる） */
+.scroller {
+  width: 100%;
+  padding: var(--spacing-4);
+  overflow-x: auto;
+}
+
+.matrix {
+  display: grid;
+  grid-template-columns: max-content repeat(2, minmax(18rem, 40rem));
+  align-items: start;
+  gap: var(--spacing-32) var(--spacing-48);
+}
+
+.columnLabel,
+.rowLabel {
+  color: var(--color-text-secondary);
+  font: var(--font-label-sm);
+}
+
+/* 状態の名前を、見出し行（56px）の中央に揃える */
+.rowLabel {
+  display: flex;
+  align-items: center;
+  min-height: 3.5rem;
+}
+
+/* 1項目だけの見本は、先頭の線を引かない（Figma: accordion-item 単体） */
+.sample {
+  border-top: 0;
+}
+
+/* Figma の見本と同じ幅（640px）。Playground もこの幅にして、開閉で幅が変わらないようにする */
+.group {
+  width: min(100%, 40rem);
+}
