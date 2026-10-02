@@ -16,7 +16,7 @@ export default defineCatalogEntry({
   variants: [
     {
       name: 'All icons',
-      description: `登録されている ${ICON_NAMES.length} 種類。名前は Figma・Lucide と同じです。`,
+      description: `登録されている ${ICON_NAMES.length} 種類。名前は Lucide と同じです。`,
       render: () => (
         <ul className={styles.grid}>
           {ICON_NAMES.map((name) => (
