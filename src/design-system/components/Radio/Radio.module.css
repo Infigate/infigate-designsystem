@@ -1,0 +1,113 @@
+/*
+ * Radio
+ * Figma: Infigate デザインシステム / Form（コンポーネント radio・radio-circle）
+ * ブラウザ標準の input を透明にして丸に重ね、操作・フォーカス・読み上げは input に任せる。
+ */
+
+.radio {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--spacing-8);
+  color: var(--color-text-primary);
+  font: var(--font-body-md);
+  cursor: pointer;
+}
+
+/* 丸を、ラベルの1行目（行の高さ 27.2px）の中央に置く（Figma: control の上の余白 4px） */
+.control {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  padding-top: var(--spacing-4);
+}
+
+/* ラベルがないときは、丸の上の余白をとらない（Figma: radio-circle） */
+.control:only-child {
+  padding-top: 0;
+}
+
+.input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+
+.circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-20);
+  height: var(--size-20);
+  border: 1.5px solid var(--color-border-strong);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-default);
+  color: var(--color-keycolor-primary);
+  transition:
+    background-color var(--ds-duration-fast),
+    border-color var(--ds-duration-fast),
+    color var(--ds-duration-fast);
+}
+
+/* 選択の印（Figma: dot 直径 10px） */
+.circle::after {
+  content: '';
+  display: none;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: var(--radius-full);
+  background: currentColor;
+}
+
+/* ---- 選択（Checked）: 白い丸に 2px の枠と点。色は状態ごとに color で変える ---- */
+.input:checked + .circle {
+  border: 2px solid currentColor;
+  background: var(--color-bg-default);
+}
+
+.input:checked + .circle::after {
+  display: block;
+}
+
+/* ---- Hover ---- */
+.radio:hover .input:not(:disabled) + .circle {
+  border-color: var(--color-keycolor-primary);
+  background: var(--color-keycolor-50);
+}
+
+.radio:hover .input:not(:disabled):checked + .circle {
+  border-color: currentColor;
+  background: var(--color-bg-default);
+  color: var(--color-keycolor-600);
+}
+
+/* ---- Focus: 全部品共通のフォーカスリング（border/focus・3px・すき間なし） ---- */
+.input:focus-visible + .circle {
+  border-color: var(--color-keycolor-primary);
+  box-shadow: var(--ds-focus-ring);
+}
+
+.input:focus-visible:checked + .circle {
+  border-color: currentColor;
+}
+
+/* ---- Disabled（グループ全体を disabled にした場合も含む） ---- */
+.radio:has(.input:disabled) {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+.input:disabled + .circle {
+  border-color: var(--color-border-default);
+  background: var(--color-bg-disabled);
+}
+
+/* 選択済みの Disabled は、白い丸のまま枠と点をグレーにする（Checkbox と違い、塗りは変えない） */
+.input:disabled:checked + .circle {
+  border-color: currentColor;
+  background: var(--color-bg-default);
+  color: var(--color-text-disabled);
+}
