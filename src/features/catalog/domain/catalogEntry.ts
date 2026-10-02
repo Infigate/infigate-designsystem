@@ -18,6 +18,12 @@ export type PropDoc = {
   description: string
 }
 
+/** 同じページで説明する、組み合わせて使う部品（例: Checkbox ページの CheckboxGroup） */
+export type CatalogSubcomponent = {
+  readonly name: string
+  readonly props: readonly PropDoc[]
+}
+
 /** カタログに掲載する1コンポーネント（エンティティ。slug が識別子） */
 export type CatalogEntry = {
   readonly slug: string
@@ -26,6 +32,8 @@ export type CatalogEntry = {
   readonly description: string
   readonly variants: readonly CatalogVariant[]
   readonly props: readonly PropDoc[]
+  /** 組み合わせて使う部品の Props（省略可）。Props 欄に部品ごとの表を並べる */
+  readonly subcomponents?: readonly CatalogSubcomponent[]
   /** props を切り替えて確かめる欄（省略可） */
   readonly playground?: CatalogPlayground
 }
@@ -79,6 +87,15 @@ export function validateCatalogEntry(entry: CatalogEntryInput): string[] {
   }
   for (const name of findDuplicates((entry.props ?? []).map((p) => p.name))) {
     problems.push(`prop 名「${name}」が重複しています`)
+  }
+  const subcomponents = entry.subcomponents ?? []
+  for (const name of findDuplicates([entry.name, ...subcomponents.map((s) => s.name)])) {
+    problems.push(`部品名「${name}」が重複しています`)
+  }
+  for (const subcomponent of subcomponents) {
+    for (const name of findDuplicates(subcomponent.props.map((p) => p.name))) {
+      problems.push(`${subcomponent.name} の prop 名「${name}」が重複しています`)
+    }
   }
   if (entry.playground) {
     problems.push(...validatePlayground(entry.playground))

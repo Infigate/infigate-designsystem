@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router'
-import { DocHeader, DocPage, DocSection } from '@/shared/ui/DocPage/DocPage'
+import { DocHeader, DocPage, DocSection, DocSubsection } from '@/shared/ui/DocPage/DocPage'
 import { getCategory } from '../../../domain/category'
 import { useCatalogRepository } from '../../catalogContext'
 import { Playground } from '../../components/Playground/Playground'
@@ -50,7 +50,16 @@ export function ComponentDetailPage() {
       </DocSection>
 
       <DocSection id="props-heading" title="Props">
-        <PropsTable props={entry.props} />
+        {entry.subcomponents?.length ? (
+          // 組み合わせて使う部品があれば、部品ごとに見出しを付けて表を並べる
+          [{ name: entry.name, props: entry.props }, ...entry.subcomponents].map((component) => (
+            <DocSubsection key={component.name} title={component.name}>
+              <PropsTable props={component.props} />
+            </DocSubsection>
+          ))
+        ) : (
+          <PropsTable props={entry.props} />
+        )}
       </DocSection>
     </DocPage>
   )

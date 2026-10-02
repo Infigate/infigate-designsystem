@@ -52,6 +52,21 @@ describe('validateCatalogEntry', () => {
     expect(validateCatalogEntry(input)).toEqual(['category「unknown」は未定義です'])
   })
 
+  it('組み合わせて使う部品の名前の重複・prop 名の重複は違反とする', () => {
+    const prop = { name: 'label', type: 'ReactNode', description: '見出し' }
+    const input = validInput({
+      subcomponents: [
+        { name: 'Button', props: [] },
+        { name: 'ButtonGroup', props: [prop, prop] },
+      ],
+    })
+
+    expect(validateCatalogEntry(input)).toEqual([
+      '部品名「Button」が重複しています',
+      'ButtonGroup の prop 名「label」が重複しています',
+    ])
+  })
+
   it('variants が空なら違反とする', () => {
     expect(validateCatalogEntry(validInput({ variants: [] }))).toEqual([
       'variants を1件以上定義してください',

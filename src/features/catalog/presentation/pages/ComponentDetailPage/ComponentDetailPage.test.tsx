@@ -54,6 +54,24 @@ describe('ComponentDetailPage', () => {
     expect(within(rows[1]).getAllByRole('cell')[1]).toHaveTextContent('—')
   })
 
+  it('組み合わせて使う部品があれば、部品ごとに見出しを付けて Props 表を並べる', () => {
+    const checkbox = createTestEntry({
+      name: 'Checkbox',
+      props: [{ name: 'indeterminate', type: 'boolean', description: '一部選択' }],
+      subcomponents: [{ name: 'CheckboxGroup', props: [{ name: 'label', type: 'ReactNode', description: '見出し' }] }],
+    })
+    renderCatalogRoutes({ entries: [checkbox], path: '/components/checkbox' })
+
+    const props = screen.getByRole('region', { name: 'Props' })
+    expect(within(props).getAllByRole('heading', { level: 3 }).map((h) => h.textContent)).toEqual([
+      'Checkbox',
+      'CheckboxGroup',
+    ])
+    expect(within(props).getAllByRole('table')).toHaveLength(2)
+    expect(within(props).getByText('indeterminate')).toBeInTheDocument()
+    expect(within(props).getByText('label')).toBeInTheDocument()
+  })
+
   it('Props が未定義ならその旨を表示する', () => {
     renderCatalogRoutes({ entries: [createTestEntry({ name: 'Divider' })], path: '/components/divider' })
 

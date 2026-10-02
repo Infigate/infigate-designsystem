@@ -5,7 +5,7 @@
 
 // domain: カタログ定義を書く側（*.catalog.tsx）が使う
 export { defineCatalogEntry, InvalidCatalogEntryError } from './domain/catalogEntry'
-export type { CatalogEntry, CatalogEntryInput, CatalogVariant, PropDoc } from './domain/catalogEntry'
+export type { CatalogEntry, CatalogEntryInput, CatalogSubcomponent, CatalogVariant, PropDoc } from './domain/catalogEntry'
 export { definePlayground } from './domain/playground'
 export type { CatalogPlayground, PlaygroundControl, PlaygroundValues } from './domain/playground'
 export { CATEGORIES } from './domain/category'
