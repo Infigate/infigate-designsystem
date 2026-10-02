@@ -12,6 +12,12 @@ type CheckedState = (typeof CHECKED_STATES)[number]
 const CHECKED_LABELS = { unchecked: '未選択', checked: '選択', indeterminate: '一部選択' } as const
 const STATES = ['default', 'hover', 'focus', 'disabled'] as const
 type State = (typeof STATES)[number]
+const STATE_LABELS = {
+  default: 'Default',
+  hover: 'Hover',
+  focus: 'Focus',
+  disabled: 'Disabled',
+} as const satisfies Record<State, string>
 const FORCED_PSEUDO: Partial<Record<State, readonly ForceablePseudoClass[]>> = {
   hover: ['hover'],
   focus: ['focus', 'focus-visible'],
@@ -98,7 +104,7 @@ export default defineCatalogEntry({
           <span />
           {STATES.map((state) => (
             <span key={state} className={styles.columnLabel}>
-              {state}
+              {STATE_LABELS[state]}
             </span>
           ))}
           {CHECKED_STATES.map((checked) => (
