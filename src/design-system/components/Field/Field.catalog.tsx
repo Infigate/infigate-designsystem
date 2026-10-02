@@ -80,11 +80,11 @@ export default defineCatalogEntry({
     },
   ],
   props: [
-    { name: 'label', type: 'ReactNode', required: true, description: 'ラベル（Figma: Label）' },
+    { name: 'label', type: 'ReactNode', required: true, description: 'ラベル' },
     {
       name: 'mark',
       type: FIELD_MARKS.map((m) => `'${m}'`).join(' | '),
-      description: '印（Figma: 印の種類）。省略すると印なし。required のとき入力欄を必須（aria-required）にする',
+      description: '印。省略すると印なし。required のとき入力欄を必須（aria-required）にする',
     },
     { name: 'description', type: 'ReactNode', description: '補足文。入力の形式やヒントを書く' },
     { name: 'error', type: 'ReactNode', description: 'エラー文。指定すると入力欄の枠が赤くなり、読み上げでもエラーが伝わる' },
