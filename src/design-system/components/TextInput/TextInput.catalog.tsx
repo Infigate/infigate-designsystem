@@ -78,7 +78,7 @@ export default defineCatalogEntry({
   variants: [
     {
       name: 'Sizes',
-      description: 'ボタンと同じ3段階の高さです。並べるボタンと大きさを揃えます。',
+      description: 'Button と同じ3段階の高さです。並べる Button と大きさを揃えます。',
       render: () => (
         <div className={styles.stack}>
           {[...TEXT_INPUT_SIZES].reverse().map((size) => (
