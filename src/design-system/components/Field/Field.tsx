@@ -1,9 +1,9 @@
 import { useId, useMemo, type ComponentPropsWithRef, type ReactNode } from 'react'
 import { cx } from '@/shared/lib/cx'
-import { Icon } from '../Icon'
-import { FIELD_MARK_LABELS, type FieldMark } from './Field.constants'
+import type { FieldMark } from './Field.constants'
 import { FieldContext, type FieldContextValue } from './Field.context'
 import styles from './Field.module.css'
+import { FieldDescription, FieldError, FieldHeading } from './Field.parts'
 
 export type FieldProps = Omit<ComponentPropsWithRef<'div'>, 'children'> & {
   /** ラベル（Figma: Label） */
@@ -43,25 +43,11 @@ export function Field({ label, mark, description, error, controlId: ownControlId
   return (
     <div {...rest} className={cx(styles.field, className)}>
       <label htmlFor={controlId} className={styles.label}>
-        {label}
-        {mark && (
-          <span className={styles.mark} data-mark={mark}>
-            {FIELD_MARK_LABELS[mark]}
-          </span>
-        )}
+        <FieldHeading mark={mark}>{label}</FieldHeading>
       </label>
       <FieldContext value={context}>{children}</FieldContext>
-      {description && (
-        <p id={descriptionId} className={styles.description}>
-          {description}
-        </p>
-      )}
-      {error && (
-        <p id={errorId} className={styles.error}>
-          <Icon name="triangle-alert" size={20} className={styles.errorIcon} />
-          <span>{error}</span>
-        </p>
-      )}
+      {description && <FieldDescription id={descriptionId}>{description}</FieldDescription>}
+      {error && <FieldError id={errorId}>{error}</FieldError>}
     </div>
   )
 }

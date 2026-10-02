@@ -10,8 +10,12 @@
 }
 
 .label {
-  display: inline-flex;
   align-self: flex-start;
+}
+
+/* 見出し（ラベル＋印）。Field と選択肢のグループで共通 */
+.heading {
+  display: inline-flex;
   align-items: center;
   gap: var(--spacing-8);
   /* 印の有無で入力欄の位置がずれないよう、印がなくても印の高さ（body-xs の1行＋上下の余白）をとる */
