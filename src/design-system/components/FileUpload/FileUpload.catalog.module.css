@@ -1,0 +1,39 @@
+/* 枠と一覧を縦に並べる（Figma: 組み合わせた例。PC 560px・モバイル 343px） */
+.example {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+  width: min(100%, 35rem);
+}
+
+.example[data-mobile] {
+  width: min(100%, 21.4375rem);
+}
+
+/* アップロードエリアの見本（列: Desktop・Mobile、行: 状態） */
+.zoneMatrix {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 35rem) minmax(0, 21.4375rem);
+  align-items: center;
+  gap: var(--spacing-16) var(--spacing-32);
+  width: 100%;
+}
+
+.itemMatrix {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+  width: min(100%, 42.5rem);
+}
+
+.itemRow {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  align-items: center;
+}
+
+.columnLabel,
+.rowLabel {
+  color: var(--color-text-secondary);
+  font: var(--font-label-sm);
+}
