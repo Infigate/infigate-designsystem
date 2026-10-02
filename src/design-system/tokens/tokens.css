@@ -23,6 +23,9 @@
   /* Typography: 等幅（Figma に定義なし。Props 表のコード表示などに使う） */
   --ds-font-family-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  /* Motion */
+  /* Motion
+   * fast: 色や向きが変わるだけの小さな変化（ホバー、チェック、つまみ）
+   * normal: 大きさが変わり、まわりの内容も動く変化（アコーディオンの開閉） */
   --ds-duration-fast: 120ms;
+  --ds-duration-normal: 200ms;
 }
