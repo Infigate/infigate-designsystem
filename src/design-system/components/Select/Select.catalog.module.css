@@ -1,0 +1,31 @@
+/* Figma の見本と同じ幅（300px）で並べる */
+.fieldBox {
+  width: min(100%, 18.75rem);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+  width: min(100%, 18.75rem);
+}
+
+/* 状態 × 大きさの表。狭い画面では横にスクロールする（フォーカスリングが切れないよう内側に余白をとる） */
+.scroller {
+  width: 100%;
+  padding: var(--spacing-4);
+  overflow-x: auto;
+}
+
+.matrix {
+  display: grid;
+  grid-template-columns: max-content repeat(3, minmax(12rem, 1fr));
+  align-items: start;
+  gap: var(--spacing-24) var(--spacing-32);
+}
+
+.columnLabel,
+.rowLabel {
+  color: var(--color-text-secondary);
+  font: var(--font-label-sm);
+}
