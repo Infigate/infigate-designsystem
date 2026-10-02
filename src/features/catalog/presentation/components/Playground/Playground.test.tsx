@@ -77,4 +77,17 @@ describe('Playground', () => {
 
     expect(screen.queryByLabelText('コード例')).not.toBeInTheDocument()
   })
+
+  it('切り替え項目がなければ、切り替え欄を出さずにプレビューとコード例だけを表示する', () => {
+    const withoutControls = definePlayground({
+      controls: [],
+      render: () => <button type="button">並べ替え</button>,
+      code: () => '<Sortable />',
+    })
+    render(<Playground playground={withoutControls} />)
+
+    expect(preview().getByRole('button', { name: '並べ替え' })).toBeInTheDocument()
+    expect(screen.queryByRole('form', { name: '表示の切り替え' })).not.toBeInTheDocument()
+    expect(screen.getByLabelText('コード例')).toHaveTextContent('<Sortable />')
+  })
 })

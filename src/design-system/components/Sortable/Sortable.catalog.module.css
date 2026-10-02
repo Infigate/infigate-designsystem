@@ -1,0 +1,50 @@
+/* Figma の見本と同じ幅（480px） */
+.box {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+  width: min(100%, 30rem);
+}
+
+.note {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font: var(--font-body-sm);
+}
+
+/* 状態ごとに、名前と見本の行を並べる */
+.matrix {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+  width: min(100%, 37.5rem);
+}
+
+.matrixRow {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  align-items: start;
+}
+
+/* 名前は、見本の1つ目（行の高さ 50px）の中央に揃える（Drop target は、すき間の下に行が続くため） */
+.rowLabel {
+  display: flex;
+  align-items: center;
+  min-height: 3.125rem;
+  color: var(--color-text-secondary);
+  font: var(--font-label-sm);
+}
+
+.sample {
+  min-width: 0;
+}
+
+/* 見本のすき間は、行と同じ高さ（50px）にする（実際は、動かしている行の高さに合わせる） */
+.slotSample {
+  height: 3.125rem;
+}
+
+/* 見本の持ち上げた行は、すき間に少しずれて重なる位置に置く */
+.floatingSample {
+  top: 4.5rem;
+}

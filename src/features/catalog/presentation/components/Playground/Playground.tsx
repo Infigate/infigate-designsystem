@@ -19,18 +19,22 @@ export function Playground({ playground }: PlaygroundProps) {
   const [values, setValues] = useState(() => initialPlaygroundValues(playground))
   const change = (name: string, value: string | boolean) => setValues((current) => ({ ...current, [name]: value }))
   const code = playground.code?.(values)
+  const hasControls = playground.controls.length > 0
 
   return (
     <div className={styles.container}>
-      <div className={styles.playground}>
+      <div className={styles.playground} data-has-controls={hasControls || undefined}>
         <div className={styles.stage} role="region" aria-label="プレビュー">
           {playground.render(values)}
         </div>
-        <form className={styles.controls} aria-label="表示の切り替え" onSubmit={(e) => e.preventDefault()}>
-          {playground.controls.map((control) => (
-            <ControlRow key={control.name} control={control} values={values} onChange={change} />
-          ))}
-        </form>
+        {/* 切り替え項目がない部品は、切り替え欄を出さずにプレビューを広げる */}
+        {hasControls && (
+          <form className={styles.controls} aria-label="表示の切り替え" onSubmit={(e) => e.preventDefault()}>
+            {playground.controls.map((control) => (
+              <ControlRow key={control.name} control={control} values={values} onChange={change} />
+            ))}
+          </form>
+        )}
         {code !== undefined && (
           <pre className={styles.code} aria-label="コード例">
             <code>{code}</code>
