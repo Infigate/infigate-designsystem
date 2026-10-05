@@ -1,0 +1,31 @@
+/* Playground。吹き出しがどの向きでも入るよう、周りを空ける */
+.stage {
+  padding: var(--spacing-48) var(--spacing-64);
+}
+
+/* 4方向の吹き出しを横に並べる（矢印がはみ出す分、すき間を広めにとる） */
+.placements {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-32) var(--spacing-48);
+  padding: var(--spacing-16);
+}
+
+.placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-16);
+}
+
+.label {
+  color: var(--color-text-secondary);
+  font: var(--font-label-sm);
+}
+
+.usage {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-32);
+}

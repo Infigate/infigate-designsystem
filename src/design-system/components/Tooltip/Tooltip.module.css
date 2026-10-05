@@ -1,0 +1,69 @@
+/*
+ * Tooltip
+ * Figma: Infigate デザインシステム / Tooltip（コンポーネント tooltip）
+ * 浮いているものなので elevation/2 を付ける。矢印は 12px の四角を 45° 回したもので、吹き出しの辺から約 7px はみ出す。
+ */
+
+.bubble {
+  /* 矢印の大きさ（Figma: 12px・角丸 2px）と、辺の内側に入れる量（はみ出しを約 7px にする） */
+  --tooltip-arrow-size: 0.75rem;
+  --tooltip-arrow-inset: 1.5px;
+  --tooltip-arrow-offset: 50%;
+
+  position: relative;
+  width: max-content;
+  max-width: 20rem;
+  padding: var(--spacing-8) var(--spacing-12);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-inverse);
+  box-shadow: var(--elevation-2);
+  color: var(--color-text-on-brand);
+  font: var(--font-body-sm);
+}
+
+/* ---- 矢印。対象のある側の辺に付ける ---- */
+.arrow {
+  position: absolute;
+  width: var(--tooltip-arrow-size);
+  height: var(--tooltip-arrow-size);
+  border-radius: var(--radius-xs);
+  background: var(--color-bg-inverse);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* 上に出る吹き出しは、下の辺に矢印 */
+.bubble[data-placement='top'] .arrow {
+  top: calc(100% - var(--tooltip-arrow-inset));
+  left: var(--tooltip-arrow-offset);
+}
+
+.bubble[data-placement='bottom'] .arrow {
+  top: var(--tooltip-arrow-inset);
+  left: var(--tooltip-arrow-offset);
+}
+
+/* 左に出る吹き出しは、右の辺に矢印 */
+.bubble[data-placement='left'] .arrow {
+  top: var(--tooltip-arrow-offset);
+  left: calc(100% - var(--tooltip-arrow-inset));
+}
+
+.bubble[data-placement='right'] .arrow {
+  top: var(--tooltip-arrow-offset);
+  left: var(--tooltip-arrow-inset);
+}
+
+/* 対象に重ねて出す吹き出しは、画面のいちばん手前に置く */
+.floating {
+  position: fixed;
+  z-index: 1100;
+}
+
+.floating[hidden] {
+  display: none;
+}
+
+/* 位置が決まるまでは見せない */
+.floating:not([data-positioned]) {
+  opacity: 0;
+}
