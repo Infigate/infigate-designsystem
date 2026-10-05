@@ -38,6 +38,8 @@ export type CatalogPlayground = {
   readonly render: (values: PlaygroundValues) => ReactNode
   /** 現在の値に対応するコード例（省略可） */
   readonly code?: (values: PlaygroundValues) => string
+  /** 横に広い部品（例: Header）は、切り替え欄を見本の下に置いて見本を欄の幅いっぱいに広げる */
+  readonly wide?: boolean
 }
 
 type ControlValue<C> = C extends { type: 'boolean' }
@@ -59,6 +61,7 @@ export function definePlayground<const Cs extends readonly PlaygroundControl[]>(
   controls: Cs
   render: (values: PlaygroundValuesOf<Cs>) => ReactNode
   code?: (values: PlaygroundValuesOf<Cs>) => string
+  wide?: boolean
 }): CatalogPlayground {
   // 値の型は定義時に検査済み。保存するときは汎用の型に揃える
   return playground as unknown as CatalogPlayground
