@@ -1,0 +1,126 @@
+/*
+ * Alert
+ * Figma: Infigate デザインシステム / Alert（コンポーネント alert）
+ * 色は状態ごとに「背景・枠・見出し・アイコン」の4つを変数で決める。本文は状態によらず text/secondary。
+ */
+
+.alert {
+  --alert-bg: var(--color-status-info-bg);
+  --alert-border: var(--color-status-info-solid);
+  --alert-title: var(--color-status-info-text);
+  --alert-icon: var(--color-status-info-solid);
+
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-12);
+  padding: var(--spacing-16);
+  border: 1px solid var(--alert-border);
+  border-radius: var(--radius-md);
+  background: var(--alert-bg);
+}
+
+/* ---- 状態（Figma: Status） ---- */
+.alert[data-status='success'] {
+  --alert-bg: var(--color-status-success-bg);
+  --alert-border: var(--color-status-success-solid);
+  --alert-title: var(--color-status-success-text);
+  --alert-icon: var(--color-status-success-solid);
+}
+
+.alert[data-status='error'] {
+  --alert-bg: var(--color-status-error-bg);
+  --alert-border: var(--color-status-error-solid);
+  --alert-title: var(--color-status-error-text);
+  --alert-icon: var(--color-status-error-solid);
+}
+
+.alert[data-status='warning'] {
+  --alert-bg: var(--color-status-warning-bg);
+  --alert-border: var(--color-status-warning-solid);
+  --alert-title: var(--color-status-warning-text);
+  --alert-icon: var(--color-status-warning-solid);
+}
+
+/* ---- 1行（Figma: Layout=1行）。見出しだけの短い通知で、アイコンと文字を中央でそろえる ---- */
+.alert[data-layout='single'] {
+  align-items: center;
+  padding: var(--spacing-12) var(--spacing-16);
+}
+
+.icon {
+  color: var(--alert-icon);
+}
+
+/* warning の塗りは明るい黄色なので、中の「!」は白ではなく本文の色にする */
+.alert[data-status='warning'] .icon [data-knockout='fill'] {
+  fill: var(--color-text-primary);
+}
+
+.alert[data-status='warning'] .icon [data-knockout='stroke'] {
+  stroke: var(--color-text-primary);
+}
+
+/* ---- 見出し・本文・アクション（Figma: content） ---- */
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  color: var(--alert-title);
+  font: var(--font-label-md);
+}
+
+.body {
+  color: var(--color-text-secondary);
+  font: var(--font-body-sm);
+}
+
+.body > :first-child {
+  margin-top: 0;
+}
+
+.body > :last-child {
+  margin-bottom: 0;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-8);
+  padding-top: var(--spacing-4);
+}
+
+/* ---- 閉じるボタン（Figma: close。24px の ×）。押せる範囲はアイコンの周りに広げる ---- */
+.close {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.close::before {
+  content: '';
+  position: absolute;
+  inset: calc(-1 * var(--spacing-4));
+}
+
+.close:hover {
+  color: var(--color-text-primary);
+}
+
+/* Focus: 全部品共通のフォーカスリング（border/focus・3px・すき間なし） */
+.close:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-focus-ring);
+}
