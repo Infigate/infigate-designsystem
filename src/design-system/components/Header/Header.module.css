@@ -1,0 +1,260 @@
+/*
+ * Header・HeaderNavItem
+ * Figma: Infigate デザインシステム / Header（コンポーネント header・nav-item・logo）
+ * 幅 1024px 以上は Desktop（高さ 72px）、それより狭いと Mobile（高さ 56px・メニューボタン）。
+ * 幅はヘッダー自身の幅で判定する（コンテナクエリ）。カタログの狭い枠の中でも Mobile の見た目になる。
+ */
+
+/* ---- 下地の色（Figma: Theme）。ヘッダーと、単独で置いたナビのリストで共通 ---- */
+.header,
+.navList[data-theme] {
+  --header-bg: var(--color-bg-default);
+  --header-border: var(--color-border-subtle);
+  --header-text: var(--color-text-primary);
+  --header-link: var(--color-text-secondary);
+  --header-link-strong: var(--color-text-primary);
+  --header-hover-bg: var(--color-bg-subtle);
+  --header-current-bar: var(--color-keycolor-primary);
+  --header-divider: var(--color-border-subtle);
+}
+
+.header[data-theme='dark'],
+.navList[data-theme='dark'] {
+  --header-bg: var(--color-bg-inverse);
+  --header-border: var(--color-bg-inverse-subtle);
+  --header-text: var(--color-text-on-brand);
+  --header-link: var(--color-text-on-inverse-secondary);
+  --header-link-strong: var(--color-text-on-brand);
+  --header-hover-bg: var(--color-bg-inverse-subtle);
+  --header-current-bar: var(--color-keycolor-tertiary);
+  --header-divider: var(--color-bg-inverse-muted);
+}
+
+.header {
+  container: header / inline-size;
+  position: relative;
+  border-bottom: 1px solid var(--header-border);
+  background: var(--header-bg);
+}
+
+/* ---- Desktop（Figma: Layout=Desktop）。ロゴは左、ナビと操作は右 ---- */
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-24);
+  box-sizing: border-box;
+  /* 下線（1px）を含めて 72px */
+  min-height: calc(4.5rem - 1px);
+  padding: 0 var(--spacing-32);
+}
+
+.logo {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  color: var(--header-text);
+}
+
+.toggle {
+  display: none;
+}
+
+.panel {
+  display: flex;
+  margin-left: auto;
+}
+
+.panelInner {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-24);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+/* ---- ナビゲーション項目（Figma: nav-item。高さ 48px） ---- */
+.navList {
+  display: flex;
+  gap: var(--spacing-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navItem {
+  display: flex;
+}
+
+.link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--size-48);
+  padding: 0 var(--spacing-12);
+  color: var(--header-link);
+  font: var(--font-label-md);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color var(--ds-duration-fast);
+}
+
+.link:hover {
+  background: var(--header-hover-bg);
+  color: var(--header-link-strong);
+}
+
+/* Current: 今いるページ。下線と文字の濃さの2つで示す */
+.link[aria-current='page'] {
+  color: var(--header-link-strong);
+}
+
+.link[aria-current='page']::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: var(--header-current-bar);
+}
+
+/* Focus: 全部品共通のフォーカスリング（border/focus・3px・すき間なし） */
+.link:focus-visible {
+  outline: none;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--ds-focus-ring);
+  color: var(--header-link-strong);
+}
+
+/* ---- Mobile（Figma: Layout=Mobile / Mobile Open）。メニューボタンで、ヘッダーの下にメニューを開く ---- */
+@container header (max-width: 1023px) {
+  .bar {
+    /* 下線（1px）を含めて 56px */
+    min-height: calc(3.5rem - 1px);
+    padding: 0 var(--spacing-16);
+  }
+
+  /* 押せる範囲は 40px。アイコン（24px）の右端を余白 16px の位置にそろえる */
+  .toggle {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: var(--size-40);
+    height: var(--size-40);
+    margin: 0 calc(-1 * var(--spacing-8)) 0 auto;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-md);
+    background: none;
+    color: var(--header-text);
+    cursor: pointer;
+    transition: background-color var(--ds-duration-fast);
+  }
+
+  .toggle:hover {
+    background: var(--header-hover-bg);
+  }
+
+  .toggle:focus-visible {
+    outline: none;
+    box-shadow: var(--ds-focus-ring);
+  }
+
+  /*
+   * ヘッダーの下に重ねて開く。ヘッダーの下線はメニューの下端に移る。
+   * 開閉の動きは Accordion と同じく、grid の行の高さを 0fr ⇔ 1fr で変えて伸び縮みさせる
+   */
+  .panel {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    z-index: 900;
+    display: grid;
+    grid-template-rows: 0fr;
+    margin: 0;
+    border-bottom: 1px solid var(--header-border);
+    background: var(--header-bg);
+    visibility: hidden;
+    transition:
+      grid-template-rows var(--ds-duration-normal) ease-out,
+      visibility 0s linear var(--ds-duration-normal);
+  }
+
+  /* 閉じる動きが終わるまで待ってから隠し、開くときはすぐに見せる */
+  .panel[data-open] {
+    grid-template-rows: 1fr;
+    visibility: visible;
+    transition:
+      grid-template-rows var(--ds-duration-normal) ease-out,
+      visibility 0s;
+  }
+
+  /* 項目が多いときは、画面の高さに収めてメニューの中でスクロールする */
+  .panelInner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    min-height: 0;
+    max-height: calc(100dvh - 3.5rem);
+    overflow-y: auto;
+  }
+
+  /* 上下の余白は中身の側に付ける（閉じたときに余白の分だけ見えてしまわないように） */
+  .panelInner > :first-child {
+    margin-top: var(--spacing-8);
+  }
+
+  .panelInner > :last-child {
+    margin-bottom: var(--spacing-24);
+  }
+
+  /* 項目は1行ずつ、区切り線で分ける */
+  .navList {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .link {
+    flex: 1;
+    height: auto;
+    padding: var(--spacing-16);
+    border-bottom: 1px solid var(--header-divider);
+    color: var(--header-link-strong);
+  }
+
+  /* 今いるページは、左端の縦線で示す。縦の線は細いと目に入りにくいので、下線より太くする */
+  .link[aria-current='page']::after {
+    top: 0;
+    right: auto;
+    width: 4px;
+    height: auto;
+  }
+
+  .link:focus-visible {
+    border-radius: 0;
+    box-shadow: var(--ds-focus-ring-inset);
+  }
+
+  /* ボタンは幅いっぱいの縦積みで、主ボタン（右端に置いたもの）を上にする */
+  .actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    padding: var(--spacing-16) var(--spacing-16) 0;
+  }
+}
+
+/* 動きを減らす設定のときは、動かさずに切り替える */
+@media (prefers-reduced-motion: reduce) {
+  .link,
+  .toggle,
+  .panel,
+  .panel[data-open] {
+    transition: none;
+  }
+}

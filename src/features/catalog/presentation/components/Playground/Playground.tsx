@@ -23,7 +23,11 @@ export function Playground({ playground }: PlaygroundProps) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.playground} data-has-controls={hasControls || undefined}>
+      <div
+        className={styles.playground}
+        data-has-controls={hasControls || undefined}
+        data-wide={playground.wide || undefined}
+      >
         <div className={styles.stage} role="region" aria-label="プレビュー">
           {playground.render(values)}
         </div>

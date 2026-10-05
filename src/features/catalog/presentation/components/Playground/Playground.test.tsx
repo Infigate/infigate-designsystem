@@ -90,4 +90,14 @@ describe('Playground', () => {
     expect(screen.queryByRole('form', { name: '表示の切り替え' })).not.toBeInTheDocument()
     expect(screen.getByLabelText('コード例')).toHaveTextContent('<Sortable />')
   })
+
+  it('wide を指定すると、切り替え欄を見本の下に置く配置にする', () => {
+    const { rerender } = render(<Playground playground={playground} />)
+    const frame = () => screen.getByRole('region', { name: 'プレビュー' }).parentElement
+
+    expect(frame()).not.toHaveAttribute('data-wide')
+
+    rerender(<Playground playground={{ ...playground, wide: true }} />)
+    expect(frame()).toHaveAttribute('data-wide')
+  })
 })
