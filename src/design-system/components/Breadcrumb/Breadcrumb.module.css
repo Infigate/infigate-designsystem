@@ -1,0 +1,58 @@
+/*
+ * Breadcrumb・BreadcrumbItem
+ * Figma: Infigate デザインシステム / Breadcrumb（コンポーネント breadcrumb・breadcrumb-item）
+ * ヘッダーのナビと同じ扱いで、リンクに常時の下線は付けない（本文中のリンクとは区別する）。
+ */
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 区切り（Figma: separator。24px の chevron-right）と項目を1組にして、組の単位で折り返す */
+.entry {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.separator {
+  flex-shrink: 0;
+  color: var(--color-border-default);
+}
+
+/* ---- 項目（Figma: breadcrumb-item）。Current は今いるページなので通常の文字色 ---- */
+.item {
+  padding: var(--spacing-4);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+  font: var(--font-body-sm);
+  white-space: nowrap;
+}
+
+/* 祖先はリンク色で、押せることを色で伝える */
+.link {
+  color: var(--color-link-default);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* Focus: 全部品共通のフォーカスリング（border/focus・3px・すき間なし） */
+.link:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-focus-ring);
+}
+
+/* 6階層以上のときに中間を省略した印 */
+.ellipsis {
+  color: var(--color-text-secondary);
+  font: var(--font-body-sm);
+}
