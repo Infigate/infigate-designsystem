@@ -17,8 +17,10 @@
 @import './elevation.css';
 
 :root {
-  /* Focus */
+  /* Focus
+   * 外側に引くのが基本。メニューの項目のように、外にはみ出すと切れたり隣と重なったりする場所だけ内側に引く */
   --ds-focus-ring: 0 0 0 3px var(--color-border-focus);
+  --ds-focus-ring-inset: inset 0 0 0 3px var(--color-border-focus);
 
   /* Typography: 等幅（Figma に定義なし。Props 表のコード表示などに使う） */
   --ds-font-family-mono: ui-monospace, SFMono-Regular, Menlo, monospace;

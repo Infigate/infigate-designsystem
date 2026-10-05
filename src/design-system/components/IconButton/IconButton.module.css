@@ -1,0 +1,55 @@
+/*
+ * IconButton
+ * Figma: Infigate デザインシステム / Menu（コンポーネント icon-button）
+ * ふだんは背景なし。Hover・Focus で背景を付け、Focus はさらにリングを付ける。
+ */
+
+.iconButton {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background-color var(--ds-duration-fast);
+}
+
+/* ---- 大きさ（Figma: Size） ---- */
+.iconButton[data-size='sm'] {
+  width: var(--size-32);
+  height: var(--size-32);
+}
+
+.iconButton[data-size='md'] {
+  width: var(--size-40);
+  height: var(--size-40);
+}
+
+/* ---- 状態（Figma: State） ---- */
+.iconButton:not(:disabled):hover,
+.iconButton[aria-expanded='true'] {
+  background: var(--color-bg-muted);
+}
+
+/* Focus: 全部品共通のフォーカスリング（border/focus・3px・すき間なし） */
+.iconButton:focus-visible {
+  outline: none;
+  background: var(--color-bg-muted);
+  box-shadow: var(--ds-focus-ring);
+}
+
+.iconButton:disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iconButton {
+    transition: none;
+  }
+}
