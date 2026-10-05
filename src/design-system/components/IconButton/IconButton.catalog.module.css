@@ -1,0 +1,13 @@
+/* 大きさ × 状態の表（Figma のグリッドと同じ並び） */
+.matrix {
+  display: grid;
+  grid-template-columns: max-content repeat(4, minmax(5rem, max-content));
+  align-items: center;
+  gap: var(--spacing-24) var(--spacing-32);
+}
+
+.columnLabel,
+.rowLabel {
+  color: var(--color-text-secondary);
+  font: var(--font-label-sm);
+}

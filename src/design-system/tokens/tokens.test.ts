@@ -296,7 +296,7 @@ describe('トークンを使う CSS', () => {
   })
 
   it.each(consumers)('%s は影を直接書かず、エレベーション（またはフォーカスリング）のトークンを使っている', (_path, css) => {
-    const hardCoded = stripComments(css).match(/box-shadow:(?!\s*(?:var\(--(?:elevation-\d|ds-focus-ring)\)|none)\s*;)[^;}]*/g)
+    const hardCoded = stripComments(css).match(/box-shadow:(?!\s*(?:var\(--(?:elevation-\d|ds-focus-ring|ds-focus-ring-inset)\)|none)\s*;)[^;}]*/g)
 
     expect(hardCoded).toBeNull()
   })
