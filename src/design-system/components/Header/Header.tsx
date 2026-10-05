@@ -9,8 +9,8 @@ import styles from './Header.module.css'
 export type HeaderProps = Omit<ComponentPropsWithRef<'header'>, 'children'> & {
   /** 下地の色（Figma: Theme） */
   theme?: HeaderTheme
-  /** 左端のロゴ。トップページへのリンクにする */
-  logo: ReactNode
+  /** 左端のロゴ。トップページへのリンクにする。ロゴをサイドメニューなど別の場所に置く画面では省略できる */
+  logo?: ReactNode
   /** ナビゲーション項目（HeaderNavItem） */
   children?: ReactNode
   /** 右端の操作（Button を2つまで。主ボタンを右に置く） */
@@ -69,7 +69,7 @@ export function Header({
   return (
     <header {...rest} className={cx(styles.header, className)} data-theme={theme}>
       <div ref={barRef} className={styles.bar}>
-        <div className={styles.logo}>{logo}</div>
+        {logo && <div className={styles.logo}>{logo}</div>}
         <button
           ref={toggleRef}
           type="button"

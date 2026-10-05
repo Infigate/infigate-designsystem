@@ -27,6 +27,16 @@ describe('Header', () => {
     expect(screen.getByRole('button', { name: 'お問い合わせ' })).toBeInTheDocument()
   })
 
+  it('logo は省略でき、そのときはロゴの場所を作らない', () => {
+    const { container } = render(
+      <Header>
+        <HeaderNavItem href="/works">実績</HeaderNavItem>
+      </Header>,
+    )
+
+    expect(container.querySelector('header')?.firstElementChild?.firstElementChild).toHaveAttribute('aria-label', 'メニュー')
+  })
+
   it('今いるページの項目は aria-current="page" で伝える', () => {
     renderHeader()
 

@@ -37,13 +37,23 @@ function SampleActions({ theme }: { theme: HeaderTheme }) {
 }
 
 /** 押した項目が Current になる見本 */
-function SampleHeader({ theme, actions = true, defaultMenuOpen }: { theme: HeaderTheme; actions?: boolean; defaultMenuOpen?: boolean }) {
+function SampleHeader({
+  theme,
+  logo = true,
+  actions = true,
+  defaultMenuOpen,
+}: {
+  theme: HeaderTheme
+  logo?: boolean
+  actions?: boolean
+  defaultMenuOpen?: boolean
+}) {
   const [current, setCurrent] = useState(NAV_ITEMS[0])
 
   return (
     <Header
       theme={theme}
-      logo={<SampleLogo theme={theme} />}
+      logo={logo ? <SampleLogo theme={theme} /> : undefined}
       actions={actions ? <SampleActions theme={theme} /> : undefined}
       defaultMenuOpen={defaultMenuOpen}
     >
@@ -68,19 +78,22 @@ const playground = definePlayground({
   controls: [
     { type: 'select', name: 'layout', options: ['desktop', 'mobile'], defaultValue: 'desktop' },
     { type: 'select', name: 'theme', options: HEADER_THEMES, defaultValue: 'light' },
+    { type: 'boolean', name: 'logo', defaultValue: true },
     { type: 'boolean', name: 'actions', defaultValue: true },
   ],
   // ヘッダーは幅 1024px 以上で Desktop の見た目になるので、見本を欄の幅いっぱいに広げる
   wide: true,
-  render: ({ layout, theme, actions }) => (
+  render: ({ layout, theme, logo, actions }) => (
     <div className={layout === 'mobile' ? styles.mobile : styles.wide}>
-      <SampleHeader key={layout} theme={theme} actions={actions} />
+      <SampleHeader key={layout} theme={theme} logo={logo} actions={actions} />
     </div>
   ),
-  code: ({ theme, actions }) => {
-    const attributes = [theme !== 'light' && `theme="${theme}"`, 'logo={<Logo />}', actions && 'actions={<>…</>}'].filter(Boolean)
+  code: ({ theme, logo, actions }) => {
+    const attributes = [theme !== 'light' && `theme="${theme}"`, logo && 'logo={<Logo />}', actions && 'actions={<>…</>}'].filter(
+      Boolean,
+    )
     return [
-      `<Header ${attributes.join(' ')}>`,
+      attributes.length ? `<Header ${attributes.join(' ')}>` : '<Header>',
       '  <HeaderNavItem href="/services" current>サービス</HeaderNavItem>',
       '  <HeaderNavItem href="/works">実績</HeaderNavItem>',
       '  <HeaderNavItem href="/company">会社情報</HeaderNavItem>',
@@ -165,7 +178,11 @@ export default defineCatalogEntry({
       defaultValue: "'light'",
       description: '下地の色。dark ではロゴを白のモノクロにし、ボタンは Button の theme="inverse" を使う',
     },
-    { name: 'logo', type: 'ReactNode', required: true, description: '左端のロゴ。トップページへのリンクにする' },
+    {
+      name: 'logo',
+      type: 'ReactNode',
+      description: '左端のロゴ。トップページへのリンクにする。ロゴを別の場所に置く画面では省略できる',
+    },
     { name: 'children', type: 'ReactNode', description: 'ナビゲーション項目（HeaderNavItem）' },
     { name: 'actions', type: 'ReactNode', description: '右端の操作。Button を2つまでで、主ボタンを右に置く' },
     { name: 'navLabel', type: 'string', defaultValue: "'メインメニュー'", description: 'ナビゲーションの読み上げ名' },
