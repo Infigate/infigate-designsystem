@@ -1,0 +1,129 @@
+/*
+ * Tabs・TabList・Tab・TabPanel
+ * Figma: Infigate デザインシステム / Tabs（コンポーネント tabs・tab-item）
+ */
+
+/* ---- タブの並び（Figma: tabs。高さ 48px）。下の細い線が土台で、選択中のタブの下線・塗りはその上に重なる ---- */
+.listFrame {
+  --tabs-base-line: var(--color-border-default);
+
+  position: relative;
+  /* flex にして、中の .list の負のマージンを外へ逃がさない（高さを 48px に保つ） */
+  display: flex;
+}
+
+.listFrame[data-variant='solid'] {
+  --tabs-base-line: var(--color-keycolor-primary);
+}
+
+.listFrame::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: var(--tabs-base-line);
+}
+
+/*
+ * 入りきらないときは横にスクロールする（土台の線は動かさない）。
+ * スクロールの枠はフォーカスリングを切ってしまうので、四方にリングの分の余白を取り、同じ分だけ外へ広げて位置を保つ
+ */
+.list {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  margin: calc(-1 * var(--spacing-4));
+  padding: var(--spacing-4);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.list[data-variant='solid'] {
+  gap: var(--spacing-4);
+}
+
+/* ---- タブの1項目（Figma: tab-item） ---- */
+.tab {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-8);
+  height: var(--size-48);
+  margin: 0;
+  padding: 0 var(--spacing-16);
+  border: 0;
+  background: none;
+  color: var(--color-text-secondary);
+  font: var(--font-label-md);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--ds-duration-fast),
+    color var(--ds-duration-fast);
+}
+
+/* Solid は上の2角だけ角丸にし、下辺はフラットにして中身の面とつながって見せる */
+.tab[data-variant='solid'] {
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.tab:not(:disabled, [data-selected]):hover {
+  background: var(--color-bg-subtle);
+  color: var(--color-text-primary);
+}
+
+/* Selected（Outline）: 下線と文字色で示す */
+.tab[data-variant='outline'][data-selected] {
+  color: var(--color-keycolor-primary);
+}
+
+.tab[data-variant='outline'][data-selected]::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: var(--color-keycolor-primary);
+}
+
+/* Selected（Solid）: 塗りと白文字で示す */
+.tab[data-variant='solid'][data-selected] {
+  background: var(--color-keycolor-primary);
+  color: var(--color-text-on-brand);
+}
+
+/* Focus: 全部品共通のフォーカスリング（border/focus・3px・すき間なし） */
+.tab:focus-visible {
+  outline: none;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--ds-focus-ring);
+}
+
+.tab:not([data-selected]):focus-visible {
+  color: var(--color-text-primary);
+}
+
+.tab:disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+/* ---- 中身（TabPanel） ---- */
+.panel:focus-visible {
+  outline: none;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--ds-focus-ring);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tab {
+    transition: none;
+  }
+}
