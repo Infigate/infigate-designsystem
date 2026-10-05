@@ -1,0 +1,191 @@
+/*
+ * Table
+ * Figma: Infigate デザインシステム / Table（コンポーネント table-header-cell・table-sort-icon・table-cell・
+ * table-cell-slot・table-row・table-empty）
+ * 背景と罫線はセルが持つ。罫線は下線が基本で、bordered のときだけ列のあいだに縦線を引く。
+ */
+
+/* 画面より広い表は、この枠の中だけ横にスクロールする。
+ * 見出しのフォーカスリングが枠で切れないよう内側に余白をとり、その分を外側に戻して位置を変えない */
+.container {
+  margin: calc(-1 * var(--spacing-4));
+  padding: var(--spacing-4);
+  overflow-x: auto;
+}
+
+.table {
+  /* セルの上下の余白（Figma: Small 8px・Medium 16px）。高さは「余白 × 2 ＋ 文字の高さ」で決まる */
+  --table-padding-block: var(--spacing-16);
+  --table-header-height: calc(var(--table-padding-block) * 2 + var(--size-20));
+  --table-cell-height: calc(var(--table-padding-block) * 2 + var(--size-24));
+  /* 下線はセルの高さの内側に入れる（Figma と同じく、下の余白に重ねる） */
+  --table-border-width: 1px;
+  --table-border: var(--table-border-width) solid var(--color-border-subtle);
+  --table-padding-bottom: calc(var(--table-padding-block) - var(--table-border-width));
+
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  color: var(--color-text-primary);
+}
+
+.table[data-size='sm'] {
+  --table-padding-block: var(--spacing-8);
+}
+
+/* ---- セル共通: 下線と寄せ ---- */
+.headerCell,
+.cell {
+  border-bottom: var(--table-border);
+  vertical-align: middle;
+}
+
+:is(.headerCell, .cell)[data-align='center'] {
+  text-align: center;
+}
+
+:is(.headerCell, .cell)[data-align='right'] {
+  text-align: end;
+}
+
+/* 格子（Figma: Show right border）。いちばん右の列には引かない */
+.table[data-bordered] :is(.headerCell, .cell):not(:last-child) {
+  border-right: var(--table-border);
+}
+
+/* ---- 見出しセル（Figma: table-header-cell） ---- */
+.headerCell {
+  height: var(--table-header-height);
+  padding: var(--table-padding-block) var(--spacing-16) var(--table-padding-bottom);
+  background: var(--color-bg-subtle);
+  font: var(--font-label-sm);
+  text-align: start;
+  white-space: nowrap;
+}
+
+/* 並び替えできる見出しは、セル全体を押せるボタンにする */
+.headerCell[data-sortable] {
+  padding: 0;
+}
+
+.sortButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  width: 100%;
+  min-height: calc(var(--table-header-height) - var(--table-border-width));
+  margin: 0;
+  padding: var(--table-padding-block) var(--spacing-16) var(--table-padding-bottom);
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.headerCell[data-align='center'] .sortButton {
+  justify-content: center;
+}
+
+.headerCell[data-align='right'] .sortButton {
+  justify-content: flex-end;
+}
+
+.sortButton:hover {
+  background: var(--color-bg-muted);
+}
+
+/* Focus: 全部品共通のフォーカスリング（border/focus・3px・すき間なし）。隣のセルに隠れないよう前に出す */
+.sortButton:focus-visible {
+  position: relative;
+  z-index: 1;
+  outline: none;
+  background: var(--color-bg-muted);
+  box-shadow: var(--ds-focus-ring);
+}
+
+/* 並び替えのアイコン（Figma: table-sort-icon。16px） */
+.sortIcon {
+  flex-shrink: 0;
+  width: var(--size-16);
+  height: var(--size-16);
+  color: var(--color-text-primary);
+}
+
+.sortIcon[data-sort='none'] {
+  color: var(--color-text-tertiary);
+}
+
+/* ---- 本文セル（Figma: table-cell・table-cell-slot） ---- */
+.cell {
+  height: var(--table-cell-height);
+  padding: var(--table-padding-block) var(--spacing-16) var(--table-padding-bottom);
+  font: var(--font-body-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 部品を入れたセルは、行の高さがそろうよう上下の余白をとらない（Figma: table-cell-slot） */
+.cell[data-content='slot'] {
+  padding-block: 0;
+}
+
+/* チェック列（Figma: table-row の check。幅 48px） */
+.selectCell {
+  width: var(--size-48);
+  padding: 0;
+}
+
+/* チェックボックスを、文字の並びではなくセルの上下左右の中央に置く */
+.selectControl {
+  display: flex;
+  justify-content: center;
+}
+
+/* ---- 行の状態（Figma: State）。選択中は、縞やポインターより優先して見せる ---- */
+.body .row {
+  background: var(--color-bg-default);
+}
+
+.table[data-striped] .body .row:nth-child(even):not([data-selected]) {
+  background: var(--color-bg-subtle);
+}
+
+.body .row:not([data-selected]):hover {
+  background: var(--color-bg-muted);
+}
+
+.body .row[data-selected] {
+  background: var(--color-bg-selected);
+}
+
+/* ---- データがないとき（Figma: table-empty） ---- */
+.emptyCell {
+  padding: 0;
+  border-bottom: var(--table-border);
+  background: var(--color-bg-default);
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-8);
+  padding: var(--spacing-48) var(--spacing-24);
+  text-align: center;
+}
+
+.emptyTitle {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font: var(--font-body-md);
+}
+
+.emptyDescription {
+  margin: 0;
+  color: var(--color-text-tertiary);
+  font: var(--font-body-sm);
+}
+
+.emptyAction {
+  margin-top: var(--spacing-8);
+}

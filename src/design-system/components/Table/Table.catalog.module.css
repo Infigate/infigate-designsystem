@@ -1,0 +1,23 @@
+/* Figma の使用例と同じ幅（チェック列なし 832px） */
+.box {
+  width: min(100%, 55rem);
+}
+
+/* 状態ごとに、名前と見本の表を並べる */
+.matrix {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+  width: min(100%, 50rem);
+}
+
+.matrixRow {
+  display: grid;
+  grid-template-columns: 6rem minmax(0, 1fr);
+  align-items: center;
+}
+
+.rowLabel {
+  color: var(--color-text-secondary);
+  font: var(--font-label-sm);
+}
