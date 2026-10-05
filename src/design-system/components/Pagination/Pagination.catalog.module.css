@@ -1,0 +1,48 @@
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+}
+
+.case {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+}
+
+.caseLabel {
+  color: var(--color-text-secondary);
+  font: var(--font-body-xs);
+}
+
+/* ページ番号の状態（下に状態名） */
+.states {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-40);
+}
+
+.state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+/* 前後・最初・最後のボタンの状態の表（行: 状態 / 列: 向き） */
+.navGrid {
+  display: grid;
+  grid-template-columns: 5rem repeat(4, var(--size-40));
+  align-items: center;
+  justify-items: center;
+  gap: var(--spacing-16) var(--spacing-40);
+}
+
+.navGrid > :first-child,
+.navRow > :first-child {
+  justify-self: start;
+}
+
+.navRow {
+  display: contents;
+}
