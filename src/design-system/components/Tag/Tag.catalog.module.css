@@ -1,0 +1,44 @@
+/* 状態の表（行: 通常・選択中・削除つき、列: 状態） */
+.matrix {
+  display: grid;
+  grid-template-columns: max-content repeat(4, minmax(6rem, max-content));
+  align-items: center;
+  gap: var(--spacing-16) var(--spacing-24);
+}
+
+.columnLabel,
+.rowLabel {
+  color: var(--color-text-secondary);
+  font: var(--font-label-sm);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-12);
+}
+
+/* タグを並べる。入りきらなければ折り返す */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-8);
+}
+
+.note {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font: var(--font-body-sm);
+}
+
+.reset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-link-default);
+  font: var(--font-body-sm);
+  text-decoration: underline;
+  cursor: pointer;
+}

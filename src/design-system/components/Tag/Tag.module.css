@@ -1,0 +1,121 @@
+/*
+ * Tag
+ * Figma: Infigate デザインシステム / Tag（コンポーネント tag）
+ * 押せるタグは、中のボタンをタグ全体に広げて押せる範囲にする。× はその上に重ね、押すと削除だけが働く。
+ */
+
+.tag {
+  /* 状態ごとに変える色 */
+  --tag-bg: var(--color-bg-default);
+  --tag-border: var(--color-border-default);
+  --tag-text: var(--color-text-primary);
+  --tag-icon: var(--color-text-secondary);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  height: var(--size-32);
+  padding: 0 var(--spacing-12);
+  border: 1px solid var(--tag-border);
+  border-radius: var(--radius-sm);
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  font: var(--font-label-sm);
+  white-space: nowrap;
+  transition:
+    background-color var(--ds-duration-fast),
+    border-color var(--ds-duration-fast);
+}
+
+/* 押せるタグのボタン。見た目は文字だけにし、押せる範囲をタグ全体に広げる */
+.main {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.main::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+/* ---- Selected（選択中） ---- */
+.tag[data-selected] {
+  --tag-bg: var(--color-bg-selected);
+  --tag-border: var(--color-keycolor-primary);
+  --tag-text: var(--color-keycolor-primary);
+  --tag-icon: var(--color-keycolor-primary);
+}
+
+/* ---- Hover・Active（押せるタグだけ。× の上ではタグ全体は変えない） ---- */
+.tag:not([data-selected]):has(.main:hover) {
+  --tag-bg: var(--color-bg-subtle);
+  --tag-border: var(--color-border-strong);
+}
+
+.tag:not([data-selected]):has(.main:active) {
+  --tag-bg: var(--color-bg-muted);
+  --tag-border: var(--color-border-strong);
+}
+
+/* 選択中は、選択中の色を1段濃くする（Figma に指定なし。Checkbox の選択中の Hover に合わせた） */
+.tag[data-selected]:has(.main:hover) {
+  --tag-bg: var(--color-keycolor-100);
+  --tag-border: var(--color-keycolor-600);
+}
+
+.tag[data-selected]:has(.main:active) {
+  --tag-bg: var(--color-keycolor-200);
+  --tag-border: var(--color-keycolor-600);
+}
+
+/* ---- Focus: 枠をキーカラーにし、全部品共通のフォーカスリング（border/focus・3px・すき間なし）を付ける ---- */
+.main:focus-visible {
+  outline: none;
+}
+
+.tag:has(.main:focus-visible) {
+  --tag-border: var(--color-keycolor-primary);
+
+  box-shadow: var(--ds-focus-ring);
+}
+
+/* ---- 削除の ×（Figma: remove。24px）。Hover では × の部分にだけ背景を付ける ---- */
+.remove {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--tag-icon);
+  transition: background-color var(--ds-duration-fast);
+  cursor: pointer;
+}
+
+.remove:hover {
+  background: var(--color-bg-muted);
+  color: var(--color-text-primary);
+}
+
+.remove:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-focus-ring);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tag,
+  .remove {
+    transition: none;
+  }
+}
