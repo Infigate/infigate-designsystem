@@ -1,0 +1,50 @@
+/* ロゴの仮置き（28px の角丸の印と、サービス名） */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  border-radius: var(--radius-sm);
+  color: inherit;
+  font: var(--font-heading-xl);
+  text-decoration: none;
+}
+
+.logo:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-focus-ring);
+}
+
+.mark {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--radius-md);
+  background: var(--color-keycolor-primary);
+}
+
+.mark[data-theme='dark'] {
+  background: currentColor;
+}
+
+.wide {
+  width: 100%;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+  width: 100%;
+}
+
+/* スマートフォンの幅（375px） */
+.mobiles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--spacing-48);
+  width: 100%;
+}
+
+.mobile {
+  width: min(100%, 23.4375rem);
+}

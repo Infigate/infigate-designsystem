@@ -1,0 +1,174 @@
+/*
+ * Footer・FooterColumn・FooterLink
+ * Figma: Infigate デザインシステム / Footer（コンポーネント footer・logo）
+ * 幅 1024px 以上は Desktop、それより狭いと Mobile（縦に積む）。Header と同じく、幅はフッター自身の幅で判定する。
+ */
+
+/* ---- 下地の色（Figma: Theme）。文字は「見出し」と「それ以外」の2段階で組む ---- */
+.footer {
+  --footer-bg: var(--color-bg-subtle);
+  --footer-border: var(--color-border-subtle);
+  --footer-title: var(--color-text-primary);
+  --footer-text: var(--color-text-secondary);
+  --footer-copyright: var(--color-text-tertiary);
+
+  container: footer / inline-size;
+  border-top: 1px solid var(--footer-border);
+  background: var(--footer-bg);
+}
+
+.footer[data-theme='dark'] {
+  --footer-bg: var(--color-bg-inverse);
+  --footer-border: var(--color-bg-inverse-subtle);
+  --footer-title: var(--color-text-on-brand);
+  --footer-text: var(--color-text-on-inverse-secondary);
+  --footer-copyright: var(--color-text-on-inverse-secondary);
+}
+
+/* ---- Desktop（Figma: Layout=Desktop）。ロゴと説明は左、リンクのまとまりは右 ---- */
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-40);
+  padding: var(--spacing-48) var(--spacing-32);
+}
+
+.main {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-64);
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+  width: 20rem;
+  max-width: 100%;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  color: var(--footer-title);
+}
+
+.description {
+  margin: 0;
+  color: var(--footer-text);
+  font: var(--font-body-sm);
+}
+
+.columns {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  gap: var(--spacing-64);
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+}
+
+.columnTitle {
+  margin: 0;
+  color: var(--footer-title);
+  font: var(--font-label-sm);
+  white-space: nowrap;
+}
+
+.columnList,
+.legal {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.columnList {
+  flex-direction: column;
+  gap: var(--spacing-8);
+  font: var(--font-body-sm);
+}
+
+/* ---- 下の段（Figma: bottom）。上に区切り線を引き、著作権表示は左、規約などのリンクは右 ---- */
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-24);
+  font: var(--font-body-xs);
+}
+
+.main + .bottom {
+  padding-top: var(--spacing-40);
+  border-top: 1px solid var(--footer-border);
+}
+
+.copyright {
+  margin: 0;
+  color: var(--footer-copyright);
+}
+
+.legal {
+  flex-wrap: wrap;
+  gap: var(--spacing-16);
+}
+
+/* ---- リンク ---- */
+.item {
+  display: flex;
+}
+
+.link {
+  border-radius: var(--radius-sm);
+  color: var(--footer-text);
+  font: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.link:hover {
+  color: var(--footer-title);
+  text-decoration: underline;
+}
+
+/* Focus: 全部品共通のフォーカスリング（border/focus・3px・すき間なし） */
+.link:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-focus-ring);
+}
+
+/* ---- Mobile（Figma: Layout=Mobile）。すべて縦に積む ---- */
+@container footer (max-width: 1023px) {
+  .inner {
+    gap: var(--spacing-32);
+    padding: var(--spacing-32) var(--spacing-16);
+  }
+
+  .main {
+    flex-direction: column;
+    gap: var(--spacing-32);
+  }
+
+  .brand {
+    width: auto;
+  }
+
+  .columns {
+    flex-direction: column;
+    gap: var(--spacing-24);
+  }
+
+  .bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-12);
+  }
+
+  .main + .bottom {
+    padding-top: var(--spacing-32);
+  }
+}
