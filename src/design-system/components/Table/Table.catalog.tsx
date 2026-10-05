@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { defineCatalogEntry, definePlayground, ForcePseudoState, type ForceablePseudoClass } from '@/features/catalog'
+import { Badge, type BadgeStatus } from '../Badge'
 import { Button } from '../Button'
 import { Table, TableBody, TableHead, TableRow } from './Table'
 import styles from './Table.catalog.module.css'
@@ -7,7 +8,11 @@ import { TABLE_ALIGNS, TABLE_SIZES, TABLE_SORTS, type TableAlign, type TableSize
 import { TableCell, TableHeaderCell, TableSelectCell } from './TableCell'
 import { TableEmpty } from './TableEmpty'
 
-type Deal = { id: string; name: string; owner: string; status: string; amount: number }
+type DealStatus = '受注' | '提案中' | '見積中'
+type Deal = { id: string; name: string; owner: string; status: DealStatus; amount: number }
+
+/** 状況ごとのバッジの色 */
+const STATUS_COLORS = { 受注: 'success', 提案中: 'info', 見積中: 'neutral' } as const satisfies Record<DealStatus, BadgeStatus>
 
 const DEALS: Deal[] = [
   { id: 'd1', name: '基幹システム刷新', owner: '山田 太郎', status: '提案中', amount: 12_400_000 },
@@ -88,7 +93,12 @@ function DealTable({
               )}
               <TableCell align={align}>{deal.name}</TableCell>
               <TableCell align={align}>{deal.owner}</TableCell>
-              <TableCell align={align}>{deal.status}</TableCell>
+              <TableCell align={align}>
+                {/* 選択中の行は色の付いた面なので、塗りが重ならない outline にする */}
+                <Badge status={STATUS_COLORS[deal.status]} variant={selectable && isSelected ? 'outline' : 'subtle'}>
+                  {deal.status}
+                </Badge>
+              </TableCell>
               <TableCell align="right">{yen(deal.amount)}</TableCell>
             </TableRow>
           )
@@ -126,6 +136,7 @@ const playground = definePlayground({
       ...(selectable ? ['      <TableSelectCell aria-label="すべての行を選択" checked={…} onChange={…} />'] : []),
       `      <TableHeaderCell${alignAttribute} sort="asc" onSort={…}>案件名</TableHeaderCell>`,
       `      <TableHeaderCell${alignAttribute}>担当者</TableHeaderCell>`,
+      `      <TableHeaderCell${alignAttribute}>状況</TableHeaderCell>`,
       '      <TableHeaderCell align="right" sort="none" onSort={…}>金額（円）</TableHeaderCell>',
       '    </TableRow>',
       '  </TableHead>',
@@ -134,6 +145,9 @@ const playground = definePlayground({
       ...(selectable ? ['      <TableSelectCell aria-label="基幹システム刷新を選択" checked={…} onChange={…} />'] : []),
       `      <TableCell${alignAttribute}>基幹システム刷新</TableCell>`,
       `      <TableCell${alignAttribute}>山田 太郎</TableCell>`,
+      `      <TableCell${alignAttribute}>`,
+      '        <Badge status="info">提案中</Badge>',
+      '      </TableCell>',
       '      <TableCell align="right">12,400,000</TableCell>',
       '    </TableRow>',
       '  </TableBody>',
