@@ -1,0 +1,230 @@
+/*
+ * Toast・ToastProvider
+ * Figma: Infigate デザインシステム / Toast（コンポーネント toast）
+ * 色は見た目と状態の組み合わせごとに「背景・見出し・説明・アイコン・閉じるボタン」の変数で決める。
+ */
+
+.toast {
+  --toast-bg: var(--color-bg-default);
+  --toast-border: var(--color-border-subtle);
+  --toast-title: var(--color-text-primary);
+  --toast-description: var(--color-text-secondary);
+  --toast-icon: var(--color-status-info-solid);
+  --toast-close: var(--color-text-secondary);
+  --toast-close-hover: var(--color-bg-muted);
+
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-12) var(--spacing-16);
+  /* Solid・Dark は枠の色を背景と同じにして、Light と高さをそろえる */
+  border: 1px solid var(--toast-border);
+  border-radius: var(--radius-md);
+  background: var(--toast-bg);
+  box-shadow: var(--elevation-2);
+}
+
+/* ---- Light（Figma: Style=Light）。白い面に、状態色の塗りのアイコン ---- */
+.toast[data-variant='light'][data-status='success'] {
+  --toast-icon: var(--color-status-success-solid);
+}
+
+.toast[data-variant='light'][data-status='error'] {
+  --toast-icon: var(--color-status-error-solid);
+}
+
+.toast[data-variant='light'][data-status='warning'] {
+  --toast-icon: var(--color-status-warning-solid);
+}
+
+/* warning の塗りは明るい黄色なので、中の「!」は白ではなく本文の色にする */
+.toast[data-variant='light'][data-status='warning'] .icon [data-knockout='fill'] {
+  fill: var(--color-text-primary);
+}
+
+.toast[data-variant='light'][data-status='warning'] .icon [data-knockout='stroke'] {
+  stroke: var(--color-text-primary);
+}
+
+/* ---- Solid（Figma: Style=Solid）。状態色の塗りに、白い文字と線のアイコン ---- */
+.toast[data-variant='solid'] {
+  --toast-bg: var(--color-status-info-solid);
+  --toast-title: var(--color-text-on-brand);
+  --toast-icon: var(--color-text-on-brand);
+  --toast-close: var(--color-text-on-brand);
+  --toast-close-hover: color-mix(in srgb, currentColor 16%, transparent);
+}
+
+.toast[data-variant='solid'][data-status='success'] {
+  --toast-bg: var(--color-status-success-solid);
+}
+
+.toast[data-variant='solid'][data-status='error'] {
+  --toast-bg: var(--color-status-error-solid);
+}
+
+/* warning の塗りは明るい黄色なので、文字とアイコンは白ではなく本文の色にする */
+.toast[data-variant='solid'][data-status='warning'] {
+  --toast-bg: var(--color-status-warning-solid);
+  --toast-title: var(--color-text-primary);
+  --toast-icon: var(--color-text-primary);
+  --toast-close: var(--color-text-primary);
+}
+
+/* ---- Dark（Figma: Style=Dark）。濃い面に白い文字、アイコンだけ状態の色 ---- */
+.toast[data-variant='dark'] {
+  --toast-bg: var(--color-bg-inverse);
+  --toast-title: var(--color-text-on-brand);
+  --toast-icon: var(--color-status-info-on-inverse);
+  --toast-close: var(--color-text-on-brand);
+  --toast-close-hover: color-mix(in srgb, currentColor 16%, transparent);
+}
+
+.toast[data-variant='dark'][data-status='success'] {
+  --toast-icon: var(--color-status-success-on-inverse);
+}
+
+.toast[data-variant='dark'][data-status='error'] {
+  --toast-icon: var(--color-status-error-on-inverse);
+}
+
+.toast[data-variant='dark'][data-status='warning'] {
+  --toast-icon: var(--color-status-warning-on-inverse);
+}
+
+.toast[data-variant='solid'],
+.toast[data-variant='dark'] {
+  --toast-border: var(--toast-bg);
+  --toast-description: var(--toast-title);
+}
+
+.icon {
+  flex-shrink: 0;
+  color: var(--toast-icon);
+}
+
+/* ---- 見出し・説明（Figma: content）。どちらも1行で、はみ出す部分は「…」にする ---- */
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  min-width: 0;
+}
+
+.title,
+.description {
+  overflow: hidden;
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.title {
+  color: var(--toast-title);
+  font: var(--font-label-md);
+}
+
+.description {
+  color: var(--toast-description);
+  font: var(--font-body-sm);
+}
+
+/* Solid・Dark の説明は、見出しと同じ色を少し薄くする */
+.toast[data-variant='solid'] .description,
+.toast[data-variant='dark'] .description {
+  opacity: 0.85;
+}
+
+/* ---- 閉じるボタン（Figma: close。24px の ×）。押せる範囲と Hover の背景はアイコンの周りに広げる ---- */
+.close {
+  display: flex;
+  flex-shrink: 0;
+  margin: calc(-1 * var(--spacing-4));
+  padding: var(--spacing-4);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--toast-close);
+  cursor: pointer;
+  transition: background-color var(--ds-duration-fast);
+}
+
+.close:hover {
+  background: var(--toast-close-hover);
+}
+
+/* Focus: 全部品共通のフォーカスリング（border/focus・3px・すき間なし） */
+.close:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-focus-ring);
+}
+
+/* 色の塗りや濃い面の上では共通のリングが見えにくいので、文字と同じ色の線で囲む */
+.toast[data-variant='solid'] .close:focus-visible,
+.toast[data-variant='dark'] .close:focus-visible {
+  outline: 2px solid currentColor;
+  box-shadow: none;
+}
+
+/* ---- 画面に出す場所（ToastProvider）。右下に、新しいものほど下に積む ---- */
+.list {
+  position: fixed;
+  right: var(--spacing-24);
+  bottom: var(--spacing-24);
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+  width: min(25rem, calc(100vw - 2 * var(--spacing-16)));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list:empty {
+  display: none;
+}
+
+/* 狭い画面では、左右の余白をそろえて下端に出す */
+@media (max-width: 767px) {
+  .list {
+    right: var(--spacing-16);
+    bottom: var(--spacing-16);
+  }
+}
+
+.item {
+  animation: toast-enter var(--ds-duration-normal) ease-out;
+}
+
+.item[data-leaving] {
+  animation: toast-leave var(--ds-duration-normal) ease-in forwards;
+}
+
+@keyframes toast-enter {
+  from {
+    opacity: 0;
+    transform: translateY(var(--spacing-8));
+  }
+}
+
+@keyframes toast-leave {
+  to {
+    opacity: 0;
+  }
+}
+
+/* 動きを減らす設定のときは、動かさずに出し入れする */
+@media (prefers-reduced-motion: reduce) {
+  .close {
+    transition: none;
+  }
+
+  .item,
+  .item[data-leaving] {
+    animation: none;
+  }
+}
