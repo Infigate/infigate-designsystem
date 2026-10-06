@@ -1,0 +1,85 @@
+/*
+ * Avatar・AvatarGroup
+ * Figma: Infigate デザインシステム / Avatar（コンポーネント avatar）
+ */
+
+.avatar {
+  --avatar-size: var(--size-32);
+
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+  overflow: hidden;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-muted);
+  vertical-align: middle;
+}
+
+/* ---- 大きさ。24: 表の行内 / 32: ヘッダー / 40: 一覧 / 64: プロフィール。AvatarGroup の中ではグループの大きさにそろえる ---- */
+.avatar[data-size='24'],
+.group[data-size='24'] > .avatar {
+  --avatar-size: var(--size-24);
+}
+
+.avatar[data-size='32'],
+.group[data-size='32'] > .avatar {
+  --avatar-size: var(--size-32);
+}
+
+.avatar[data-size='40'],
+.group[data-size='40'] > .avatar {
+  --avatar-size: var(--size-40);
+}
+
+.avatar[data-size='64'],
+.group[data-size='64'] > .avatar {
+  --avatar-size: 4rem;
+}
+
+/* 写真（Figma: Type=Photo）。丸い枠いっぱいに切り抜く */
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 写真が使えないときの代わりの表示（Figma: Type=Icon） */
+.fallback {
+  width: 100%;
+  height: 100%;
+  fill: var(--color-text-tertiary);
+}
+
+/*
+ * ---- 重ねて並べる（AvatarGroup）。大きさの3割ずつ重ね、下地と同じ色の 2px の枠を外側に付けて境目を作る ----
+ * 枠はアバターの大きさに含めず外側に描くので、グループの四方に枠の分の余白を取る
+ */
+.group {
+  --avatar-ring: var(--color-bg-default);
+
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-2);
+}
+
+.group > .avatar {
+  outline: 2px solid var(--avatar-ring);
+}
+
+.group > .avatar + .avatar {
+  margin-left: calc(var(--avatar-size) * -0.3);
+}
+
+/* 残りの人数（Figma: more）。「+3」 */
+.more {
+  color: var(--color-text-secondary);
+  font: var(--font-label-sm);
+}
+
+.group[data-size='24'] > .more {
+  font-size: var(--font-size-xs);
+}
