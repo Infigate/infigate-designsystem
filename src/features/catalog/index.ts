@@ -23,5 +23,5 @@ export { catalogPaths } from './presentation/paths'
 export { catalogRoutes } from './presentation/routes'
 
 // presentation: カタログ定義（*.catalog.tsx）の見本で、:hover などの状態を再現するのに使う
-export { ForcePseudoState } from './presentation/pseudoState/ForcePseudoState'
+export { ForcePseudoState, IgnoreForcedPseudoState } from './presentation/pseudoState/ForcePseudoState'
 export type { ForceablePseudoClass } from './presentation/pseudoState/forcedPseudoStateCss'

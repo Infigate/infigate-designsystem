@@ -2,15 +2,17 @@
  * :hover などの擬似クラスを、マウスやキーボードを使わずに再現するための CSS を作る。
  *
  * ページ内の CSS から擬似クラスを含むルールを集め、
- *   .button:hover  →  .button:is(:hover, [data-force-pseudo~='hover'] *)
+ *   .button:hover  →  .button:is(:hover, [data-force-pseudo~='hover'] :not([data-force-pseudo-ignore] *))
  * のように「実際にその状態」か「強制指定した範囲の中にある」ときに当たるルールを追加する。
  * 部品の CSS には手を入れずに、カタログ上で全状態を見せられる。
+ * 範囲の中でも、data-force-pseudo-ignore を付けた要素の中（カードの中のボタンなど）には当てない。
  */
 
 export const FORCEABLE_PSEUDO_CLASSES = ['hover', 'active', 'focus', 'focus-visible'] as const
 export type ForceablePseudoClass = (typeof FORCEABLE_PSEUDO_CLASSES)[number]
 
 export const FORCE_ATTRIBUTE = 'data-force-pseudo'
+export const FORCE_IGNORE_ATTRIBUTE = 'data-force-pseudo-ignore'
 
 // focus-visible を focus より先に置き、:focus-within などの別の擬似クラスには当てない
 const PSEUDO_PATTERN = /:(hover|active|focus-visible|focus)(?![\w-])/g
@@ -20,7 +22,7 @@ export function toForcedSelector(selector: string): string | null {
   let changed = false
   const forced = selector.replace(PSEUDO_PATTERN, (_match, pseudo: string) => {
     changed = true
-    return `:is(:${pseudo}, [${FORCE_ATTRIBUTE}~='${pseudo}'] *)`
+    return `:is(:${pseudo}, [${FORCE_ATTRIBUTE}~='${pseudo}'] :not([${FORCE_IGNORE_ATTRIBUTE}] *))`
   })
   return changed ? forced : null
 }
