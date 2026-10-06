@@ -1,5 +1,5 @@
 import { Fragment, useState } from 'react'
-import { defineCatalogEntry, definePlayground, ForcePseudoState, type ForceablePseudoClass } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ForcePseudoState, ThumbnailLayout, type ForceablePseudoClass } from '@/features/catalog'
 import { CHOICE_GROUP_DIRECTIONS } from '../ChoiceGroup/ChoiceGroup.constants'
 import { FIELD_MARKS } from '../Field/Field.constants'
 import { Checkbox } from './Checkbox'
@@ -95,6 +95,13 @@ export default defineCatalogEntry({
   category: 'inputs',
   description: '複数選べるとき、1つの項目をオン・オフするときに使うチェックボックス。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout direction="column">
+      <Checkbox defaultChecked>メールで受け取る</Checkbox>
+      <Checkbox>SMS で受け取る</Checkbox>
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'States',

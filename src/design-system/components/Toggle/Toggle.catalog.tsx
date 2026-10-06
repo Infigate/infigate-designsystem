@@ -1,5 +1,5 @@
 import { Fragment, useId, useState } from 'react'
-import { defineCatalogEntry, definePlayground, ForcePseudoState, type ForceablePseudoClass } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ForcePseudoState, ThumbnailLayout, type ForceablePseudoClass } from '@/features/catalog'
 import { Toggle } from './Toggle'
 import styles from './Toggle.catalog.module.css'
 
@@ -84,6 +84,13 @@ export default defineCatalogEntry({
   category: 'inputs',
   description: 'すぐに反映される設定のオン・オフに使うスイッチ。送信して確定するフォームの項目には Checkbox を使います。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout direction="column">
+      <Toggle defaultChecked>通知を受け取る</Toggle>
+      <Toggle>自動で保存する</Toggle>
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'States',

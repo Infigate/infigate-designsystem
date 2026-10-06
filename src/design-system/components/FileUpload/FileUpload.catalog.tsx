@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState } from 'react'
-import { defineCatalogEntry, definePlayground, ForcePseudoState } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ForcePseudoState, ThumbnailLayout } from '@/features/catalog'
 import { FileItem, FileList } from './FileItem'
 import { FileUpload } from './FileUpload'
 import styles from './FileUpload.catalog.module.css'
@@ -128,6 +128,12 @@ export default defineCatalogEntry({
   category: 'inputs',
   description: 'ファイルを選ぶ枠と、選んだファイルの一覧。PC ではドラッグ＆ドロップでも選べます。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout fill zoom={0.5}>
+      <FileUploadZone hint="PDF・10MB まで" hintId="file-upload-thumbnail-hint" layout="desktop" />
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'States',

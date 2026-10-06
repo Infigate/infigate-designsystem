@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { defineCatalogEntry, definePlayground } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ThumbnailLayout } from '@/features/catalog'
 import { Button } from '../Button'
 import { Alert } from './Alert'
 import styles from './Alert.catalog.module.css'
@@ -90,6 +90,12 @@ export default defineCatalogEntry({
   category: 'feedback',
   description: '画面に留まるメッセージ。数秒で消える通知には使いません。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout fill>
+      <Alert status="success" title="保存しました" />
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'Statuses',

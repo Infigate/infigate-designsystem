@@ -1,4 +1,4 @@
-import { defineCatalogEntry, definePlayground } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ThumbnailLayout } from '@/features/catalog'
 import { Spinner } from './Spinner'
 import styles from './Spinner.catalog.module.css'
 import { SPINNER_SIZES, SPINNER_TONES, type SpinnerTone } from './Spinner.constants'
@@ -32,6 +32,12 @@ export default defineCatalogEntry({
   category: 'feedback',
   description: '何が表示されるか決まっていない処理の待ち時間に出す、回転するリング。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout>
+      <Spinner size="lg" />
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'Sizes and tones',

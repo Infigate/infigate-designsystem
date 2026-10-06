@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import { defineCatalogEntry, definePlayground } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ThumbnailLayout } from '@/features/catalog'
 import { Badge } from './Badge'
 import styles from './Badge.catalog.module.css'
 import { BADGE_STATUSES, BADGE_VARIANTS, type BadgeStatus } from './Badge.constants'
@@ -43,6 +43,16 @@ export default defineCatalogEntry({
   category: 'data-display',
   description: '状態を短い言葉で示すラベル。押せないので、操作には使いません。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout>
+      <Badge status="success" variant="solid">
+        公開中
+      </Badge>
+      <Badge status="warning">確認中</Badge>
+      <Badge variant="outline">下書き</Badge>
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'Variants',

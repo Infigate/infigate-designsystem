@@ -1,4 +1,4 @@
-import { defineCatalogEntry, definePlayground } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ThumbnailLayout } from '@/features/catalog'
 import { Button } from '../Button'
 import { IconButton } from '../IconButton'
 import { Tooltip } from './Tooltip'
@@ -39,6 +39,12 @@ export default defineCatalogEntry({
   category: 'feedback',
   description: 'マウスを乗せたときやフォーカスしたときに出る、短い補足の説明。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout>
+      <TooltipBubble placement="top">補足の説明が入ります</TooltipBubble>
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'Placements',

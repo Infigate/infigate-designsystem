@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import { defineCatalogEntry, definePlayground, ForcePseudoState } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ForcePseudoState, ThumbnailLayout } from '@/features/catalog'
 import { Field } from '../Field'
 import { TextInput } from './TextInput'
 import styles from './TextInput.catalog.module.css'
@@ -75,6 +75,12 @@ export default defineCatalogEntry({
   category: 'inputs',
   description: '1行のテキストを入力する欄。ラベル・補足文・エラー文は Field で付けます。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout fill>
+      <TextInput aria-label="入力欄" placeholder="プレースホルダー" />
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'Sizes',

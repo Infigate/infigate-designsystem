@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { defineCatalogEntry, definePlayground, ForcePseudoState } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ForcePseudoState, ThumbnailLayout } from '@/features/catalog'
 import { Icon, type IconName } from '../Icon'
 import { Pagination } from './Pagination'
 import styles from './Pagination.catalog.module.css'
@@ -69,6 +69,12 @@ export default defineCatalogEntry({
   category: 'navigation',
   description: '一覧をページに分けて送るナビゲーション。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout>
+      <Pagination page={2} totalPages={3} />
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'Types',

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { defineCatalogEntry, definePlayground, ForcePseudoState, type ForceablePseudoClass } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ForcePseudoState, ThumbnailLayout, type ForceablePseudoClass } from '@/features/catalog'
 import { Badge, type BadgeStatus } from '../Badge'
 import { Button } from '../Button'
 import { Table, TableBody, TableHead, TableRow } from './Table'
@@ -180,6 +180,27 @@ export default defineCatalogEntry({
   category: 'data-display',
   description: '行と列でデータを見せる表。並び替え・行の選択・縞模様・格子を組み合わせて使います。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout fill zoom={0.8}>
+      <Table size="sm" aria-label="案件">
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell>案件名</TableHeaderCell>
+            <TableHeaderCell>状況</TableHeaderCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <TableCell>採用サイト</TableCell>
+            <TableCell>
+              <Badge status="success">公開中</Badge>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'Basic',

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { defineCatalogEntry, definePlayground, ForcePseudoState } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ForcePseudoState, ThumbnailLayout } from '@/features/catalog'
 import { Sortable, type SortableItem } from './Sortable'
 import styles from './Sortable.catalog.module.css'
 import { SortableList, SortablePlaceholder, SortableRow } from './Sortable.parts'
@@ -72,6 +72,15 @@ export default defineCatalogEntry({
   category: 'inputs',
   description: 'ドラッグで項目の順番を並べ替えるリスト。キーボードでも並べ替えられます。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout fill zoom={0.8}>
+      <SortableList aria-label="並び替えの見本">
+        <SortableRow label="見出し" />
+        <SortableRow label="本文" />
+      </SortableList>
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'States',

@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import { defineCatalogEntry, definePlayground, ForcePseudoState, type ForceablePseudoClass } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ForcePseudoState, ThumbnailLayout, type ForceablePseudoClass } from '@/features/catalog'
 import { Accordion, AccordionItem } from './Accordion'
 import styles from './Accordion.catalog.module.css'
 
@@ -72,6 +72,14 @@ export default defineCatalogEntry({
   category: 'data-display',
   description: '見出しを押すと本文が開閉する項目。長い説明や FAQ を、必要なところだけ読めるようにします。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout fill>
+      <Accordion>
+        <AccordionItem title="よくある質問">回答が入ります。</AccordionItem>
+      </Accordion>
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'States',

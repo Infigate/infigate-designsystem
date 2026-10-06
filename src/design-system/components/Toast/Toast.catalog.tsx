@@ -1,4 +1,4 @@
-import { defineCatalogEntry, definePlayground } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ThumbnailLayout } from '@/features/catalog'
 import { Button } from '../Button'
 import { Toast } from './Toast'
 import styles from './Toast.catalog.module.css'
@@ -91,6 +91,12 @@ export default defineCatalogEntry({
   category: 'feedback',
   description: '数秒で消える通知。読まなくても困らない内容に使い、対処が必要なことは Alert で出します。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout fill>
+      <Toast status="success" title="保存しました" onClose={() => {}} />
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'Variants',

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { defineCatalogEntry, definePlayground } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ThumbnailLayout } from '@/features/catalog'
 import { Button } from '../Button'
 import { Field } from '../Field'
 import { TextInput } from '../TextInput'
@@ -110,6 +110,12 @@ export default defineCatalogEntry({
   category: 'navigation',
   description: '手順のどこまで進んだかを示すステッパー。済んだステップはチェック、今のステップは太い枠で示します。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout fill>
+      <Stepper steps={STEPS} current={2} size="sm" labels={false} />
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'Horizontal',

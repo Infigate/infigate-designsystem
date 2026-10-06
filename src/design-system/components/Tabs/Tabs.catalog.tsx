@@ -1,4 +1,4 @@
-import { defineCatalogEntry, definePlayground, ForcePseudoState } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ForcePseudoState, ThumbnailLayout } from '@/features/catalog'
 import type { IconName } from '../Icon'
 import { Tab, TabList, TabPanel, Tabs } from './Tabs'
 import styles from './Tabs.catalog.module.css'
@@ -98,6 +98,18 @@ export default defineCatalogEntry({
   category: 'navigation',
   description: '同じ画面の中身を切り替えるタブ。ページの移動には使いません。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout fill>
+      <Tabs defaultValue="overview">
+        <TabList aria-label="タブの見本">
+          <Tab value="overview">概要</Tab>
+          <Tab value="detail">詳細</Tab>
+          <Tab value="history">履歴</Tab>
+        </TabList>
+      </Tabs>
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'Variants',

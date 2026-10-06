@@ -1,4 +1,4 @@
-import { defineCatalogEntry, definePlayground, ForcePseudoState } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ForcePseudoState, ThumbnailLayout } from '@/features/catalog'
 import { Field } from '../Field'
 import { Textarea } from './Textarea'
 import styles from './Textarea.catalog.module.css'
@@ -68,6 +68,12 @@ export default defineCatalogEntry({
   category: 'inputs',
   description: '複数行のテキストを入力する欄。ラベル・補足文・エラー文は Field で付けます。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout fill zoom={0.8}>
+      <Textarea aria-label="入力欄" placeholder="お問い合わせ内容を入力してください" />
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'States',

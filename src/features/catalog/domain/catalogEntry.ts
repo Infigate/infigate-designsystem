@@ -36,6 +36,8 @@ export type CatalogEntry = {
   readonly subcomponents?: readonly CatalogSubcomponent[]
   /** props を切り替えて確かめる欄（省略可） */
   readonly playground?: CatalogPlayground
+  /** 一覧のカードに出すサムネイル（省略可）。省略すると先頭のバリエーションを出す。高さ 140px の枠に収まる小さな見本にする */
+  readonly thumbnail?: () => ReactNode
 }
 
 export type CatalogEntryInput = Omit<CatalogEntry, 'slug' | 'props'> & {

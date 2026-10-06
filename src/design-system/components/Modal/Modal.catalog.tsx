@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { defineCatalogEntry, definePlayground, ForcePseudoState } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ForcePseudoState, ThumbnailLayout } from '@/features/catalog'
 import { Button } from '../Button'
 import { Field } from '../Field'
 import { TextInput } from '../TextInput'
@@ -101,6 +101,24 @@ export default defineCatalogEntry({
   category: 'feedback',
   description: '画面の中央に重ねて、確認や入力を求めるダイアログ。後ろの画面は操作できなくなります。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout zoom={0.42}>
+      <ModalPanel
+        title="変更を保存しますか"
+        actions={
+          <>
+            <Button variant="outline" theme="secondary">
+              キャンセル
+            </Button>
+            <Button>保存する</Button>
+          </>
+        }
+      >
+        保存すると、ほかのメンバーにも変更が表示されます。
+      </ModalPanel>
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'Variants',

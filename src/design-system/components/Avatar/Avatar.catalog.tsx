@@ -1,4 +1,4 @@
-import { defineCatalogEntry, definePlayground } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ThumbnailLayout } from '@/features/catalog'
 import { Icon } from '../Icon'
 import { Menu, MenuItem } from '../Menu'
 import { Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from '../Table'
@@ -33,6 +33,19 @@ export default defineCatalogEntry({
   category: 'data-display',
   description: 'ユーザーを表す丸い画像。アバターだけでは人を見分けられないため、名前と一緒に表示します。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout>
+      <AvatarGroup size={40}>
+        <Avatar src={samplePhoto} />
+        <Avatar src={samplePhoto} />
+        <Avatar src={samplePhoto} />
+        <Avatar />
+        <Avatar />
+        <Avatar />
+      </AvatarGroup>
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'Sizes',

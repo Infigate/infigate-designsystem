@@ -25,3 +25,6 @@ export { catalogRoutes } from './presentation/routes'
 // presentation: カタログ定義（*.catalog.tsx）の見本で、:hover などの状態を再現するのに使う
 export { ForcePseudoState, IgnoreForcedPseudoState } from './presentation/pseudoState/ForcePseudoState'
 export type { ForceablePseudoClass } from './presentation/pseudoState/forcedPseudoStateCss'
+
+// presentation: カタログ定義（*.catalog.tsx）の thumbnail で、一覧のサムネイルの見本を並べるのに使う
+export { ThumbnailLayout } from './presentation/components/ThumbnailLayout/ThumbnailLayout'

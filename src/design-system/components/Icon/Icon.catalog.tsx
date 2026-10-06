@@ -1,4 +1,4 @@
-import { defineCatalogEntry } from '@/features/catalog'
+import { defineCatalogEntry, ThumbnailLayout } from '@/features/catalog'
 import { Icon } from './Icon'
 import styles from './Icon.catalog.module.css'
 import { FILLED_ICON_NAMES, ICON_NAMES, ICON_SIZES, ICON_VARIANTS } from './Icon.constants'
@@ -13,6 +13,14 @@ export default defineCatalogEntry({
   name: 'Icon',
   category: 'data-display',
   description: 'Lucide を基準にしたアイコンセット。色は周囲の文字色を受け継ぎます。',
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout>
+      {(['search', 'download', 'user', 'calendar', 'folder'] as const).map((name) => (
+        <Icon key={name} name={name} size={24} />
+      ))}
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'All icons',

@@ -1,5 +1,5 @@
 import type { MouseEvent } from 'react'
-import { defineCatalogEntry, definePlayground } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ThumbnailLayout } from '@/features/catalog'
 import { Footer, FooterColumn, FooterLink } from './Footer'
 import styles from './Footer.catalog.module.css'
 import { FOOTER_THEMES, type FooterTheme } from './Footer.constants'
@@ -100,6 +100,12 @@ export default defineCatalogEntry({
   category: 'navigation',
   description: 'サイト共通のフッター。下地の色は Header とそろえて使います。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout fill zoom={0.5}>
+      <Footer theme="dark" logo={<SampleLogo theme="dark" />} copyright="© 2026 Infigate Inc." />
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'Themes',

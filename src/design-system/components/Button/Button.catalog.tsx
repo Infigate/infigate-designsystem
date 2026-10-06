@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import { defineCatalogEntry, definePlayground, ForcePseudoState, type ForceablePseudoClass } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ForcePseudoState, ThumbnailLayout, type ForceablePseudoClass } from '@/features/catalog'
 import { ICON_NAMES } from '../Icon'
 import { Button } from './Button'
 import styles from './Button.catalog.module.css'
@@ -75,6 +75,15 @@ export default defineCatalogEntry({
   category: 'actions',
   description: 'ユーザーの操作を受け付けるボタン。迷ったら solid・primary・md を使います。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout>
+      <Button size="sm">保存する</Button>
+      <Button size="sm" variant="outline">
+        下書き保存
+      </Button>
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'Variants',

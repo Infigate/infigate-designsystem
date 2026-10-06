@@ -1,5 +1,5 @@
 import { Fragment, useState } from 'react'
-import { defineCatalogEntry, definePlayground, ForcePseudoState, type ForceablePseudoClass } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ForcePseudoState, ThumbnailLayout, type ForceablePseudoClass } from '@/features/catalog'
 import { Tag } from './Tag'
 import styles from './Tag.catalog.module.css'
 
@@ -130,6 +130,14 @@ export default defineCatalogEntry({
   category: 'data-display',
   description: '分類や絞り込みに使うラベル。押して選ぶタグと、× で外すタグの2通りで使います。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout>
+      <Tag selected>デザイン</Tag>
+      <Tag>開発</Tag>
+      <Tag>運用</Tag>
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'States',

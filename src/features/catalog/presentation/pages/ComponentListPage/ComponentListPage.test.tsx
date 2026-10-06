@@ -41,6 +41,15 @@ describe('ComponentListPage', () => {
     expect(within(card).getByText('1 バリエーション')).toBeInTheDocument()
   })
 
+  it('サムネイル（thumbnail）を指定した部品は、先頭バリエーションの代わりにそれを表示する', () => {
+    const withThumbnail = { ...button, thumbnail: () => <span>専用のサムネイル</span> }
+    renderCatalogRoutes({ entries: [withThumbnail] })
+
+    const card = screen.getByRole('article')
+    expect(within(card).getByText('専用のサムネイル')).toBeInTheDocument()
+    expect(within(card).queryByText('Button のプレビュー')).not.toBeInTheDocument()
+  })
+
   it('キーワードで絞り込める', async () => {
     const user = userEvent.setup()
     renderCatalogRoutes({ entries })
