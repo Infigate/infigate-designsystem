@@ -1,0 +1,211 @@
+/*
+ * Stepper
+ * Figma: Infigate デザインシステム / Stepper（コンポーネント step-circle・step-node・step-block-horizontal・step-block-vertical）
+ */
+
+.stepper {
+  --stepper-circle: var(--size-32);
+  --stepper-check: var(--size-16);
+  --stepper-number-font: var(--font-label-sm);
+  --stepper-title-font: var(--font-label-md);
+  --stepper-title-size: var(--font-size-base);
+  --stepper-description-font: var(--font-body-sm);
+  --stepper-gap: var(--spacing-16);
+  --stepper-step-height: 6rem;
+
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ---- 大きさ（Figma: Size）。sm は丸を 24px、文字を一段小さくする ---- */
+.stepper[data-size='sm'] {
+  --stepper-circle: var(--size-24);
+  --stepper-check: 0.75rem;
+  --stepper-number-font: var(--font-body-xs);
+  --stepper-title-font: var(--font-label-sm);
+  --stepper-title-size: var(--font-size-sm);
+  --stepper-description-font: var(--font-body-xs);
+  --stepper-gap: var(--spacing-12);
+  --stepper-step-height: 5rem;
+}
+
+/* ---- 番号の丸（Figma: step-circle）。Todo は薄い枠、Current は太い枠、Done は塗りにチェック ---- */
+.circle {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--stepper-circle);
+  height: var(--stepper-circle);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-default);
+  color: var(--color-text-tertiary);
+  font: var(--stepper-number-font);
+}
+
+.step[data-status='current'] .circle {
+  border: 2px solid var(--color-keycolor-primary);
+  color: var(--color-keycolor-primary);
+}
+
+.step[data-status='done'] .circle {
+  border-color: var(--color-keycolor-primary);
+  background: var(--color-keycolor-primary);
+  color: var(--color-text-on-brand);
+}
+
+.stepper .circle .check {
+  width: var(--stepper-check);
+  height: var(--stepper-check);
+}
+
+/* Figma のチェックは丸の大きさによらず線幅 2px。アイコンを縮めても線が細くならないようにする */
+.stepper .circle .check path {
+  vector-effect: non-scaling-stroke;
+}
+
+/* ---- 丸と線（Figma: step-node）。線は前のステップから来る線（::before）と、次へ向かう線（::after） ---- */
+.node {
+  position: relative;
+  display: flex;
+}
+
+.node::before,
+.node::after {
+  content: '';
+  position: absolute;
+  background: var(--color-border-default);
+}
+
+.step:first-child .node::before,
+.step:last-child .node::after {
+  display: none;
+}
+
+/* 済んだところまでの線はキーカラーにする */
+.step[data-status='done'] .node::after,
+.step[data-reached] .node::before {
+  background: var(--color-keycolor-primary);
+}
+
+/* ---- 名前と説明 ---- */
+.texts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  min-width: 0;
+}
+
+.title {
+  color: var(--color-text-primary);
+  font: var(--stepper-title-font);
+}
+
+.description {
+  color: var(--color-text-tertiary);
+  font: var(--stepper-description-font);
+}
+
+/* 名前を出さないとき（モバイルの横並び）も、読み上げには残す */
+.stepper:not([data-labels]) .texts,
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---- 横並び（Figma: step-block-horizontal）。等しい幅で分け、丸を各列の中央に置き、名前は丸の下の中央 ---- */
+.stepper[data-orientation='horizontal'] .step {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  min-width: 0;
+  text-align: center;
+}
+
+.stepper[data-orientation='horizontal'] .node {
+  justify-content: center;
+}
+
+.stepper[data-orientation='horizontal'] .node::before,
+.stepper[data-orientation='horizontal'] .node::after {
+  top: 50%;
+  height: 2px;
+  transform: translateY(-50%);
+}
+
+.stepper[data-orientation='horizontal'] .node::before {
+  right: 50%;
+  left: 0;
+}
+
+.stepper[data-orientation='horizontal'] .node::after {
+  right: 0;
+  left: 50%;
+}
+
+/* ---- 縦並び（Figma: step-block-vertical）。丸と線の右に名前と説明。上の線を短く、下の線を内容の高さに合わせて伸ばす ---- */
+.stepper[data-orientation='vertical'] {
+  flex-direction: column;
+}
+
+/* 2つ目からは、上に前のステップから来る短い線（4px）の分を空ける（丸と名前の両方で使う） */
+.stepper[data-orientation='vertical'] .step {
+  --stepper-offset: var(--spacing-4);
+
+  display: flex;
+  gap: var(--stepper-gap);
+  min-height: var(--stepper-step-height);
+}
+
+.stepper[data-orientation='vertical'] .step:first-child {
+  --stepper-offset: 0rem;
+}
+
+.stepper[data-orientation='vertical'] .step:last-child {
+  min-height: auto;
+}
+
+.stepper[data-orientation='vertical'] .node {
+  flex: 0 0 var(--stepper-circle);
+  flex-direction: column;
+  align-items: center;
+  padding-top: var(--stepper-offset);
+}
+
+.stepper[data-orientation='vertical'] .node::before,
+.stepper[data-orientation='vertical'] .node::after {
+  left: 50%;
+  width: 2px;
+  transform: translateX(-50%);
+}
+
+.stepper[data-orientation='vertical'] .node::before {
+  top: 0;
+  height: var(--spacing-4);
+}
+
+.stepper[data-orientation='vertical'] .node::after {
+  top: calc(var(--stepper-offset) + var(--stepper-circle));
+  bottom: 0;
+}
+
+/* 名前の1行目を丸の中央にそろえる。次のステップとの間も少し空ける */
+.stepper[data-orientation='vertical'] .texts {
+  padding-top: calc(var(--stepper-offset) + (var(--stepper-circle) - 1.4 * var(--stepper-title-size)) / 2);
+  padding-bottom: var(--spacing-16);
+}
+
+.stepper[data-orientation='vertical'] .step:last-child .texts {
+  padding-bottom: 0;
+}
