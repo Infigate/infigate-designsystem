@@ -36,7 +36,10 @@ function DealTable({
   bordered = false,
   selectable = false,
   align = 'left',
+  label,
 }: {
+  /** 表の名前。1ページに見本が複数並ぶので、見本ごとに分ける */
+  label: string
   size?: TableSize
   striped?: boolean
   bordered?: boolean
@@ -56,7 +59,7 @@ function DealTable({
   const all = selected.length === DEALS.length
 
   return (
-    <Table aria-label="案件一覧" size={size} striped={striped} bordered={bordered}>
+    <Table aria-label={label} size={size} striped={striped} bordered={bordered}>
       <TableHead>
         <TableRow>
           {selectable && (
@@ -118,7 +121,7 @@ const playground = definePlayground({
   ],
   render: (values) => (
     <div className={styles.box}>
-      <DealTable {...values} />
+      <DealTable {...values} label="案件一覧（Playground）" />
     </div>
   ),
   code: ({ size, striped, bordered, selectable, align }) => {
@@ -207,7 +210,7 @@ export default defineCatalogEntry({
       description: '並び替えできる列の見出しにはアイコンが付きます。数値の列は右にそろえます。',
       render: () => (
         <div className={styles.box}>
-          <DealTable />
+          <DealTable label="案件一覧（基本）" />
         </div>
       ),
     },
@@ -216,7 +219,7 @@ export default defineCatalogEntry({
       description: '行数が多い表は縞模様にし、まとめて操作する表はチェック列を付けます。',
       render: () => (
         <div className={styles.box}>
-          <DealTable striped selectable />
+          <DealTable striped selectable label="案件一覧（縞模様・選択）" />
         </div>
       ),
     },
@@ -225,7 +228,7 @@ export default defineCatalogEntry({
       description: '列が多く数値を見比べる表は格子にし、高さを sm にして1画面に入る行数を増やします。',
       render: () => (
         <div className={styles.box}>
-          <DealTable size="sm" bordered />
+          <DealTable size="sm" bordered label="案件一覧（格子・sm）" />
         </div>
       ),
     },
@@ -234,7 +237,7 @@ export default defineCatalogEntry({
       description: 'データがないときも見出しの行は残し、次の行動があるときだけボタンを置きます。',
       render: () => (
         <div className={styles.box}>
-          <Table aria-label="案件一覧">
+          <Table aria-label="案件一覧（データなし）">
             <TableHead>
               <TableRow>
                 <TableHeaderCell sort="none">案件名</TableHeaderCell>

@@ -85,7 +85,7 @@ export default defineCatalogEntry({
       name: 'States',
       description: '見出し行全体が押せる範囲です。開いているときだけ本文が出て、シェブロンが反転します。',
       render: () => (
-        <div className={styles.scroller}>
+        <div className={styles.scroller} inert>
           <div className={styles.matrix}>
             <span />
             <span className={styles.columnLabel}>Closed</span>

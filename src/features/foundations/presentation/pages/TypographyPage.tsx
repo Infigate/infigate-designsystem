@@ -1,4 +1,5 @@
 import { DocSection } from '@/shared/ui/DocPage/DocPage'
+import { ScrollRegion } from '@/shared/ui/ScrollRegion/ScrollRegion'
 import { parseTextStyle, SCREEN_MODES, toPx } from '../../domain/designToken'
 import { TokenName } from '../components/TokenName'
 import { useTokenRepository } from '../tokenContext'
@@ -98,7 +99,7 @@ export function TypographyPage() {
       </DocSection>
 
       <DocSection id="font-sizes-heading" title="Font sizes">
-        <div className={styles.tableWrapper}>
+        <ScrollRegion label="Font sizes の表" className={styles.tableWrapper}>
           <table className={styles.table}>
             <thead>
               <tr>
@@ -123,11 +124,11 @@ export function TypographyPage() {
               ))}
             </tbody>
           </table>
-        </div>
+        </ScrollRegion>
       </DocSection>
 
       <DocSection id="line-heights-heading" title="Line heights">
-        <div className={styles.tableWrapper}>
+        <ScrollRegion label="Line heights の表" className={styles.tableWrapper}>
           <table className={styles.table}>
             <thead>
               <tr>
@@ -148,7 +149,7 @@ export function TypographyPage() {
               ))}
             </tbody>
           </table>
-        </div>
+        </ScrollRegion>
       </DocSection>
     </>
   )

@@ -1,4 +1,5 @@
 import { useId } from 'react'
+import { ScrollRegion } from '@/shared/ui/ScrollRegion/ScrollRegion'
 import type { CatalogVariant } from '../../../domain/catalogEntry'
 import styles from './VariantPreview.module.css'
 
@@ -18,9 +19,12 @@ export function VariantPreview({ variant }: VariantPreviewProps) {
         {variant.name}
       </h3>
       {variant.description && <p className={styles.description}>{variant.description}</p>}
-      <div className={styles.canvas}>
-        <Preview />
-      </div>
+      {/* 状態を表に並べた見本などが入りきらないときは、ページではなく枠の中だけ横にスクロールする */}
+      <ScrollRegion label={`${variant.name} の見本`} className={styles.canvasFrame}>
+        <div className={styles.canvas}>
+          <Preview />
+        </div>
+      </ScrollRegion>
     </section>
   )
 }

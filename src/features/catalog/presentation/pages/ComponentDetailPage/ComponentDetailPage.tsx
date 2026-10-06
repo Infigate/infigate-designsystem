@@ -54,11 +54,11 @@ export function ComponentDetailPage() {
           // 組み合わせて使う部品があれば、部品ごとに見出しを付けて表を並べる
           [{ name: entry.name, props: entry.props }, ...entry.subcomponents].map((component) => (
             <DocSubsection key={component.name} title={component.name}>
-              <PropsTable props={component.props} />
+              <PropsTable props={component.props} label={`${component.name} の Props`} />
             </DocSubsection>
           ))
         ) : (
-          <PropsTable props={entry.props} />
+          <PropsTable props={entry.props} label={`${entry.name} の Props`} />
         )}
       </DocSection>
     </DocPage>

@@ -1,18 +1,21 @@
+import { ScrollRegion } from '@/shared/ui/ScrollRegion/ScrollRegion'
 import type { PropDoc } from '../../../domain/catalogEntry'
 import styles from './PropsTable.module.css'
 
 type PropsTableProps = {
   props: readonly PropDoc[]
+  /** 表の名前（例: 「Button の Props」）。横スクロールできるときの枠の読み上げ名にも使う */
+  label: string
 }
 
-export function PropsTable({ props }: PropsTableProps) {
+export function PropsTable({ props, label }: PropsTableProps) {
   if (props.length === 0) {
     return <p className={styles.empty}>Props の定義はありません。</p>
   }
 
   return (
-    <div className={styles.wrapper}>
-      <table className={styles.table}>
+    <ScrollRegion label={label} className={styles.wrapper}>
+      <table className={styles.table} aria-label={label}>
         <thead>
           <tr>
             <th scope="col">名前</th>
@@ -37,6 +40,6 @@ export function PropsTable({ props }: PropsTableProps) {
           ))}
         </tbody>
       </table>
-    </div>
+    </ScrollRegion>
   )
 }

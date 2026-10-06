@@ -42,11 +42,14 @@ function SampleHeader({
   logo = true,
   actions = true,
   defaultMenuOpen,
+  navLabel,
 }: {
   theme: HeaderTheme
   logo?: boolean
   actions?: boolean
   defaultMenuOpen?: boolean
+  /** ナビゲーションの読み上げ名。1ページに見本が複数並ぶので、見本ごとに分ける */
+  navLabel: string
 }) {
   const [current, setCurrent] = useState(NAV_ITEMS[0])
 
@@ -56,6 +59,7 @@ function SampleHeader({
       logo={logo ? <SampleLogo theme={theme} /> : undefined}
       actions={actions ? <SampleActions theme={theme} /> : undefined}
       defaultMenuOpen={defaultMenuOpen}
+      navLabel={navLabel}
     >
       {NAV_ITEMS.map((label) => (
         <HeaderNavItem
@@ -85,7 +89,7 @@ const playground = definePlayground({
   wide: true,
   render: ({ layout, theme, logo, actions }) => (
     <div className={layout === 'mobile' ? styles.mobile : styles.wide}>
-      <SampleHeader key={layout} theme={theme} logo={logo} actions={actions} />
+      <SampleHeader key={layout} theme={theme} logo={logo} actions={actions} navLabel="メインメニュー（Playground）" />
     </div>
   ),
   code: ({ theme, logo, actions }) => {
@@ -135,7 +139,7 @@ export default defineCatalogEntry({
         <div className={styles.stack}>
           {HEADER_THEMES.map((theme) => (
             <div key={theme} className={styles.wide}>
-              <SampleHeader theme={theme} />
+              <SampleHeader theme={theme} navLabel={`メインメニュー（${theme}）`} />
             </div>
           ))}
         </div>
@@ -148,7 +152,7 @@ export default defineCatalogEntry({
         <div className={styles.mobiles}>
           {HEADER_THEMES.map((theme) => (
             <div key={theme} className={styles.mobile}>
-              <SampleHeader theme={theme} defaultMenuOpen />
+              <SampleHeader theme={theme} defaultMenuOpen navLabel={`メインメニュー（モバイル・${theme}）`} />
             </div>
           ))}
         </div>

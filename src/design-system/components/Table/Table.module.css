@@ -13,6 +13,13 @@
   overflow-x: auto;
 }
 
+/* スクロールできるときは枠に Tab キーで移れる。移ったことが分かるよう、内側にリングを引く */
+.container:focus-visible {
+  outline: none;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--ds-focus-ring-inset);
+}
+
 .table {
   /* セルの上下の余白（Figma: Small 8px・Medium 16px）。高さは「余白 × 2 ＋ 文字の高さ」で決まる */
   --table-padding-block: var(--spacing-16);

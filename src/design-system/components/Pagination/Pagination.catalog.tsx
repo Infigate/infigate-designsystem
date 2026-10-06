@@ -12,14 +12,26 @@ function SamplePagination({
   initialPage = 1,
   variant = 'default',
   disabled = false,
+  label,
 }: {
   totalPages: number
   initialPage?: number
   variant?: PaginationVariant
   disabled?: boolean
+  /** ナビゲーションの読み上げ名。1ページに見本が複数並ぶので、見本ごとに分ける */
+  label: string
 }) {
   const [page, setPage] = useState(initialPage)
-  return <Pagination page={page} totalPages={totalPages} onPageChange={setPage} variant={variant} disabled={disabled} />
+  return (
+    <Pagination
+      page={page}
+      totalPages={totalPages}
+      onPageChange={setPage}
+      variant={variant}
+      disabled={disabled}
+      label={label}
+    />
+  )
 }
 
 const playground = definePlayground({
@@ -29,7 +41,13 @@ const playground = definePlayground({
     { type: 'boolean', name: 'disabled', defaultValue: false },
   ],
   render: ({ variant, totalPages, disabled }) => (
-    <SamplePagination key={totalPages} totalPages={Number(totalPages)} variant={variant} disabled={disabled} />
+    <SamplePagination
+      key={totalPages}
+      totalPages={Number(totalPages)}
+      variant={variant}
+      disabled={disabled}
+      label="ページ送り（Playground）"
+    />
   ),
   code: ({ variant, totalPages, disabled }) => {
     const attributes = [
@@ -83,15 +101,15 @@ export default defineCatalogEntry({
         <div className={styles.stack}>
           <div className={styles.case}>
             <span className={styles.caseLabel}>標準（7ページ以下）</span>
-            <SamplePagination totalPages={5} />
+            <SamplePagination totalPages={5} label="ページ送り（標準）" />
           </div>
           <div className={styles.case}>
             <span className={styles.caseLabel}>省略あり（8ページ以上）</span>
-            <SamplePagination totalPages={20} initialPage={5} />
+            <SamplePagination totalPages={20} initialPage={5} label="ページ送り（省略あり）" />
           </div>
           <div className={styles.case}>
             <span className={styles.caseLabel}>前後のみ（variant="compact"・スマートフォン向け）</span>
-            <SamplePagination totalPages={20} initialPage={3} variant="compact" />
+            <SamplePagination totalPages={20} initialPage={3} variant="compact" label="ページ送り（前後のみ）" />
           </div>
         </div>
       ),

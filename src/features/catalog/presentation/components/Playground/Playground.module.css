@@ -123,6 +123,11 @@
   font-family: var(--ds-font-family-mono);
 }
 
+.code:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-focus-ring-inset);
+}
+
 /* 横に広い部品は、いつもプレビューの下に切り替えを置き、項目を横に並べる */
 .playground[data-has-controls][data-wide] {
   grid-template-columns: minmax(0, 1fr);

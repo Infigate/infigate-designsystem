@@ -9,9 +9,10 @@ const stay = (event: MouseEvent) => event.preventDefault()
 const LEVEL_OPTIONS = ['2', '3', '4', '5', '6', '7'] as const
 
 /** 階層の数だけ項目を並べた見本（起点はホーム、ほかはページ） */
-function SampleBreadcrumb({ levels }: { levels: number }) {
+/** label: 1ページに見本が複数並ぶので、見本ごとに読み上げ名を分ける */
+function SampleBreadcrumb({ levels, label }: { levels: number; label: string }) {
   return (
-    <Breadcrumb>
+    <Breadcrumb label={label}>
       {Array.from({ length: levels }, (_, index) => (
         <BreadcrumbItem key={index} href="#" onClick={stay}>
           {index === 0 ? 'ホーム' : `ページ${index}`}
@@ -23,7 +24,7 @@ function SampleBreadcrumb({ levels }: { levels: number }) {
 
 const playground = definePlayground({
   controls: [{ type: 'select', name: 'levels', options: LEVEL_OPTIONS, defaultValue: '3' }],
-  render: ({ levels }) => <SampleBreadcrumb levels={Number(levels)} />,
+  render: ({ levels }) => <SampleBreadcrumb levels={Number(levels)} label="パンくずリスト（Playground）" />,
   code: ({ levels }) =>
     [
       '<Breadcrumb>',
@@ -68,7 +69,7 @@ export default defineCatalogEntry({
       render: () => (
         <div className={styles.stack}>
           {[2, 3, 4, 5].map((levels) => (
-            <SampleBreadcrumb key={levels} levels={levels} />
+            <SampleBreadcrumb key={levels} levels={levels} label={`パンくずリスト（${levels}階層）`} />
           ))}
         </div>
       ),
@@ -100,7 +101,7 @@ export default defineCatalogEntry({
     {
       name: 'Collapsed',
       description: '5階層を超えると、起点と現在地の近くを残して中間を「…」で省略します。',
-      render: () => <SampleBreadcrumb levels={7} />,
+      render: () => <SampleBreadcrumb levels={7} label="パンくずリスト（省略あり）" />,
     },
   ],
   props: [
