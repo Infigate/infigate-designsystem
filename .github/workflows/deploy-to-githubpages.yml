@@ -1,0 +1,114 @@
+# =============================================================================
+# GitHub Pages へのデプロイ
+#
+# main ブランチに push されたら、Lint / 型チェック / テストを通したうえで
+# Vite のビルド成果物（dist/）を GitHub Pages に公開する。
+#
+# 公開 URL: https://infigate.github.io/infigate-designsystem/
+#
+# 【初回のみ必要な設定】
+#   リポジトリの Settings > Pages > Build and deployment > Source を
+#   「GitHub Actions」に変更しておくこと。
+# =============================================================================
+
+name: Deploy to GitHub Pages
+
+# -----------------------------------------------------------------------------
+# 実行タイミング
+# -----------------------------------------------------------------------------
+on:
+  # main ブランチへの push（PR のマージを含む）で自動実行
+  push:
+    branches:
+      - main
+  # Actions タブの「Run workflow」ボタンから手動でも実行できるようにする
+  workflow_dispatch:
+
+# -----------------------------------------------------------------------------
+# GITHUB_TOKEN に付与する権限
+# -----------------------------------------------------------------------------
+permissions:
+  contents: read # リポジトリのチェックアウトに必要
+  pages: write # GitHub Pages へのデプロイに必要
+  id-token: write # デプロイ時の OIDC 認証に必要
+
+# -----------------------------------------------------------------------------
+# 同時実行の制御
+# -----------------------------------------------------------------------------
+# デプロイが重ならないように1本ずつ実行する。
+# 実行中のデプロイは途中で止めず、最後まで完了させる（cancel-in-progress: false）。
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  # ===========================================================================
+  # ジョブ1: ビルド
+  #   依存関係のインストール → 品質チェック → ビルド → 成果物のアップロード
+  # ===========================================================================
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      # リポジトリのソースコードを取得する
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      # Node.js をセットアップする
+      # （package-lock.json をキーに npm のキャッシュを使い、インストールを速くする）
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+
+      # 依存パッケージをインストールする
+      # （npm ci は package-lock.json どおりのバージョンを入れるので、手元と同じ環境になる）
+      - name: Install dependencies
+        run: npm ci
+
+      # 静的解析（oxlint）
+      - name: Lint
+        run: npm run lint
+
+      # ユニットテスト（Vitest）。1件でも失敗したらデプロイしない
+      - name: Test
+        run: npm run test:run
+
+      # 型チェック（tsc -b）と本番ビルド（vite build）。成果物は dist/ に出力される
+      # vite.config.ts で base: './' を指定しているため、
+      # サブディレクトリ（/infigate-designsystem/）配下でもそのまま動作する
+      - name: Build
+        run: npm run build
+
+      # GitHub Pages 用の設定を行う（Pages のメタ情報を取得する）
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      # dist/ を Pages 用のアーティファクトとしてアップロードする
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./dist
+
+  # ===========================================================================
+  # ジョブ2: デプロイ
+  #   build ジョブでアップロードした成果物を GitHub Pages に公開する
+  # ===========================================================================
+  deploy:
+    name: Deploy
+    # build ジョブが成功した場合のみ実行する
+    needs: build
+    runs-on: ubuntu-latest
+
+    # デプロイ先の環境。Actions の画面に公開 URL が表示される
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      # アップロード済みのアーティファクトを GitHub Pages にデプロイする
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
