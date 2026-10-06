@@ -1,0 +1,68 @@
+.box {
+  display: flex;
+  justify-content: center;
+}
+
+.shapes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--spacing-48);
+}
+
+.shape {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+}
+
+.label {
+  color: var(--color-text-secondary);
+  font: var(--font-body-xs);
+}
+
+/* カードの読み込み中（幅 320px のカード） */
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-24);
+  width: 100%;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 20rem);
+  overflow: hidden;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-default);
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+  padding: var(--spacing-20);
+}
+
+.cardHead {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+}
+
+.lines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+}
+
+/* 表の読み込み中 */
+.table {
+  width: min(100%, 52rem);
+}
+
+.alignEnd {
+  margin-left: auto;
+}

@@ -1,0 +1,52 @@
+/*
+ * Skeleton
+ * Figma: Infigate デザインシステム / Loading（コンポーネント skeleton）
+ * bg/muted の面に bg/subtle の明るい帯を斜めに入れ、帯を左上から右下へ流す。
+ */
+
+.skeleton {
+  display: block;
+  flex-shrink: 0;
+  width: 100%;
+  height: 0.75rem;
+  border-radius: var(--radius-sm);
+  /*
+   * to bottom right: 形の縦横比に合わせて、帯が左下から右上への対角線と平行になる。
+   * 背景は繰り返さず、はみ出した部分は帯の外側と同じ bg/muted で埋める
+   */
+  background: var(--color-bg-muted)
+    linear-gradient(to bottom right, var(--color-bg-muted) 25%, var(--color-bg-subtle) 50%, var(--color-bg-muted) 75%)
+    no-repeat;
+  background-size: 200% 200%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+/* ---- 形（Figma: Shape） ---- */
+.skeleton[data-shape='circle'] {
+  width: var(--size-40);
+  height: var(--size-40);
+  border-radius: var(--radius-full);
+}
+
+.skeleton[data-shape='rect'] {
+  height: 7.5rem;
+  border-radius: var(--radius-md);
+}
+
+/* 帯を左上の外から右下の外まで流す（背景は要素の縦横2倍なので、位置 150% → -50% で帯が左上の外から右下の外へ動く） */
+@keyframes skeleton-shimmer {
+  from {
+    background-position: 150% 150%;
+  }
+
+  to {
+    background-position: -50% -50%;
+  }
+}
+
+/* 動きを減らす設定のときは、帯を流さずに止めておく */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}
