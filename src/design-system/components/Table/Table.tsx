@@ -1,5 +1,6 @@
-import type { ComponentPropsWithRef } from 'react'
+import { useRef, type ComponentPropsWithRef } from 'react'
 import { cx } from '@/shared/lib/cx'
+import { useScrollable } from '@/shared/lib/useScrollable'
 import type { TableSize } from './Table.constants'
 import { TableSectionContext } from './Table.context'
 import styles from './Table.module.css'
@@ -15,13 +16,26 @@ export type TableProps = ComponentPropsWithRef<'table'> & {
 
 /**
  * 表。TableHead・TableBody・TableRow・TableHeaderCell・TableCell を組み合わせて作る。
- * 画面より幅が広いときは、表の中だけ横にスクロールする。
+ * 画面より幅が広いときは、表の中だけ横にスクロールする。スクロールできるときは、キーボードでも
+ * スクロールできるよう、枠に Tab キーで移れるようにし、表の名前を枠の名前にもする。
  * className は外側の要素（スクロールする枠）に付き、そのほかの属性は table に付く。
  * 表の名前は aria-label、または表の上の見出しを aria-labelledby でつなげて付ける。
  */
 export function Table({ size = 'md', striped = false, bordered = false, className, ...rest }: TableProps) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const scrollable = useScrollable(containerRef)
+
   return (
-    <div className={cx(styles.container, className)}>
+    <div
+      ref={containerRef}
+      className={cx(styles.container, className)}
+      {...(scrollable && {
+        tabIndex: 0,
+        role: 'region',
+        'aria-label': rest['aria-label'],
+        'aria-labelledby': rest['aria-labelledby'],
+      })}
+    >
       <table
         {...rest}
         className={styles.table}

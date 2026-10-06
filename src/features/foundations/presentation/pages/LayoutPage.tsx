@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { DocSection } from '@/shared/ui/DocPage/DocPage'
+import { ScrollRegion } from '@/shared/ui/ScrollRegion/ScrollRegion'
 import { SCREEN_MODES, screenModeAt, toPx } from '../../domain/designToken'
 import { LayoutSimulator } from '../components/LayoutSimulator'
 import { TokenName } from '../components/TokenName'
@@ -30,7 +31,7 @@ export function LayoutPage() {
       <DocSection id="breakpoints-heading" title="Breakpoints">
         <p className={styles.muted}>画面幅を3つに分け、文字サイズとレイアウトの値を切り替えます。</p>
         <LayoutSimulator width={width} onWidthChange={setWidth} />
-        <div className={styles.tableWrapper}>
+        <ScrollRegion label="Breakpoints の表" className={styles.tableWrapper}>
           <table className={styles.table}>
             <thead>
               <tr>
@@ -57,7 +58,7 @@ export function LayoutPage() {
               ))}
             </tbody>
           </table>
-        </div>
+        </ScrollRegion>
       </DocSection>
 
       <DocSection id="reading-width-heading" title="Reading width">

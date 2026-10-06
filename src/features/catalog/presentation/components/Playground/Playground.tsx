@@ -1,4 +1,5 @@
-import { useId, useState } from 'react'
+import { useId, useRef, useState } from 'react'
+import { useScrollable } from '@/shared/lib/useScrollable'
 import {
   initialPlaygroundValues,
   type CatalogPlayground,
@@ -20,6 +21,9 @@ export function Playground({ playground }: PlaygroundProps) {
   const change = (name: string, value: string | boolean) => setValues((current) => ({ ...current, [name]: value }))
   const code = playground.code?.(values)
   const hasControls = playground.controls.length > 0
+  // コード例が横にスクロールするときだけ、キーボードでもスクロールできるよう Tab キーで移れるようにする
+  const codeRef = useRef<HTMLPreElement>(null)
+  const codeScrollable = useScrollable(codeRef)
 
   return (
     <div className={styles.container}>
@@ -40,7 +44,7 @@ export function Playground({ playground }: PlaygroundProps) {
           </form>
         )}
         {code !== undefined && (
-          <pre className={styles.code} aria-label="コード例">
+          <pre ref={codeRef} className={styles.code} aria-label="コード例" tabIndex={codeScrollable ? 0 : undefined}>
             <code>{code}</code>
           </pre>
         )}

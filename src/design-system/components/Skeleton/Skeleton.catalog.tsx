@@ -76,7 +76,7 @@ export default defineCatalogEntry({
       name: 'Cards',
       description: 'カードと同じ余白・同じ大きさでスケルトンを置きます。',
       render: () => (
-        <div className={styles.cards} aria-busy="true" aria-label="読み込み中">
+        <div className={styles.cards} role="group" aria-busy="true" aria-label="読み込み中">
           <CardSkeleton />
           <CardSkeleton />
         </div>

@@ -65,10 +65,15 @@
   --tag-border: var(--color-border-strong);
 }
 
-/* 選択中は、選択中の色を1段濃くする（Figma に指定なし。Checkbox の選択中の Hover に合わせた） */
+/*
+ * 選択中は、選択中の色を1段濃くする（Figma に指定なし。Checkbox の選択中の Hover に合わせた）。
+ * 背景が濃くなる分、文字も keycolor/secondary に濃くして読みやすさ（コントラスト 4.5:1 以上）を保つ
+ */
 .tag[data-selected]:has(.main:hover) {
   --tag-bg: var(--color-keycolor-100);
   --tag-border: var(--color-keycolor-600);
+  --tag-text: var(--color-keycolor-secondary);
+  --tag-icon: var(--color-keycolor-secondary);
 }
 
 .tag[data-selected]:has(.main:active) {

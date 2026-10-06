@@ -25,10 +25,22 @@ function SampleLogo({ theme }: { theme: FooterTheme }) {
   )
 }
 
-function SampleFooter({ theme, description = true, legal = true }: { theme: FooterTheme; description?: boolean; legal?: boolean }) {
+function SampleFooter({
+  theme,
+  description = true,
+  legal = true,
+  navLabel,
+}: {
+  theme: FooterTheme
+  description?: boolean
+  legal?: boolean
+  /** ナビゲーションの読み上げ名。1ページに見本が複数並ぶので、見本ごとに分ける */
+  navLabel: string
+}) {
   return (
     <Footer
       theme={theme}
+      navLabel={navLabel}
       logo={<SampleLogo theme={theme} />}
       description={description ? '会社の簡単な説明がここに入ります。' : undefined}
       copyright="© 2026 Infigate Inc."
@@ -66,7 +78,7 @@ const playground = definePlayground({
   wide: true,
   render: ({ layout, theme, description, legalLinks }) => (
     <div className={layout === 'mobile' ? styles.mobile : styles.wide}>
-      <SampleFooter theme={theme} description={description} legal={legalLinks} />
+      <SampleFooter theme={theme} description={description} legal={legalLinks} navLabel="フッターメニュー（Playground）" />
     </div>
   ),
   code: ({ theme, description, legalLinks }) => {
@@ -114,7 +126,7 @@ export default defineCatalogEntry({
         <div className={styles.stack}>
           {FOOTER_THEMES.map((theme) => (
             <div key={theme} className={styles.wide}>
-              <SampleFooter theme={theme} />
+              <SampleFooter theme={theme} navLabel={`フッターメニュー（${theme}）`} />
             </div>
           ))}
         </div>
@@ -127,7 +139,7 @@ export default defineCatalogEntry({
         <div className={styles.mobiles}>
           {FOOTER_THEMES.map((theme) => (
             <div key={theme} className={styles.mobile}>
-              <SampleFooter theme={theme} />
+              <SampleFooter theme={theme} navLabel={`フッターメニュー（モバイル・${theme}）`} />
             </div>
           ))}
         </div>

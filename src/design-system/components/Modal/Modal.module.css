@@ -137,6 +137,11 @@
   border-top: 1px solid var(--color-border-subtle);
 }
 
+.body:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-focus-ring-inset);
+}
+
 .body > :first-child {
   margin-top: 0;
 }

@@ -1,0 +1,9 @@
+.region {
+  overflow-x: auto;
+}
+
+/* Tab キーで移ったことが分かるよう、内側にリングを引く */
+.region:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-focus-ring-inset);
+}

@@ -1,5 +1,6 @@
-import { useEffect, useId, useRef, useState, type ComponentPropsWithRef, type ReactNode } from 'react'
+import { useId, useRef, type ComponentPropsWithRef, type ReactNode } from 'react'
 import { cx } from '@/shared/lib/cx'
+import { useScrollable } from '@/shared/lib/useScrollable'
 import { Icon } from '../Icon'
 import type { ModalSize, ModalVariant } from './Modal.constants'
 import styles from './Modal.module.css'
@@ -29,16 +30,8 @@ export function ModalContent({
   bodyId,
 }: ModalContentProps) {
   const bodyRef = useRef<HTMLDivElement>(null)
-  const [scrollable, setScrollable] = useState(false)
-
-  // 本文がスクロールするときだけ、スクロールする範囲の上下に境界線を出す
-  useEffect(() => {
-    const body = bodyRef.current
-    if (!body || typeof ResizeObserver === 'undefined') return
-    const observer = new ResizeObserver(() => setScrollable(body.scrollHeight > body.clientHeight))
-    observer.observe(body)
-    return () => observer.disconnect()
-  }, [])
+  // 本文がスクロールするときだけ、上下に境界線を出し、キーボードでもスクロールできるよう Tab キーで移れるようにする
+  const scrollable = useScrollable(bodyRef, 'y')
 
   return (
     <>
@@ -58,7 +51,13 @@ export function ModalContent({
         <ModalCloseButton aria-label={closeLabel} onClick={onClose} />
       </div>
       {children && (
-        <div ref={bodyRef} id={bodyId} className={styles.body} data-scrollable={scrollable || undefined}>
+        <div
+          ref={bodyRef}
+          id={bodyId}
+          className={styles.body}
+          data-scrollable={scrollable || undefined}
+          tabIndex={scrollable ? 0 : undefined}
+        >
           {children}
         </div>
       )}

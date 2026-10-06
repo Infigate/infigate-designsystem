@@ -37,6 +37,15 @@
   width: min(100%, 18.75rem);
 }
 
+/* 狭い幅では内容を手順の下に回す */
+.frame[data-layout='vertical'] {
+  flex-wrap: wrap;
+}
+
+.frame[data-layout='vertical'] .content {
+  flex: 1 1 16rem;
+}
+
 /* スマートフォンの幅（375px） */
 .frame[data-mobile] {
   align-items: stretch;
