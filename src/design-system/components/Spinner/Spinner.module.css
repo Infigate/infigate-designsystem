@@ -1,0 +1,104 @@
+/*
+ * Spinner
+ * Figma: Infigate デザインシステム / Loading（コンポーネント spinner）
+ */
+
+.spinner {
+  --spinner-size: var(--size-24);
+  --spinner-track: var(--color-keycolor-200);
+  --spinner-arc: var(--color-keycolor-primary);
+
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  width: var(--spinner-size);
+  height: var(--spinner-size);
+  vertical-align: middle;
+}
+
+/* ---- 大きさ（Figma: Size）。sm: ボタンの中 / md: 画面の一部 / lg: 画面全体 ---- */
+.spinner[data-size='sm'] {
+  --spinner-size: var(--size-16);
+}
+
+.spinner[data-size='lg'] {
+  --spinner-size: var(--size-40);
+}
+
+/* ---- 色（Figma: Tone）。inverse は濃い下地の上 ---- */
+.spinner[data-tone='inverse'] {
+  --spinner-track: var(--color-gray-600);
+  --spinner-arc: var(--color-gray-100);
+}
+
+.ring {
+  width: 100%;
+  height: 100%;
+  animation: spinner-rotate 1.6s linear infinite;
+}
+
+.track,
+.arc {
+  fill: none;
+  stroke-width: 5.6;
+}
+
+.track {
+  stroke: var(--spinner-track);
+}
+
+/*
+ * 弧は円の描き始め（右）を上に回して、上から時計回りにする。止まっているときは Figma と同じ 3/4 周。
+ * 回りながら、弧が短い状態から長い状態へ伸び、先を進めながら縮むのを繰り返す
+ */
+.arc {
+  stroke: var(--spinner-arc);
+  stroke-dasharray: 75 100;
+  transform: rotate(-90deg);
+  transform-origin: center;
+  animation: spinner-stretch 1.2s ease-in-out infinite;
+}
+
+@keyframes spinner-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinner-stretch {
+  0% {
+    stroke-dasharray: 5 100;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 75 100;
+    stroke-dashoffset: -10;
+  }
+
+  100% {
+    stroke-dasharray: 5 100;
+    stroke-dashoffset: -95;
+  }
+}
+
+/* 動きを減らす設定のときは、伸び縮みをやめてゆっくり回すだけにする（止めると読み込み中だと分からなくなる） */
+@media (prefers-reduced-motion: reduce) {
+  .ring {
+    animation-duration: 2s;
+  }
+
+  .arc {
+    animation: none;
+  }
+}
+
+/* 読み上げだけに使う文字 */
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
