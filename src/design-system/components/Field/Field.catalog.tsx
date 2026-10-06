@@ -1,4 +1,4 @@
-import { defineCatalogEntry, definePlayground } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ThumbnailLayout } from '@/features/catalog'
 import { TextInput } from '../TextInput'
 import { Field } from './Field'
 import styles from './Field.catalog.module.css'
@@ -42,6 +42,14 @@ export default defineCatalogEntry({
   category: 'inputs',
   description: 'フォームの1項目。ラベル・印・補足文・エラー文を入力欄とまとめます。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout fill>
+      <Field label="氏名" mark="required">
+        <TextInput placeholder="山田 太郎" />
+      </Field>
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'Marks',

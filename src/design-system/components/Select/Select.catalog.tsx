@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import { defineCatalogEntry, definePlayground, ForcePseudoState } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ForcePseudoState, ThumbnailLayout } from '@/features/catalog'
 import { Field } from '../Field'
 import { Select } from './Select'
 import styles from './Select.catalog.module.css'
@@ -82,6 +82,16 @@ export default defineCatalogEntry({
   category: 'inputs',
   description: '決まった選択肢から1つ選ぶ欄。ラベル・補足文・エラー文は Field で付けます。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout fill>
+      <Select aria-label="選択肢" placeholder={PLACEHOLDER} defaultValue="">
+        {OPTIONS.map((option) => (
+          <option key={option}>{option}</option>
+        ))}
+      </Select>
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'Sizes',

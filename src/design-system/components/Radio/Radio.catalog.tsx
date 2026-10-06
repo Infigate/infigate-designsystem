@@ -1,5 +1,5 @@
 import { Fragment, useState } from 'react'
-import { defineCatalogEntry, definePlayground, ForcePseudoState, type ForceablePseudoClass } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ForcePseudoState, ThumbnailLayout, type ForceablePseudoClass } from '@/features/catalog'
 import { CHOICE_GROUP_DIRECTIONS } from '../ChoiceGroup/ChoiceGroup.constants'
 import { FIELD_MARKS } from '../Field/Field.constants'
 import { Radio } from './Radio'
@@ -68,6 +68,15 @@ export default defineCatalogEntry({
   category: 'inputs',
   description: '選択肢から1つだけ選ぶときに使うラジオボタン。RadioGroup の中に置きます。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout direction="column">
+      <RadioGroup defaultValue="email" label="連絡方法">
+        <Radio value="email">メール</Radio>
+        <Radio value="phone">電話</Radio>
+      </RadioGroup>
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'States',

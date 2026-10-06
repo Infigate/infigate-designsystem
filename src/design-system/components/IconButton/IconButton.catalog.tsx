@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import { defineCatalogEntry, definePlayground, ForcePseudoState, type ForceablePseudoClass } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ForcePseudoState, ThumbnailLayout, type ForceablePseudoClass } from '@/features/catalog'
 import { IconButton } from './IconButton'
 import styles from './IconButton.catalog.module.css'
 import { ICON_BUTTON_SIZES, type IconButtonSize } from './IconButton.constants'
@@ -66,6 +66,14 @@ export default defineCatalogEntry({
   category: 'actions',
   description: 'アイコンだけのボタン。「…」メニューや閉じるボタンなど、文字を置く余裕がない場所で使います。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout>
+      <IconButton icon="more-horizontal" aria-label="操作" />
+      <IconButton icon="download" aria-label="ダウンロード" />
+      <IconButton icon="x" aria-label="閉じる" />
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'States',

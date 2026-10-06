@@ -1,4 +1,4 @@
-import { defineCatalogEntry, definePlayground } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ThumbnailLayout } from '@/features/catalog'
 import { Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from '../Table'
 import { Skeleton } from './Skeleton'
 import styles from './Skeleton.catalog.module.css'
@@ -47,6 +47,16 @@ export default defineCatalogEntry({
   category: 'feedback',
   description: '表示される形が分かっている場所に、読み込み中のあいだ置く形。実際の中身と同じ大きさ・同じ位置に置きます。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout direction="row" fill>
+      <Skeleton shape="circle" />
+      <ThumbnailLayout direction="column" fill>
+        <Skeleton />
+        <Skeleton width="60%" />
+      </ThumbnailLayout>
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'Shapes',

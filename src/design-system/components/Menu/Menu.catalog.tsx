@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { defineCatalogEntry, definePlayground, ForcePseudoState } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ForcePseudoState, ThumbnailLayout } from '@/features/catalog'
 import { Button } from '../Button'
 import { IconButton } from '../IconButton'
 import { Menu } from './Menu'
@@ -101,6 +101,16 @@ export default defineCatalogEntry({
   category: 'actions',
   description: 'ボタンを押すと開く操作のメニュー。行やカードごとの操作を「…」ボタンにまとめるときなどに使います。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout zoom={0.8}>
+      <MenuPanel aria-label="操作">
+        <MenuItem>編集</MenuItem>
+        <MenuSeparator />
+        <MenuItem>削除</MenuItem>
+      </MenuPanel>
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'Items',

@@ -28,15 +28,29 @@
 .sidebar {
   position: sticky;
   top: 56px;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-24);
   align-self: start;
   height: calc(100vh - 56px);
   overflow-y: auto;
   padding: var(--spacing-24) var(--spacing-12);
   border-right: 1px solid var(--color-border-subtle);
   background: var(--color-bg-subtle);
+}
+
+/* 基本デザインとコンポーネントのナビゲーション。間に区切り線を入れる */
+.navs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+}
+
+.navs > * + * {
+  padding-top: var(--spacing-24);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+/* ナビゲーションをたたむボタン。スマートフォン幅だけで使う */
+.navToggle {
+  display: none;
 }
 
 /*
@@ -51,6 +65,12 @@
   padding: var(--spacing-32) var(--layout-margin) var(--spacing-48);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .navToggleIcon {
+    transition: none;
+  }
+}
+
 @media (max-width: 767px) {
   .body {
     grid-template-columns: minmax(0, 1fr);
@@ -59,8 +79,52 @@
   .sidebar {
     position: static;
     height: auto;
+    padding: var(--spacing-8) var(--spacing-12);
     border-right: none;
     border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  /* スマートフォン幅では、ナビゲーションを「メニュー」ボタンの中にたたむ */
+  .navToggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0;
+    padding: var(--spacing-8) var(--spacing-12);
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: none;
+    color: var(--color-text-primary);
+    font: var(--font-label-md);
+    cursor: pointer;
+  }
+
+  .navToggle:hover {
+    background: var(--color-bg-muted);
+  }
+
+  .navToggle:focus-visible {
+    outline: none;
+    box-shadow: var(--ds-focus-ring);
+  }
+
+  .navToggleIcon {
+    color: var(--color-text-secondary);
+    transition: transform var(--ds-duration-fast);
+  }
+
+  .navToggle[aria-expanded='true'] .navToggleIcon {
+    transform: rotate(180deg);
+  }
+
+  .navs {
+    display: none;
+    padding: var(--spacing-16) 0 var(--spacing-16);
+  }
+
+  .navs[data-open] {
+    display: flex;
   }
 
   .main {

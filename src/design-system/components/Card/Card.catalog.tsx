@@ -1,5 +1,5 @@
 import type { MouseEvent } from 'react'
-import { defineCatalogEntry, definePlayground, ForcePseudoState, IgnoreForcedPseudoState } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ForcePseudoState, IgnoreForcedPseudoState, ThumbnailLayout } from '@/features/catalog'
 import { Badge } from '../Badge'
 import { Button } from '../Button'
 import { Card, type CardProps } from './Card'
@@ -119,6 +119,12 @@ export default defineCatalogEntry({
   category: 'data-display',
   description: '画像・見出し・本文などをまとめて見せるカード。href を指定すると、カード全体がリンクになります。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout fill>
+      <Card title="見出しが入ります" description="テキストが入ります。" />
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'States',

@@ -1,5 +1,5 @@
 import type { MouseEvent } from 'react'
-import { defineCatalogEntry, definePlayground, ForcePseudoState } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ForcePseudoState, ThumbnailLayout } from '@/features/catalog'
 import { Breadcrumb, BreadcrumbItem } from './Breadcrumb'
 import styles from './Breadcrumb.catalog.module.css'
 
@@ -51,6 +51,16 @@ export default defineCatalogEntry({
   category: 'navigation',
   description: '今いるページの位置を、起点からの階層で示すナビゲーション。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout>
+      <Breadcrumb>
+        <BreadcrumbItem href="#">ホーム</BreadcrumbItem>
+        <BreadcrumbItem href="#">製品</BreadcrumbItem>
+        <BreadcrumbItem>詳細</BreadcrumbItem>
+      </Breadcrumb>
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'Levels',

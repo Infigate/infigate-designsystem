@@ -1,5 +1,5 @@
 import { useState, type MouseEvent } from 'react'
-import { defineCatalogEntry, definePlayground, ForcePseudoState } from '@/features/catalog'
+import { defineCatalogEntry, definePlayground, ForcePseudoState, ThumbnailLayout } from '@/features/catalog'
 import { Button } from '../Button'
 import { Header, HeaderNavItem } from './Header'
 import styles from './Header.catalog.module.css'
@@ -119,6 +119,14 @@ export default defineCatalogEntry({
   category: 'navigation',
   description: 'サイト共通のヘッダー。ロゴは左、ナビと操作は右にまとめます。',
   playground,
+  // 一覧のカードに出す小さな見本
+  thumbnail: () => (
+    <ThumbnailLayout fill>
+      <Header logo={<SampleLogo theme="light" />}>
+        <HeaderNavItem href="#">サービス</HeaderNavItem>
+      </Header>
+    </ThumbnailLayout>
+  ),
   variants: [
     {
       name: 'Themes',

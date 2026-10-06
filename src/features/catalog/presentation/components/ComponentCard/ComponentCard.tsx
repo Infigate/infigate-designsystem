@@ -7,10 +7,10 @@ type ComponentCardProps = {
   entry: CatalogEntry
 }
 
-/** 一覧用のカード。先頭バリエーションをサムネイルとして表示する */
+/** 一覧用のカード。専用のサムネイル（なければ先頭のバリエーション）を表示する */
 export function ComponentCard({ entry }: ComponentCardProps) {
   // render は hooks を使えるよう、関数呼び出しではなくコンポーネントとして描画する
-  const Thumbnail = entry.variants[0].render
+  const Thumbnail = entry.thumbnail ?? entry.variants[0].render
 
   return (
     <article className={styles.card}>
