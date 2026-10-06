@@ -3,15 +3,15 @@ import { buildForcedPseudoCss, fromCssRules, toForcedSelector } from './forcedPs
 
 describe('toForcedSelector', () => {
   it.each([
-    ['.a:hover', ".a:is(:hover, [data-force-pseudo~='hover'] *)"],
-    ['.a:active:not(:disabled)', ".a:is(:active, [data-force-pseudo~='active'] *):not(:disabled)"],
-    ['.a:focus-visible', ".a:is(:focus-visible, [data-force-pseudo~='focus-visible'] *)"],
-    ['.a:focus', ".a:is(:focus, [data-force-pseudo~='focus'] *)"],
+    ['.a:hover', ".a:is(:hover, [data-force-pseudo~='hover'] :not([data-force-pseudo-ignore] *))"],
+    ['.a:active:not(:disabled)', ".a:is(:active, [data-force-pseudo~='active'] :not([data-force-pseudo-ignore] *)):not(:disabled)"],
+    ['.a:focus-visible', ".a:is(:focus-visible, [data-force-pseudo~='focus-visible'] :not([data-force-pseudo-ignore] *))"],
+    ['.a:focus', ".a:is(:focus, [data-force-pseudo~='focus'] :not([data-force-pseudo-ignore] *))"],
     [
       '.a:is(:hover:not(:disabled), :focus-visible)',
-      ".a:is(:is(:hover, [data-force-pseudo~='hover'] *):not(:disabled), :is(:focus-visible, [data-force-pseudo~='focus-visible'] *))",
+      ".a:is(:is(:hover, [data-force-pseudo~='hover'] :not([data-force-pseudo-ignore] *)):not(:disabled), :is(:focus-visible, [data-force-pseudo~='focus-visible'] :not([data-force-pseudo-ignore] *)))",
     ],
-    ['.card:has(.link:focus-visible)', ".card:has(.link:is(:focus-visible, [data-force-pseudo~='focus-visible'] *))"],
+    ['.card:has(.link:focus-visible)', ".card:has(.link:is(:focus-visible, [data-force-pseudo~='focus-visible'] :not([data-force-pseudo-ignore] *)))"],
   ])('%s を強制用に置き換える', (selector, expected) => {
     expect(toForcedSelector(selector)).toBe(expected)
   })
@@ -27,7 +27,7 @@ describe('buildForcedPseudoCss', () => {
   it('擬似クラスを含むルールだけを、宣言をそのまま引き継いで作る', () => {
     const css = buildForcedPseudoCss([rule('.a', 'color: red;'), rule('.a:hover', 'color: blue;'), { kind: 'other' }])
 
-    expect(css).toBe(".a:is(:hover, [data-force-pseudo~='hover'] *) { color: blue; }")
+    expect(css).toBe(".a:is(:hover, [data-force-pseudo~='hover'] :not([data-force-pseudo-ignore] *)) { color: blue; }")
   })
 
   it('@media の中のルールも、同じ条件で包んで作る（対象がなければ作らない）', () => {
@@ -36,7 +36,7 @@ describe('buildForcedPseudoCss', () => {
       { kind: 'condition', atRule: '@media', condition: '(min-width: 1024px)', rules: [rule('.a', 'color: green;')] },
     ])
 
-    expect(css).toBe("@media (min-width: 768px) { .a:is(:active, [data-force-pseudo~='active'] *) { color: green; } }")
+    expect(css).toBe("@media (min-width: 768px) { .a:is(:active, [data-force-pseudo~='active'] :not([data-force-pseudo-ignore] *)) { color: green; } }")
   })
 })
 

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it } from 'vitest'
-import { ForcePseudoState } from './ForcePseudoState'
+import { ForcePseudoState, IgnoreForcedPseudoState } from './ForcePseudoState'
 
 const STYLE_ID = 'catalog-forced-pseudo-states'
 
@@ -20,6 +20,18 @@ describe('ForcePseudoState', () => {
     expect(screen.getByRole('button').parentElement).toHaveAttribute('data-force-pseudo', 'focus focus-visible')
   })
 
+  it('IgnoreForcedPseudoState で囲んだ部分には、状態を強制しない印を付ける', () => {
+    render(
+      <ForcePseudoState state={['hover']}>
+        <IgnoreForcedPseudoState>
+          <button type="button">保存</button>
+        </IgnoreForcedPseudoState>
+      </ForcePseudoState>,
+    )
+
+    expect(screen.getByRole('button').parentElement).toHaveAttribute('data-force-pseudo-ignore')
+  })
+
   it('ページの CSS から、擬似クラスを強制するためのスタイルを差し込む', () => {
     document.head.insertAdjacentHTML('beforeend', '<style data-test>.btn:hover { color: blue; }</style>')
 
@@ -30,7 +42,7 @@ describe('ForcePseudoState', () => {
     )
 
     expect(document.getElementById(STYLE_ID)?.textContent).toBe(
-      ".btn:is(:hover, [data-force-pseudo~='hover'] *) { color: blue; }",
+      ".btn:is(:hover, [data-force-pseudo~='hover'] :not([data-force-pseudo-ignore] *)) { color: blue; }",
     )
   })
 

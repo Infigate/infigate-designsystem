@@ -1,5 +1,11 @@
 import { useLayoutEffect, type ReactNode } from 'react'
-import { buildForcedPseudoCss, FORCE_ATTRIBUTE, fromCssRules, type ForceablePseudoClass } from './forcedPseudoStateCss'
+import {
+  buildForcedPseudoCss,
+  FORCE_ATTRIBUTE,
+  FORCE_IGNORE_ATTRIBUTE,
+  fromCssRules,
+  type ForceablePseudoClass,
+} from './forcedPseudoStateCss'
 
 const STYLE_ELEMENT_ID = 'catalog-forced-pseudo-states'
 
@@ -43,6 +49,18 @@ export function ForcePseudoState({ state, children }: ForcePseudoStateProps) {
 
   return (
     <div {...{ [FORCE_ATTRIBUTE]: value }} style={{ display: 'contents' }}>
+      {children}
+    </div>
+  )
+}
+
+/**
+ * ForcePseudoState の範囲の中で、状態を強制しない部分を囲む（カタログの見本用）。
+ * 例: カード全体を Hover の見た目にしても、中のボタンは通常の見た目のままにする
+ */
+export function IgnoreForcedPseudoState({ children }: { children: ReactNode }) {
+  return (
+    <div {...{ [FORCE_IGNORE_ATTRIBUTE]: '' }} style={{ display: 'contents' }}>
       {children}
     </div>
   )
