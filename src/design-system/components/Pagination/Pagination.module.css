@@ -1,0 +1,101 @@
+/*
+ * Pagination
+ * Figma: Infigate デザインシステム / Pagination（コンポーネント pagination・pagination-item・pagination-nav）
+ */
+
+.list {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 前後のみ（Figma: Type=前後のみ）。ボタンと「3 / 20」の間を広く取る */
+.list[data-variant='compact'] {
+  gap: var(--spacing-16);
+  padding: 0 var(--spacing-8);
+}
+
+/* ---- ページ番号・前後のボタン（Figma: pagination-item・pagination-nav。40×40 で指でも押しやすい大きさ） ---- */
+.control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: var(--size-40);
+  height: var(--size-40);
+  margin: 0;
+  padding: 0 var(--spacing-4);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--color-text-secondary);
+  font: var(--font-label-sm);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--ds-duration-fast);
+}
+
+.control:not(:disabled, [aria-disabled], [aria-current]):hover {
+  background: var(--color-bg-subtle);
+  color: var(--color-text-primary);
+}
+
+/* Selected: 今見ているページ。押しても移動しない */
+.control[aria-current] {
+  background: var(--color-keycolor-primary);
+  color: var(--color-text-on-brand);
+  cursor: default;
+}
+
+/* Focus: 全部品共通のフォーカスリング（border/focus・3px・すき間なし） */
+.control:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-focus-ring);
+}
+
+.control:not([aria-current]):focus-visible {
+  color: var(--color-text-primary);
+}
+
+.control:disabled,
+.control[aria-disabled] {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+/* 省略した印（Figma: ellipsis） */
+.ellipsis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-40);
+  height: var(--size-40);
+  color: var(--color-text-tertiary);
+  font: var(--font-body-sm);
+}
+
+/* 前後のみの「3 / 20」 */
+.status {
+  color: var(--color-text-secondary);
+  font: var(--font-body-sm);
+  white-space: nowrap;
+}
+
+/* 読み上げだけに使う文字 */
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .control {
+    transition: none;
+  }
+}
