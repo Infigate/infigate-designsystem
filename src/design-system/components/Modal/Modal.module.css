@@ -1,0 +1,187 @@
+/*
+ * Modal
+ * Figma: Infigate デザインシステム / Modal（コンポーネント modal・modal-close・modal-mobile）
+ */
+
+/* ---- 本体（Figma: modal）。幅は 400 / 560 / 720px。画面が狭いときは左右 16px を残して幅いっぱい ---- */
+.modal {
+  --modal-width: 25rem;
+  --modal-gutter: var(--spacing-24);
+
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: min(var(--modal-width), calc(100% - 2 * var(--spacing-16)));
+  max-width: none;
+  max-height: calc(100dvh - 2 * var(--spacing-32));
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-default);
+  box-shadow: var(--elevation-3);
+  color: var(--color-text-primary);
+}
+
+/* dialog は閉じている間は出さない（display を上書きしているため） */
+.modal:not([open], .panel) {
+  display: none;
+}
+
+.modal[data-size='md'] {
+  --modal-width: 35rem;
+}
+
+.modal[data-size='lg'] {
+  --modal-width: 45rem;
+}
+
+/* 後ろの画面は bg/overlay で暗くする */
+.modal::backdrop {
+  background: var(--color-bg-overlay);
+}
+
+/* 開くときの短い動き */
+.modal[open] {
+  animation: modal-enter var(--ds-duration-normal) ease-out;
+}
+
+.modal[open]::backdrop {
+  animation: modal-fade var(--ds-duration-normal) ease-out;
+}
+
+@keyframes modal-enter {
+  from {
+    opacity: 0;
+    transform: translateY(var(--spacing-8));
+  }
+}
+
+@keyframes modal-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ---- 見出し（Figma: header） ---- */
+.header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--spacing-12);
+  padding: var(--modal-gutter) var(--modal-gutter) var(--spacing-4);
+}
+
+.icon {
+  flex-shrink: 0;
+  color: var(--color-status-info-solid);
+}
+
+.icon[data-tone='confirm'] {
+  color: var(--color-status-error-solid);
+}
+
+.title {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  color: var(--color-text-primary);
+  font: var(--font-heading-lg);
+}
+
+/* ---- 閉じるボタン（Figma: modal-close。32×32） ---- */
+.close {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-32);
+  height: var(--size-32);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background-color var(--ds-duration-fast);
+}
+
+.close:hover {
+  background: var(--color-bg-muted);
+}
+
+/* Focus: 全部品共通のフォーカスリング（border/focus・3px・すき間なし） */
+.close:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-focus-ring);
+}
+
+/* ---- 本文（Figma: body）。長いときは本文だけがスクロールし、上下に境界線を出す ---- */
+.body {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: var(--spacing-16) var(--modal-gutter);
+  overflow-y: auto;
+  color: var(--color-text-secondary);
+  font: var(--font-body-md);
+  scrollbar-color: var(--color-border-strong) var(--color-bg-muted);
+  scrollbar-width: thin;
+}
+
+.header:has(+ .body[data-scrollable]) {
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.body[data-scrollable] + .actions {
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.body > :first-child {
+  margin-top: 0;
+}
+
+.body > :last-child {
+  margin-bottom: 0;
+}
+
+/* ---- ボタン（Figma: footer）。主ボタンを右に置く ---- */
+.actions {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: flex-end;
+  gap: var(--spacing-8);
+  padding: var(--spacing-4) var(--modal-gutter) var(--modal-gutter);
+}
+
+/* ---- スマートフォン（Figma: modal-mobile）。余白を詰め、ボタンは幅いっぱいの縦積みで主ボタンを上にする ---- */
+@media (max-width: 767px) {
+  .modal {
+    --modal-gutter: var(--spacing-20);
+  }
+
+  .actions {
+    flex-direction: column-reverse;
+  }
+}
+
+/* カタログの見本（ModalPanel）は、画面の幅によらずスマートフォンの見た目にもできる */
+.panel[data-layout='mobile'] {
+  --modal-gutter: var(--spacing-20);
+}
+
+.panel[data-layout='mobile'] .actions {
+  flex-direction: column-reverse;
+}
+
+/* 動きを減らす設定のときは、動かさずに出す */
+@media (prefers-reduced-motion: reduce) {
+  .close {
+    transition: none;
+  }
+
+  .modal[open],
+  .modal[open]::backdrop {
+    animation: none;
+  }
+}
