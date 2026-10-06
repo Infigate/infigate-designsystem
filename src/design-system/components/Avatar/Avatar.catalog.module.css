@@ -1,0 +1,58 @@
+/* 大きさの表（行: 種類 / 列: 大きさ） */
+.grid {
+  display: grid;
+  grid-template-columns: 4rem repeat(4, max-content);
+  align-items: center;
+  justify-items: center;
+  gap: var(--spacing-24) var(--spacing-40);
+}
+
+.grid > :nth-child(5n + 1) {
+  justify-self: start;
+}
+
+.label {
+  color: var(--color-text-secondary);
+  font: var(--font-body-xs);
+}
+
+/* ヘッダーのアカウント表示（アバター・名前・下向きの矢印） */
+.account {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  margin: 0;
+  padding: var(--spacing-8);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: none;
+  color: var(--color-text-primary);
+  font: var(--font-body-sm);
+  cursor: pointer;
+}
+
+.account:hover,
+.account[aria-expanded='true'] {
+  background: var(--color-bg-subtle);
+}
+
+.account:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-focus-ring);
+}
+
+.account > svg:last-child {
+  color: var(--color-text-secondary);
+}
+
+/* 表の中の、アバターと名前 */
+.table {
+  width: min(100%, 30rem);
+}
+
+/* 行の中で文字の高さが隣の列とそろうよう、行の箱（inline）にしない */
+.person {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}

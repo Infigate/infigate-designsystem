@@ -1,0 +1,155 @@
+/*
+ * Card
+ * Figma: Infigate デザインシステム / Card（コンポーネント card）
+ */
+
+.card {
+  /* 画像の高さ（Figma: 160px）。一覧などで変えたいときは、カードに付けた className で上書きする */
+  --card-media-height: 10rem;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-default);
+  transition:
+    border-color var(--ds-duration-fast),
+    box-shadow var(--ds-duration-fast);
+}
+
+/* ---- 見た目（Figma: Style）。outline は枠線、elevated は影（Elevated の枠は透明にして大きさをそろえる） ---- */
+.card[data-variant='outline'] {
+  border-color: var(--color-border-default);
+}
+
+.card[data-variant='elevated'] {
+  box-shadow: var(--elevation-1);
+}
+
+/* ---- Hover: Outline は枠を濃くして少し浮かせ、Elevated はさらに浮かせる ---- */
+.card[data-interactive][data-variant='outline']:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--elevation-1);
+}
+
+.card[data-interactive][data-variant='elevated']:hover {
+  box-shadow: var(--elevation-2);
+}
+
+/* ---- Focus: カードの外周に 3px のリング（中のリンクにフォーカスがあるとき）。浮かせ方は Hover と同じ ---- */
+.card:has(.link:focus-visible) {
+  outline: 3px solid var(--color-border-focus);
+}
+
+.card[data-variant='outline']:has(.link:focus-visible) {
+  box-shadow: var(--elevation-1);
+}
+
+.card[data-variant='elevated']:has(.link:focus-visible) {
+  box-shadow: var(--elevation-2);
+}
+
+/* ---- Disabled: 背景を bg/disabled、文字を text/disabled にし、影は付けない ---- */
+.card[data-disabled] {
+  background: var(--color-bg-disabled);
+  box-shadow: none;
+}
+
+.card[data-disabled][data-variant='outline'] {
+  border-color: var(--color-border-subtle);
+}
+
+.card[data-disabled] .media {
+  opacity: 0.4;
+}
+
+/* ---- 画像（Figma: media。高さ 160px）。枠いっぱいに切り抜く ---- */
+.media {
+  flex-shrink: 0;
+  height: var(--card-media-height);
+  overflow: hidden;
+}
+
+.media > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---- 本文（Figma: body）。一覧で高さをそろえたとき、ボタンは下端にそろえる ---- */
+.body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing-12);
+  padding: var(--spacing-20);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-8);
+}
+
+.texts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.title {
+  margin: 0;
+  color: var(--color-text-primary);
+  font: var(--font-heading-sm);
+}
+
+.description {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  color: var(--color-text-secondary);
+  font: var(--font-body-sm);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.card[data-disabled] .title,
+.card[data-disabled] .description {
+  color: var(--color-text-disabled);
+}
+
+/* ボタンはカード全体のリンクの上に重ねて、別に押せるようにする */
+.actions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-8);
+  margin-top: auto;
+}
+
+/* ---- カード全体のリンク。見出しのリンクの押せる範囲を、カード全体に広げる ---- */
+.link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.link:focus-visible {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+}

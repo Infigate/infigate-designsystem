@@ -1,0 +1,57 @@
+/* 見本を置く面。inverse は濃い下地にする */
+.surface {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-40);
+  padding: var(--spacing-16) var(--spacing-24);
+  border-radius: var(--radius-lg);
+}
+
+.surface[data-tone='inverse'] {
+  background: var(--color-bg-inverse);
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+}
+
+.label {
+  color: var(--color-text-secondary);
+  font: var(--font-body-xs);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-8);
+  min-height: 4.5rem;
+}
+
+.itemLabel {
+  color: var(--color-text-secondary);
+  font: var(--font-body-xs);
+}
+
+.surface[data-tone='inverse'] .itemLabel {
+  color: var(--color-text-on-inverse-secondary);
+}
+
+/* 文字と並べる見本 */
+.withText {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  color: var(--color-text-secondary);
+  font: var(--font-body-sm);
+}
