@@ -106,6 +106,8 @@ features/<name> の内部:  presentation ──▶ application ──▶ domain 
 
 ## コンポーネントの追加手順
 
+書き方の決まり（命名・props・CSS・テスト・カタログ）は [CLAUDE.md](./CLAUDE.md) にまとめています。Claude Code を使わない場合も、先に読んでください。ファイルの種類ごとの決まりは [.claude/rules/](./.claude/rules/) にあります。
+
 1. `src/design-system/components/<Name>/` を作り、`<Name>.tsx` と `<Name>.module.css` を実装する
 2. `<Name>.test.tsx` にユニットテストを書く
 3. `<Name>.catalog.tsx` を作り、`defineCatalogEntry()` の戻り値を default export する
