@@ -1,0 +1,57 @@
+# =============================================================================
+# PR の検査
+#
+# main ブランチへの PR で、Lint / 型チェック / テスト / ビルドを実行する。
+# デプロイ（deploy-to-githubpages.yml）は main への push でしか走らないため、
+# マージの前に壊れていることに気づけるようにする。
+#
+# このワークフローは検査だけで、デプロイはしない（書き込み権限は持たない）。
+# =============================================================================
+
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read # リポジトリのチェックアウトに必要
+
+# 同じ PR に追加で push されたら、古い実行は止める
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Lint / Typecheck / Test / Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      # package-lock.json をキーに npm のキャッシュを使い、インストールを速くする
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+
+      # package-lock.json どおりのバージョンを入れるので、手元と同じ環境になる
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Test
+        run: npm run test:run
+
+      # 型チェック（tsc -b）と本番ビルド（vite build）。成果物は公開しない
+      - name: Build
+        run: npm run build
