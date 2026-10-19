@@ -15,6 +15,7 @@ Infigate デザインシステム（React の部品＋デザイントークン�
   - Figma と違う点や、Figma で決まっていない点
   - トークンに無い値が必要なとき（近いトークンに丸めたり、新しいトークンを足したりしない）
 - 新しい部品を作るときは、役割や形が近い既存の部品を先に読み、書き方をそろえる（例: 選択肢を持つ部品なら Tabs・RadioGroup、開閉する部品なら Accordion・Modal）
+- 部品を追加・変更し終えたら、報告の前に reviewer（`.claude/agents/reviewer.md`）で検証する。文言の直しや1行の修正など、小さな変更は不要。検証は1回だけ。指摘のうち、決まりどおりに直せるものは直し、人が決めるものは「確認してほしいところ」に挙げる。直したあとの再検証は、頼まれたときだけ行う
 - 事前に確認できなかったものは、作業の報告の最後に「確認してほしいところ」として必ず挙げる。途中で決めた仮の判断もここに書く
 
 ## 確認のコマンド
@@ -44,11 +45,12 @@ design-system 内の部品同士は相対パスで参照する（`../Icon`、`..
 
 ## 部品の作り方
 
-- props 名は既存に揃える: 見た目は `variant`、大きさは `size`、意味の色は `status`、背景に合わせた配色は `theme`、並ぶ向きは `orientation`（`'horizontal' | 'vertical'`。`data-orientation` に出す。例: Stepper）
+- props 名は既存に揃える: 見た目は `variant`、大きさは `size`、意味の色は `status`、背景に合わせた配色は `theme`、並ぶ向きは `orientation`（`'horizontal' | 'vertical'`。`data-orientation` に出す。例: Stepper）、開く位置は `placement`（`'bottom' | 'top' | 'left' | 'right'`。例: Tooltip）
 - 見た目の切り替えは `data-*` 属性（`data-variant`・`data-size` など）に出し、CSS で `[data-variant='solid']` のように書く。クラス名を組み立てない
 - HTML 要素の props（`ComponentPropsWithRef<'button'>` など）を受け取り、`...rest` と `ref` をその部品の本体の要素に渡す。`className` は `cx()`（`@/shared/lib/cx`）で足す。`className` だけで済ませない
 - トリガーと本体を持つ部品（Popover・Menu・Tooltip など）では、`...rest` と `ref` は本体の要素（開いたときに出る側）に渡す。トリガーは、利用者が渡した要素にそのまま付ける。今の Menu・Tooltip は本体に渡せていないので、この2つは真似しない
-- フォーカスは `:focus-visible` に `box-shadow: var(--ds-focus-ring)`（内側に付けるときは `--ds-focus-ring-inset`）
+- 部品が内部で使う属性（`id`・`role`・`tabIndex` など）は、`...rest` の後ろに書いて部品側を優先し、props の型から `Omit` で外す。渡せるように見えて、黙って捨てられる形にしない
+- フォーカスは `:focus-visible` に `box-shadow: var(--ds-focus-ring)`（内側に付けるときは `--ds-focus-ring-inset`）。例外として、フォーカスを受けるだけの入れ物（開いたときにフォーカスを移す吹き出しの枠など。`tabIndex={-1}`）にはリングを出さず `outline: none` にする。中の操作できる要素が、各自のリングを持つ。リングを別の要素（Slider のつまみなど）に出す場合も、入れ物の `outline` は消してよい
 - 動きには `--ds-duration-*` を使い、`@media (prefers-reduced-motion: reduce)` で止める
 - スクロールする領域は `useScrollable`（`@/shared/lib/useScrollable`）を使う
 - モーダルはネイティブの `<dialog>` と `showModal()`
